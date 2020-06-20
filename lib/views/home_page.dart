@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:mediatrack_flutter/views/home.dart';
 import 'package:mediatrack_flutter/views/movies.dart';
 import 'package:mediatrack_flutter/views/profile.dart';
@@ -55,7 +56,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _currentTab,
-        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).accentColor,
+        unselectedItemColor: Colors.grey,
         onTap: (value) {
           setState(() {
             _currentTab = value;

@@ -11,22 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      // builder: (_) => SettingsProvider(),
       create: (context) => SettingsProvider(),
-      child: MaterialAppWithTheme(),
-    );
-  }
-}
-
-class MaterialAppWithTheme extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Provider.of<SettingsProvider>(context);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'MediaTrack',
-      theme: theme.getTheme(),
-      home: HomePage(title: 'MediaTrack'),
+      child: Consumer<SettingsProvider>(
+        builder: (context, settingsProvider, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'MediaTrack',
+          theme: settingsProvider.themeData,
+          home: HomePage(title: 'MediaTrack'),
+        ),
+      ),
     );
   }
 }

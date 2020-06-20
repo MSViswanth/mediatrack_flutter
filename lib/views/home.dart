@@ -19,11 +19,19 @@ class _HomeState extends State<Home> {
   bool isWaiting = true;
 
   void getPopularMovies() async {
-    popularMovies = await tmdb.v3.trending
-        .getTrending(mediaType: MediaType.movie, timeWindow: TimeWindow.day);
-    setState(() {
-      isWaiting = false;
-    });
+    try {
+      popularMovies = await tmdb.v3.trending
+          .getTrending(mediaType: MediaType.movie, timeWindow: TimeWindow.day);
+    } catch (e) {
+      print(e);
+    }
+    try {
+      setState(() {
+        isWaiting = false;
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

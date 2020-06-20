@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
 
-enum theme {
-  light,
-  dark,
+enum AppTheme { White, Dark, LightGreen, DarkGreen }
+
+/// Returns enum value name without enum class name.
+String enumName(AppTheme anyEnum) {
+  return anyEnum.toString().split('.')[1];
 }
+
+final appThemeData = {
+  AppTheme.White: ThemeData(
+    brightness: Brightness.light,
+    primarySwatch: Colors.purple,
+  ),
+  AppTheme.Dark: ThemeData(
+    brightness: Brightness.dark,
+  ),
+  AppTheme.LightGreen: ThemeData(
+    brightness: Brightness.light,
+    primarySwatch: Colors.lightGreen,
+  ),
+  AppTheme.DarkGreen: ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: Colors.green,
+  )
+};
 
 class SettingsProvider with ChangeNotifier {
   ThemeData _themeData;
   String _userName = 'User';
-  bool _themeisdark = false;
 
   setUserName(String userName) {
     if (userName != null) _userName = userName;
@@ -17,30 +36,20 @@ class SettingsProvider with ChangeNotifier {
 
   getUserName() => _userName;
 
-  getTheme() => _themeData;
-  setTheme(ThemeData themeData) {
-    _themeData = themeData;
-    notifyListeners();
+  /// Use this method on UI to get selected theme.
+  ThemeData get themeData {
+    if (_themeData == null) {
+      _themeData = appThemeData[AppTheme.White];
+    }
+    return _themeData;
   }
 
-  getThemeisDark() => _themeisdark;
-  setThemeisDark() {
-    if (_themeData == ThemeData.dark()) {
-      _themeisdark = true;
-    } else {
-      _themeisdark = false;
-    }
-    notifyListeners();
-  }
+  /// Sets theme and notifies listeners about change.
+  setTheme(AppTheme theme) async {
+    _themeData = appThemeData[theme];
 
-  switchTheme(value) {
-    if (value) {
-      _themeData = ThemeData.dark();
-      setThemeisDark();
-    } else {
-      _themeData = ThemeData.light();
-      setThemeisDark();
-    }
+    // Here we notify listeners that theme changed
+    // so UI have to be rebuild
     notifyListeners();
   }
 }

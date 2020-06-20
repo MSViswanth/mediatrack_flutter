@@ -85,12 +85,36 @@ class Profile extends StatelessWidget {
               'Theme',
               style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 20)),
             ),
-            trailing: Switch(
-                value: settingsProvider.getThemeisDark(),
-                onChanged: (value) {
-                  settingsProvider.switchTheme(value);
-                }),
-          )
+            onTap: () => showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: AppTheme.values.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      // Get theme enum for the current item index
+                      final theme = AppTheme.values[index];
+                      return Card(
+                        color: appThemeData[theme].primaryColor,
+                        child: ListTile(
+                          onTap: () {
+                            // This will trigger notifyListeners and rebuild UI
+                            // because of ChangeNotifierProvider in ThemeApp
+                            settingsProvider.setTheme(theme);
+                          },
+                          title: Text(
+                            enumName(theme),
+                            style: appThemeData[theme].textTheme.bodyText2,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
