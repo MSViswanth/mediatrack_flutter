@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:mediatrack_flutter/views/home.dart';
 import 'package:mediatrack_flutter/views/movies.dart';
 import 'package:mediatrack_flutter/views/profile.dart';

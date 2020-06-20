@@ -58,6 +58,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+          // Text('Trending'),
           HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
           HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
           HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),

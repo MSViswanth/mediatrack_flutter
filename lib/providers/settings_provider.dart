@@ -29,11 +29,15 @@ class SettingsProvider with ChangeNotifier {
   ThemeData _themeData;
   String _userName = 'User';
 
+  //Sets the user name for the user.
   setUserName(String userName) {
     if (userName != null) _userName = userName;
+
+    //Here we notify the listeners that Username has changed.
     notifyListeners();
   }
 
+  //Gets the previously saved username.
   getUserName() => _userName;
 
   /// Use this method on UI to get selected theme.
