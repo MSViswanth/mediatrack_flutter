@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
+import 'package:mediatrack_flutter/providers/settings_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 ApiKeys keys = ApiKeys(kAPIKey, kAPIReadAccessToken);
@@ -31,14 +34,29 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
-        HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
-        HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
-        HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
-        HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
-      ],
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+    return SafeArea(
+      child: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 20, 60, 20),
+            child: Text(
+              'Welcome, ${settingsProvider.getUserName()}. What do you want to watch?',
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
+          HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
+          HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
+          HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
+          HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
+        ],
+      ),
     );
   }
 }

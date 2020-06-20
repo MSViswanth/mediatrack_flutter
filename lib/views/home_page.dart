@@ -27,18 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        title: Text(
-          widget.title,
-          style: GoogleFonts.lato(
-            textStyle: TextStyle(
-              fontSize: 30,
-            ),
-          ),
-        ),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
