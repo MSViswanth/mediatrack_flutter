@@ -19,6 +19,7 @@ class Profile extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           padding: EdgeInsets.all(12),
           children: <Widget>[
+            //Username Selector.
             ListTile(
               title: Text(
                 settingsProvider.getUserName(),
@@ -33,11 +34,13 @@ class Profile extends StatelessWidget {
                       color: settingsProvider.themeData.brightness ==
                               Brightness.dark
                           ? Color(0xff161616)
-                          : Color(0xff757575),
+                          : Color(
+                              0xff757575), //Behind bottomsheet color. (Rounded Corners).
                       child: Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context)
+                              .scaffoldBackgroundColor, //BottomSheet background color.
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(12),
                             topRight: Radius.circular(12),
@@ -88,7 +91,7 @@ class Profile extends StatelessWidget {
                         ),
                       ),
                     );
-                  },
+                  }, //Username bottomsheet.
                 ),
               ),
             ),
@@ -104,14 +107,16 @@ class Profile extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return Container(
-                    color:
-                        settingsProvider.themeData.brightness == Brightness.dark
-                            ? Color(0xff161616)
-                            : Color(0xff757575),
+                    color: settingsProvider.themeData.brightness ==
+                            Brightness.dark
+                        ? Color(0xff161616)
+                        : Color(
+                            0xff757575), //Behind bottomsheet color. (Rounded Corners).
                     child: Container(
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor, //BottomSheet background color.
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(12),
                           topRight: Radius.circular(12),
@@ -140,7 +145,7 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                   );
-                },
+                }, //Theme bottomsheet.
               ),
             ),
           ],

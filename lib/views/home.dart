@@ -18,7 +18,8 @@ class _HomeState extends State<Home> {
   Map popularMovies;
   bool isWaiting = true;
 
-  void getPopularMovies() async {
+  ///Get Trending Movies.
+  void getTrendingMovies() async {
     try {
       popularMovies = await tmdb.v3.trending
           .getTrending(mediaType: MediaType.movie, timeWindow: TimeWindow.day);
@@ -37,7 +38,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    getPopularMovies();
+    getTrendingMovies();
   }
 
   @override
