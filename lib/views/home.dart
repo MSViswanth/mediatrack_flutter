@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
+import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb_api/tmdb_api.dart';
@@ -9,13 +12,14 @@ ApiKeys keys = ApiKeys(kAPIKey, kAPIReadAccessToken);
 
 TMDB tmdb = TMDB(keys, logConfig: ConfigLogger.showAll());
 
-class Home extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   Map popularMovies;
+
   bool isWaiting = true;
 
   ///Get Trending Movies.
@@ -35,10 +39,17 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void getMovie() async {
+    Map result = await tmdb.v3.movies.getDetails(155);
+    Movie movie = Movie.fromJson(result);
+    print(movie.belongsToCollection.name);
+  }
+
   @override
   void initState() {
     super.initState();
     getTrendingMovies();
+    getMovie();
   }
 
   @override
@@ -59,7 +70,16 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          // Text('Trending'),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            child: Text(
+              'Trending',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
           HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
           HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
           HorizontalList(isWaiting: isWaiting, popularMovies: popularMovies),
@@ -102,7 +122,9 @@ class HorizontalList extends StatelessWidget {
                       showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return Text(name);
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
                           });
                     },
                     child: AspectRatio(

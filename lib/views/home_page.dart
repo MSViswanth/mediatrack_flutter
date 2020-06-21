@@ -17,10 +17,10 @@ class _HomePageState extends State<HomePage> {
   int _currentTab = 0;
 
   List<Widget> _children = [
-    Home(),
-    Movies(),
-    TV(),
-    Profile(),
+    HomeScreen(),
+    MoviesScreen(),
+    TVScreen(),
+    ProfileScreen(),
   ];
 
   @override

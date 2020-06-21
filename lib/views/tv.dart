@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TV extends StatelessWidget {
+class TVScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
