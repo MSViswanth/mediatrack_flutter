@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mediatrack_flutter/providers/movies_provider.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +15,14 @@ class MyApp extends StatelessWidget {
       // builder: (_) => SettingsProvider(),
       create: (context) => SettingsProvider(),
       child: Consumer<SettingsProvider>(
-        builder: (context, settingsProvider, child) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'MediaTrack',
-          theme: settingsProvider.themeData,
-          home: HomePage(title: 'MediaTrack'),
+        builder: (context, settingsProvider, child) => ChangeNotifierProvider(
+          create: (context) => MoviesProvider(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'MediaTrack',
+            theme: settingsProvider.themeData,
+            home: HomePage(title: 'MediaTrack'),
+          ),
         ),
       ),
     );

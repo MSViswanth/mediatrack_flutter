@@ -1,60 +1,19 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie.dart';
+import 'package:mediatrack_flutter/providers/movies_provider.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:tmdb_api/tmdb_api.dart';
 
-ApiKeys keys = ApiKeys(kAPIKey, kAPIReadAccessToken);
-
-TMDB tmdb = TMDB(keys, logConfig: ConfigLogger.showAll());
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  Map popularMovies;
-
-  bool isWaiting = true;
-
-  ///Get Trending Movies.
-  void getTrendingMovies() async {
-    try {
-      popularMovies = await tmdb.v3.trending
-          .getTrending(mediaType: MediaType.movie, timeWindow: TimeWindow.day);
-    } catch (e) {
-      print(e);
-    }
-    try {
-      setState(() {
-        isWaiting = false;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void getMovie() async {
-    Map result = await tmdb.v3.movies.getDetails(155);
-    Movie movie = Movie.fromJson(result);
-    print(movie.belongsToCollection.name);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getTrendingMovies();
-    getMovie();
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    MoviesProvider moviesProvider = Provider.of<MoviesProvider>(context);
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+    bool isWaiting = moviesProvider.isWaiting;
+    List<Movie> popularMovies = moviesProvider.trendingMovies;
+
     return SafeArea(
       child: ListView(
         children: <Widget>[
@@ -74,9 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             child: Text(
               'Trending',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
+              style: GoogleFonts.lato(
+                textStyle: Theme.of(context).textTheme.headline6,
               ),
             ),
           ),
@@ -99,11 +57,13 @@ class HorizontalList extends StatelessWidget {
   }) : super(key: key);
 
   final bool isWaiting;
-  final Map popularMovies;
+  final List<Movie> popularMovies;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      // color: Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).scaffoldBackgroundColor,
       padding: EdgeInsets.all(5),
       height: 200,
       child: isWaiting
@@ -114,7 +74,7 @@ class HorizontalList extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                String name = popularMovies['results'][index]['name'];
+                // String name = popularMovies[index].title;
                 return Container(
                   padding: EdgeInsets.all(8),
                   child: GestureDetector(
@@ -127,19 +87,29 @@ class HorizontalList extends StatelessWidget {
                             );
                           });
                     },
-                    child: AspectRatio(
-                      aspectRatio: 2.0 / 3.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(5, 5),
+                            blurRadius: 3,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: ClipRRect(
+                        //Removed Aspect Ratio. Add if necessary.
                         borderRadius: BorderRadius.circular(12),
                         child: Image.network(baseUrl +
                             posterSize +
-                            popularMovies['results'][index]['poster_path']),
+                            popularMovies[index].posterPath),
                       ),
                     ),
                   ),
                 );
               },
-              itemCount: popularMovies['results'].length,
+              itemCount: popularMovies.length,
             ),
     );
   }

@@ -23,10 +23,17 @@ class ProfileScreen extends StatelessWidget {
             ListTile(
               title: Text(
                 settingsProvider.getUserName(),
-                style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 20)),
+                style: GoogleFonts.lato(
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
               ),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: Icon(
+                  Icons.edit,
+                  color: Theme.of(context).accentColor,
+                ),
                 onPressed: () => showModalBottomSheet(
                   context: context,
                   builder: (context) {
