@@ -12,6 +12,11 @@ class MoviesProvider with ChangeNotifier {
     getTrendingMovies();
   }
 
+  updateDetails(Movie movie, int index) async {
+    Map movieUpdated = await tmdb.v3.movies.getDetails(movie.id);
+    _trendingMovies[index] = Movie.fromJson(movieUpdated);
+  }
+
   ///Get Trending Movies.
   void getTrendingMovies() async {
     try {

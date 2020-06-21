@@ -11,7 +11,7 @@ final appThemeData = {
   AppTheme.White: ThemeData(
     brightness: Brightness.light,
     primarySwatch: Colors.purple,
-    scaffoldBackgroundColor: Color(0xff00eeee),
+    scaffoldBackgroundColor: Color(0xffeeeeee),
   ),
   AppTheme.Dark: ThemeData(
     brightness: Brightness.dark,

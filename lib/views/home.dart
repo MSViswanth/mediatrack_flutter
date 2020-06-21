@@ -75,15 +75,135 @@ class HorizontalList extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 // String name = popularMovies[index].title;
+                Provider.of<MoviesProvider>(context)
+                    .updateDetails(popularMovies[index], index);
                 return Container(
                   padding: EdgeInsets.all(8),
                   child: GestureDetector(
-                    onTap: () {
+                    onLongPress: () {
                       showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return Center(
-                              child: CircularProgressIndicator(),
+                            return Container(
+                              color: Provider.of<SettingsProvider>(context)
+                                          .themeData
+                                          .brightness ==
+                                      Brightness.dark
+                                  ? Color(0xff161616)
+                                  : Color(
+                                      0xff6d6d6d), //Behind bottomsheet color. (Rounded Corners).
+                              child: Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  //Add ClipRRect
+                                  color: Theme.of(context)
+                                      .scaffoldBackgroundColor, //BottomSheet background color.
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    topRight: Radius.circular(12),
+                                  ),
+                                ),
+                                child: Container(
+                                  // height: 200,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 200,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                              // height: 200,
+
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                child: Image.network(
+                                                  baseUrl +
+                                                      posterSize +
+                                                      popularMovies[index]
+                                                          .posterPath,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(12.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      popularMovies[index]
+                                                          .title,
+                                                      style: TextStyle(
+                                                          fontSize: 24),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    Text(
+                                                      '${popularMovies[index].voteAverage}',
+                                                      style: TextStyle(
+                                                        fontSize: 24,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                            .accentColor,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            popularMovies[index].tagline,
+                                          ),
+                                        ),
+                                      ),
+                                      // SizedBox(
+                                      //   height: 20,
+                                      // ),
+                                      Expanded(
+                                        child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: popularMovies[index]
+                                                .genres
+                                                .length,
+                                            itemBuilder: (context, genre) {
+                                              return Padding(
+                                                padding: EdgeInsets.all(5.0),
+                                                child: Chip(
+                                                  label: Text(
+                                                      '${popularMovies[index].genres[genre].name} '),
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                            child: Text(
+                                                popularMovies[index].status)),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                              popularMovies[index].releaseDate),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             );
                           });
                     },

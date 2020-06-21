@@ -42,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                               Brightness.dark
                           ? Color(0xff161616)
                           : Color(
-                              0xff757575), //Behind bottomsheet color. (Rounded Corners).
+                              0xff6d6d6d), //Behind bottomsheet color. (Rounded Corners).
                       child: Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -118,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
                             Brightness.dark
                         ? Color(0xff161616)
                         : Color(
-                            0xff757575), //Behind bottomsheet color. (Rounded Corners).
+                            0xff6d6d6d), //Behind bottomsheet color. (Rounded Corners).
                     child: Container(
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
