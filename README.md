@@ -1,10 +1,14 @@
 # mediatrack_flutter
 
-A new Flutter project.
+An app to track your Movies and TV Shows.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+[x] Themes
+[] Homepage
+[] Movies
+[] TV Shows
+
+## Contribution
 
 A few resources to get you started if this is your first Flutter project:
 
