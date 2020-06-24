@@ -33,6 +33,8 @@ class Movie {
   bool video;
   double voteAverage;
   int voteCount;
+  ReleaseDatesParent releaseDates;
+  SimilarMovies similarMovies;
   Movie(
     this.adult,
     this.backdropPath,
@@ -59,6 +61,8 @@ class Movie {
     this.video,
     this.voteAverage,
     this.voteCount,
+    this.releaseDates,
+    this.similarMovies,
   );
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
   Map<String, dynamic> toJson() => _$MovieToJson(this);
@@ -149,4 +153,77 @@ class SpokenLanguages {
   factory SpokenLanguages.fromJson(Map<String, dynamic> json) =>
       _$SpokenLanguagesFromJson(json);
   Map<String, dynamic> toJson() => _$SpokenLanguagesToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class ReleaseDatesParent {
+  List<ReleaseDateResults> results;
+  ReleaseDatesParent(
+    this.results,
+  );
+  factory ReleaseDatesParent.fromJson(Map<String, dynamic> json) =>
+      _$ReleaseDatesParentFromJson(json);
+  Map<String, dynamic> toJson() => _$ReleaseDatesParentToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class ReleaseDateResults {
+  String iso_3166_1;
+  List<ReleaseDates> releaseDates;
+  ReleaseDateResults(
+    this.iso_3166_1,
+    this.releaseDates,
+  );
+  factory ReleaseDateResults.fromJson(Map<String, dynamic> json) =>
+      _$ReleaseDateResultsFromJson(json);
+  Map<String, dynamic> toJson() => _$ReleaseDateResultsToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class ReleaseDates {
+  String certification;
+  String iso_639_1;
+  String note;
+  String releaseDate;
+  int type;
+  ReleaseDates(
+    this.certification,
+    this.iso_639_1,
+    this.note,
+    this.releaseDate,
+    this.type,
+  );
+  factory ReleaseDates.fromJson(Map<String, dynamic> json) =>
+      _$ReleaseDatesFromJson(json);
+  Map<String, dynamic> toJson() => _$ReleaseDatesToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class SimilarMovies {
+  int page;
+  List<Movie> results;
+  int totalPages;
+  int totalResults;
+  SimilarMovies(
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  );
+
+  factory SimilarMovies.fromJson(Map<String, dynamic> json) =>
+      _$SimilarMoviesFromJson(json);
+  Map<String, dynamic> toJson() => _$SimilarMoviesToJson(this);
 }

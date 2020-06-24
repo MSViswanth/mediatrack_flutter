@@ -51,6 +51,14 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
     json['video'] as bool,
     (json['vote_average'] as num)?.toDouble(),
     json['vote_count'] as int,
+    json['release_dates'] == null
+        ? null
+        : ReleaseDatesParent.fromJson(
+            json['release_dates'] as Map<String, dynamic>),
+    json['similar_movies'] == null
+        ? null
+        : SimilarMovies.fromJson(
+            json['similar_movies'] as Map<String, dynamic>),
   );
 }
 
@@ -83,6 +91,8 @@ Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'video': instance.video,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'release_dates': instance.releaseDates?.toJson(),
+      'similar_movies': instance.similarMovies?.toJson(),
     };
 
 BelongsToCollection _$BelongsToCollectionFromJson(Map<String, dynamic> json) {
@@ -158,4 +168,74 @@ Map<String, dynamic> _$SpokenLanguagesToJson(SpokenLanguages instance) =>
     <String, dynamic>{
       'iso_639_1': instance.iso_639_1,
       'name': instance.name,
+    };
+
+ReleaseDatesParent _$ReleaseDatesParentFromJson(Map<String, dynamic> json) {
+  return ReleaseDatesParent(
+    (json['results'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReleaseDateResults.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$ReleaseDatesParentToJson(ReleaseDatesParent instance) =>
+    <String, dynamic>{
+      'results': instance.results,
+    };
+
+ReleaseDateResults _$ReleaseDateResultsFromJson(Map<String, dynamic> json) {
+  return ReleaseDateResults(
+    json['iso_3166_1'] as String,
+    (json['release_dates'] as List)
+        ?.map((e) =>
+            e == null ? null : ReleaseDates.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$ReleaseDateResultsToJson(ReleaseDateResults instance) =>
+    <String, dynamic>{
+      'iso_3166_1': instance.iso_3166_1,
+      'release_dates': instance.releaseDates,
+    };
+
+ReleaseDates _$ReleaseDatesFromJson(Map<String, dynamic> json) {
+  return ReleaseDates(
+    json['certification'] as String,
+    json['iso_639_1'] as String,
+    json['note'] as String,
+    json['release_date'] as String,
+    json['type'] as int,
+  );
+}
+
+Map<String, dynamic> _$ReleaseDatesToJson(ReleaseDates instance) =>
+    <String, dynamic>{
+      'certification': instance.certification,
+      'iso_639_1': instance.iso_639_1,
+      'note': instance.note,
+      'release_date': instance.releaseDate,
+      'type': instance.type,
+    };
+
+SimilarMovies _$SimilarMoviesFromJson(Map<String, dynamic> json) {
+  return SimilarMovies(
+    json['page'] as int,
+    (json['results'] as List)
+        ?.map(
+            (e) => e == null ? null : Movie.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['total_pages'] as int,
+    json['total_results'] as int,
+  );
+}
+
+Map<String, dynamic> _$SimilarMoviesToJson(SimilarMovies instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'results': instance.results,
+      'total_pages': instance.totalPages,
+      'total_results': instance.totalResults,
     };

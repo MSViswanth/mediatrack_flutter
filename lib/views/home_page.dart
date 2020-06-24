@@ -53,6 +53,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+        elevation: 10,
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentTab,
         selectedItemColor: Theme.of(context).accentColor,
         unselectedItemColor: Colors.grey,

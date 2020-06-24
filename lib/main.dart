@@ -11,18 +11,22 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      // builder: (_) => SettingsProvider(),
-      create: (context) => SettingsProvider(),
-      child: Consumer<SettingsProvider>(
-        builder: (context, settingsProvider, child) => ChangeNotifierProvider(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => SettingsProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => MoviesProvider(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'MediaTrack',
-            theme: settingsProvider.themeData,
-            home: HomePage(title: 'MediaTrack'),
-          ),
+        )
+      ],
+      child: Consumer2<SettingsProvider, MoviesProvider>(
+        builder: (context, settingsProvider, moviesProvider, child) =>
+            MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'MediaTrack',
+          theme: settingsProvider.themeData,
+          home: HomePage(title: 'MediaTrack'),
         ),
       ),
     );
