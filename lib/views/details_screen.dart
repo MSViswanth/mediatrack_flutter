@@ -7,7 +7,6 @@ import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/components/horizontal_list.dart';
-import 'package:flutter/services.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Movie movie;
@@ -73,7 +72,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       child: Container(
                         //Title
                         width: 0.6 * size.width,
-                        padding: EdgeInsets.all(15),
+                        padding: EdgeInsets.all(16),
                         // margin: EdgeInsets.only(
                         //   left: 0.1 * size.width,
                         // ),
@@ -118,10 +117,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                   ),
                   Positioned(
-                    left: 20,
+                    left: 16,
                     top: 20,
                     child: IconButton(
-                      icon: Icon(Icons.keyboard_arrow_left),
+                      icon: Icon(Icons.arrow_back),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ),
@@ -130,7 +129,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     left: 0,
                     bottom: 0,
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: EdgeInsets.all(16),
                       height: 0.1 * size.height,
                       width: 0.6 * size.width,
                       child: Row(
