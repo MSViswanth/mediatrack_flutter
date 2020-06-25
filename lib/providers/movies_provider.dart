@@ -7,7 +7,7 @@ import 'package:tmdb_api/tmdb_api.dart';
 class MoviesProvider with ChangeNotifier {
   List<Movie> _trendingMovies = [];
   bool _isWaiting = true;
-  String _certification = '...';
+  String _certification = 'NR';
 
   ///Constructor for MoviesProvider class.
   MoviesProvider() {
@@ -34,12 +34,13 @@ class MoviesProvider with ChangeNotifier {
   ///
   ///`Pass [movie] and the [index]`
   ///
-  updateDetails(Movie movie, int index) async {
+  void updateDetails(List<Movie> movie, int index) async {
     try {
-      Map movieUpdated = await tmdb.v3.movies.getDetails(movie.id,
+      Map movieUpdated = await tmdb.v3.movies.getDetails(movie[index].id,
           appendToResponse: 'release_dates,similar_movies');
-      _trendingMovies[index] = Movie.fromJson(movieUpdated);
-      await getCertification(_trendingMovies[index]);
+      movie[index] = Movie.fromJson(movieUpdated);
+
+      await getCertification(movie[index]);
     } catch (e) {
       print(e);
     }
@@ -69,4 +70,8 @@ class MoviesProvider with ChangeNotifier {
 
   ///Get a list of Trending Movies.
   get trendingMovies => _trendingMovies;
+
+  resetDetails() {
+    _certification = 'Waiting';
+  }
 }

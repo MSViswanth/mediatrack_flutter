@@ -5,6 +5,8 @@ import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:mediatrack_flutter/components/horizontal_list.dart';
+import 'package:flutter/services.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Movie movie;
@@ -16,11 +18,19 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  bool isWaiting = true;
+  MoviesProvider resetDetailsProvider;
+  @override
+  void dispose() {
+    resetDetailsProvider.resetDetails();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    resetDetailsProvider = Provider.of<MoviesProvider>(context, listen: false);
+
     final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -81,7 +91,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     bottom: 10,
                     right: 10,
                     child: Hero(
-                      tag: 'Poster' + widget.index.toString(),
+                      tag: 'Poster' +
+                          widget.index.toString() +
+                          widget.movie.title,
                       child: Container(
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -144,18 +156,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   'NR',
                                   style: TextStyle(color: Colors.grey),
                                 ),
-                          Provider.of<MoviesProvider>(context).certification ==
-                                  ''
-                              ? Container()
-                              : Container(
-                                  padding: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(),
-                                      borderRadius: BorderRadius.circular(3)),
-                                  child: Text(
-                                      Provider.of<MoviesProvider>(context)
-                                          .certification),
-                                ),
+                          Container(
+                            padding: EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(3)),
+                            child: Text(Provider.of<MoviesProvider>(context)
+                                        .certification ==
+                                    ''
+                                ? 'NR'
+                                : Provider.of<MoviesProvider>(context)
+                                    .certification),
+                          ),
                         ],
                       ),
                     ),
@@ -163,6 +175,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ],
               ),
             ),
+            widget.movie.similarMovies != null
+                ? HorizontalList(
+                    itemList: widget.movie.similarMovies.results,
+                  )
+                : Container(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
           ],
         ),
       ),

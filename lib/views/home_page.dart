@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mediatrack_flutter/mixins/portraitmode_mixin.dart';
 import 'package:mediatrack_flutter/views/home.dart';
 import 'package:mediatrack_flutter/views/movies.dart';
 import 'package:mediatrack_flutter/views/profile.dart';
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with PortraitStatefulModeMixin {
   int _currentTab = 0;
 
   List<Widget> _children = [
@@ -22,9 +23,14 @@ class _HomePageState extends State<HomePage> {
     TVScreen(),
     ProfileScreen(),
   ];
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
