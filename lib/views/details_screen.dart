@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
@@ -34,6 +35,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               height: 0.5 * size.height,
@@ -175,10 +177,63 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ],
               ),
             ),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(16),
+              child: Text(
+                widget.movie.tagline != null
+                    ? widget.movie.tagline == ''
+                        ? 'No Tagline'
+                        : widget.movie.tagline
+                    : 'Waiting...',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Overview',
+                style: GoogleFonts.lato(
+                  textStyle: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: Text(
+                widget.movie.overview,
+                style: GoogleFonts.lato(
+                  textStyle: Theme.of(context).textTheme.bodyText2,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Similar Movies',
+                style: GoogleFonts.lato(
+                  textStyle: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+            ),
             widget.movie.similarMovies != null
-                ? HorizontalList(
-                    itemList: widget.movie.similarMovies.results,
-                  )
+                ? widget.movie.similarMovies.results.length != 0
+                    ? HorizontalList(
+                        itemList: widget.movie.similarMovies.results,
+                      )
+                    : Container(
+                        padding: EdgeInsets.all(16),
+                        child: Center(
+                          child: Text(
+                            'Not Available',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
                 : Container(
                     height: 200,
                     child: Center(

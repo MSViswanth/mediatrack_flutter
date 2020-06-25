@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/components/horizontal_list.dart';
-import 'package:mediatrack_flutter/constants.dart';
+
 import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
@@ -45,8 +45,11 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             isWaiting
-                ? Center(
-                    child: CircularProgressIndicator(),
+                ? Container(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   )
                 : HorizontalList(itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
