@@ -35,6 +35,7 @@ class Movie {
   int voteCount;
   ReleaseDatesParent releaseDates;
   SimilarMovies similarMovies;
+  Recommendations recommendations;
   Movie(
     this.adult,
     this.backdropPath,
@@ -63,6 +64,7 @@ class Movie {
     this.voteCount,
     this.releaseDates,
     this.similarMovies,
+    this.recommendations,
   );
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
   Map<String, dynamic> toJson() => _$MovieToJson(this);
@@ -226,4 +228,25 @@ class SimilarMovies {
   factory SimilarMovies.fromJson(Map<String, dynamic> json) =>
       _$SimilarMoviesFromJson(json);
   Map<String, dynamic> toJson() => _$SimilarMoviesToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class Recommendations {
+  int page;
+  List<Movie> results;
+  int totalPages;
+  int totalResults;
+  Recommendations(
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  );
+
+  factory Recommendations.fromJson(Map<String, dynamic> json) =>
+      _$RecommendationsFromJson(json);
+  Map<String, dynamic> toJson() => _$RecommendationsToJson(this);
 }

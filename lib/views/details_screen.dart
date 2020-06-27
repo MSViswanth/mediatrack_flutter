@@ -30,6 +30,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     resetDetailsProvider = Provider.of<MoviesProvider>(context, listen: false);
 
     final Size size = MediaQuery.of(context).size;
+    // print(widget.movie.genres.length);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -90,7 +91,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   //Poster
                   Positioned(
                     bottom: 10,
-                    right: 10,
+                    right: 16,
                     child: Hero(
                       tag: 'Poster' +
                           widget.index.toString() +
@@ -117,10 +118,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                   ),
                   Positioned(
-                    left: 16,
+                    left: 8,
                     top: 20,
                     child: IconButton(
                       icon: Icon(Icons.arrow_back),
+                      color: Colors.white,
                       onPressed: () => Navigator.pop(context),
                     ),
                   ),
@@ -136,45 +138,101 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text('${widget.movie.releaseDate.substring(0, 4)}'),
+                          Text(
+                            '${DateTime.parse(widget.movie.releaseDate).year}',
+                            style: TextStyle(fontSize: 20),
+                          ),
                           widget.movie.runtime == null
                               ? Text('Waiting')
-                              : Text('${widget.movie.runtime}' + ' min'),
-                          widget.movie.voteAverage != 0
-                              ? Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      color: Color(0xffe4bb24),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(widget.movie.voteAverage.toString()),
-                                  ],
-                                )
-                              : Text(
-                                  'NR',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                          Container(
-                            padding: EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(3)),
-                            child: Text(Provider.of<MoviesProvider>(context)
-                                        .certification ==
-                                    ''
-                                ? 'NR'
-                                : Provider.of<MoviesProvider>(context)
-                                    .certification),
-                          ),
+                              : Text(widget.movie.runtime ~/ 60 != 0 &&
+                                      widget.movie.runtime % 60 != 0
+                                  ? '${widget.movie.runtime ~/ 60}h ${widget.movie.runtime % 60}min'
+                                  : widget.movie.runtime ~/ 60 == 0
+                                      ? '${widget.movie.runtime % 60}m'
+                                      : '${widget.movie.runtime ~/ 60}h'),
                         ],
                       ),
                     ),
                   ),
                 ],
               ),
+            ),
+            Container(
+              margin: EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  widget.movie.status != null
+                      ? Text(
+                          widget.movie.status,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.7),
+                          ),
+                        )
+                      : Text('Waiting...'),
+                  widget.movie.voteAverage != 0
+                      ? Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.star,
+                              color: Color(0xffe4bb24),
+                              size: 30,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              widget.movie.voteAverage.toString(),
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          'NR',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                  Container(
+                    padding: EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(3)),
+                    child: Text(Provider.of<MoviesProvider>(context)
+                                    .certification ==
+                                '' ||
+                            Provider.of<MoviesProvider>(context)
+                                    .certification ==
+                                null
+                        ? 'NR'
+                        : Provider.of<MoviesProvider>(context).certification),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(16),
+              height: 40,
+              child: widget.movie.genres != null
+                  ? ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.movie.genres.length,
+                      itemBuilder: (context, genre) {
+                        return Container(
+                          height: 20,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(left: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black54,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text('${widget.movie.genres[genre].name} '),
+                        );
+                      })
+                  : Text('Waiting...'),
             ),
             Container(
               alignment: Alignment.center,
@@ -208,6 +266,37 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Recommendations',
+                style: GoogleFonts.lato(
+                  textStyle: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+            ),
+            widget.movie.recommendations != null
+                ? widget.movie.recommendations.results.length != 0
+                    ? HorizontalList(
+                        itemList: widget.movie.recommendations.results,
+                      )
+                    : Container(
+                        padding: EdgeInsets.all(16),
+                        child: Center(
+                          child: Text(
+                            'Not Available',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )
+                : Container(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
             Padding(
               padding: EdgeInsets.all(16),
               child: Text(

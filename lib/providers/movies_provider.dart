@@ -37,7 +37,7 @@ class MoviesProvider with ChangeNotifier {
   void updateDetails(List<Movie> movie, int index) async {
     try {
       Map movieUpdated = await tmdb.v3.movies.getDetails(movie[index].id,
-          appendToResponse: 'release_dates,similar_movies');
+          appendToResponse: 'release_dates,similar_movies,recommendations');
       movie[index] = Movie.fromJson(movieUpdated);
 
       await getCertification(movie[index]);
@@ -72,6 +72,6 @@ class MoviesProvider with ChangeNotifier {
   get trendingMovies => _trendingMovies;
 
   resetDetails() {
-    _certification = 'Waiting';
+    _certification = 'NR';
   }
 }
