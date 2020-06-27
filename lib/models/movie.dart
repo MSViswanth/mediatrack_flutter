@@ -13,7 +13,7 @@ class Movie {
   BelongsToCollection belongsToCollection;
   int budget;
   List<Genres> genres;
-  String homePage;
+  String homepage;
   int id;
   String imdbId;
   String originalLanguage;
@@ -42,7 +42,7 @@ class Movie {
     this.belongsToCollection,
     this.budget,
     this.genres,
-    this.homePage,
+    this.homepage,
     this.id,
     this.imdbId,
     this.originalLanguage,

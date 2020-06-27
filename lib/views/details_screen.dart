@@ -1,12 +1,16 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
+import 'package:mediatrack_flutter/views/home.dart';
+import 'package:mediatrack_flutter/views/recommendations_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/components/horizontal_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Movie movie;
@@ -52,24 +56,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       // color: Theme.of(context).accentColor,
                       image: DecorationImage(
                           image: widget.movie.backdropPath == null
-                              ? NetworkImage(url)
-                              : NetworkImage(baseUrl +
-                                  backdropSize +
-                                  widget.movie.backdropPath),
+                              ? NetworkImage(url) //TODO: Add placeholder.
+                              : CachedNetworkImageProvider(
+                                  baseUrl +
+                                      backdropSize +
+                                      widget.movie.backdropPath,
+                                ),
                           fit: BoxFit.cover),
                     ),
                     child: Container(
                       width: size.width,
                       alignment: Alignment.bottomLeft,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          Colors.black87,
-                          Colors.transparent,
-                        ],
-                      )),
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black87,
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
                       child: Container(
                         //Title
                         width: 0.6 * size.width,
@@ -93,10 +100,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     bottom: 10,
                     right: 16,
                     child: Hero(
-                      tag: 'Poster' +
-                          widget.index.toString() +
-                          widget.movie.title,
+                      tag: 'Poster' + widget.movie.title,
                       child: Container(
+                        height: 200,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -107,11 +113,40 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ],
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            baseUrl + posterSize + widget.movie.posterPath,
-                            height: 200,
+                        child: AspectRatio(
+                          aspectRatio: 500 / 750,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: widget.movie.posterPath != null
+                                ? CachedNetworkImage(
+                                    imageUrl: baseUrl +
+                                        posterSize +
+                                        widget.movie.posterPath,
+                                    progressIndicatorBuilder:
+                                        (context, url, progress) => Container(
+                                      color: Colors.white,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          value: progress.progress,
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  )
+                                : Container(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    padding: EdgeInsets.all(3),
+                                    child: Center(
+                                        child: Material(
+                                      child: Text(
+                                        'Image not available',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    )),
+                                  ),
                           ),
                         ),
                       ),
@@ -135,21 +170,29 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       height: 0.1 * size.height,
                       width: 0.6 * size.width,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                            '${DateTime.parse(widget.movie.releaseDate).year}',
-                            style: TextStyle(fontSize: 20),
-                          ),
+                          widget.movie.releaseDate != ''
+                              ? Text(
+                                  '${DateTime.parse(widget.movie.releaseDate).year}',
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              : Text('Not Available'),
                           widget.movie.runtime == null
                               ? Text('Waiting')
-                              : Text(widget.movie.runtime ~/ 60 != 0 &&
-                                      widget.movie.runtime % 60 != 0
-                                  ? '${widget.movie.runtime ~/ 60}h ${widget.movie.runtime % 60}min'
-                                  : widget.movie.runtime ~/ 60 == 0
-                                      ? '${widget.movie.runtime % 60}m'
-                                      : '${widget.movie.runtime ~/ 60}h'),
+                              : widget.movie.runtime != 0
+                                  ? Text(
+                                      widget.movie.runtime ~/ 60 != 0 &&
+                                              widget.movie.runtime % 60 != 0
+                                          ? '${widget.movie.runtime ~/ 60}h ${widget.movie.runtime % 60}min'
+                                          : widget.movie.runtime ~/ 60 == 0
+                                              ? '${widget.movie.runtime % 60}min'
+                                              : '${widget.movie.runtime ~/ 60}h',
+                                      style: TextStyle(fontSize: 18),
+                                    )
+                                  : Text(''),
+                          SizedBox.shrink(),
                         ],
                       ),
                     ),
@@ -160,16 +203,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
             Container(
               margin: EdgeInsets.all(16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   widget.movie.status != null
                       ? Text(
                           widget.movie.status,
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.7),
-                          ),
+                          style: TextStyle(fontSize: 16),
                         )
                       : Text('Waiting...'),
+                  // SizedBox.shrink(),
                   widget.movie.voteAverage != 0
                       ? Row(
                           children: <Widget>[
@@ -183,7 +225,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             ),
                             Text(
                               widget.movie.voteAverage.toString(),
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
                             ),
                           ],
                         )
@@ -191,10 +234,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           'NR',
                           style: TextStyle(color: Colors.grey),
                         ),
+                  // SizedBox.shrink(),
                   Container(
                     padding: EdgeInsets.all(3),
                     decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(
+                          color: Theme.of(context).textTheme.bodyText2.color,
+                        ),
                         borderRadius: BorderRadius.circular(3)),
                     child: Text(Provider.of<MoviesProvider>(context)
                                     .certification ==
@@ -205,35 +251,58 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ? 'NR'
                         : Provider.of<MoviesProvider>(context).certification),
                   ),
+                  // SizedBox.shrink(),
+                  // Text(widget.movie.voteCount.toString() + ' votes'),
+                  GestureDetector(
+                    onTap: widget.movie.imdbId != null
+                        ? () => launch(
+                              'http://www.imdb.com/title/' +
+                                  widget.movie.imdbId,
+                            )
+                        : () {},
+                    child: Image.asset(
+                      'assets/images/imdb.png',
+                      scale: 1.5,
+                    ),
+                  ),
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(16),
-              height: 40,
-              child: widget.movie.genres != null
-                  ? ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: widget.movie.genres.length,
-                      itemBuilder: (context, genre) {
-                        return Container(
-                          height: 20,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(left: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black54,
+            widget.movie.homepage != null
+                ? widget.movie.homepage != ''
+                    ? Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          // color: Colors.lightBlue,
+                          // border: Border.all(
+                          //   color:
+                          //       Theme.of(context).textTheme.bodyText2.color,
+                          // ),
+                          borderRadius: BorderRadius.circular(12),
+                          color: Theme.of(context).accentColor,
+                        ),
+                        child: InkWell(
+                          onTap: () => launch(widget.movie.homepage),
+                          child: Center(
+                            child: Text(
+                              '"' + widget.movie.title + '"' + ' \' Website',
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Text('${widget.movie.genres[genre].name} '),
-                        );
-                      })
-                  : Text('Waiting...'),
-            ),
+                        ),
+                      )
+                    : Container()
+                : Container(
+                    child: Center(
+                      child: Text('Waiting...'),
+                    ),
+                  ),
+
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(16),
@@ -254,6 +323,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 'Overview',
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),
@@ -269,40 +339,343 @@ class _DetailsScreenState extends State<DetailsScreen> {
             Padding(
               padding: EdgeInsets.all(16),
               child: Text(
-                'Recommendations',
+                'Genres',
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),
-            widget.movie.recommendations != null
-                ? widget.movie.recommendations.results.length != 0
-                    ? HorizontalList(
-                        itemList: widget.movie.recommendations.results,
-                      )
-                    : Container(
-                        padding: EdgeInsets.all(16),
-                        child: Center(
+            Container(
+              padding: EdgeInsets.all(2),
+              margin: EdgeInsets.all(14),
+              height: 45,
+              child: widget.movie.genres != null
+                  ? widget.movie.genres.length == 0
+                      ? Center(
                           child: Text(
                             'Not Available',
                             style: TextStyle(
                               color: Colors.grey,
                             ),
                           ),
-                        ),
-                      )
-                : Container(
-                    height: 200,
-                    child: Center(
-                      child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: widget.movie.genres.length,
+                          itemBuilder: (context, genre) {
+                            return Container(
+                              // height: 25,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      .color,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                '${widget.movie.genres[genre].name}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            );
+                          })
+                  : Text('Waiting...'),
+            ),
+            widget.movie.belongsToCollection != null
+                ? Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      'From Collection',
+                      style: GoogleFonts.lato(
+                        textStyle: Theme.of(context).textTheme.headline6,
+                        color: Theme.of(context).accentColor,
+                      ),
                     ),
-                  ),
+                  )
+                : Container(),
+            widget.movie.belongsToCollection != null
+                ? Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 16,
+                        ),
+                        height: 200,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(5, 5),
+                              blurRadius: 3,
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: widget.movie.belongsToCollection
+                                        .backdropPath !=
+                                    null
+                                ? CachedNetworkImage(
+                                    imageUrl: baseUrl +
+                                        backdropSize +
+                                        widget.movie.belongsToCollection
+                                            .backdropPath,
+                                    progressIndicatorBuilder:
+                                        (context, url, progress) => Container(
+                                      color: Colors.white,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          value: progress.progress,
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  )
+                                : Container(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    padding: EdgeInsets.all(3),
+                                    child: Center(
+                                        child: Material(
+                                      child: Text(
+                                        'Image not available',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    )),
+                                  ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(16),
+                        child: Text(widget.movie.belongsToCollection.name),
+                      ),
+                    ],
+                  )
+                : Container(),
             Padding(
               padding: EdgeInsets.all(16),
               child: Text(
-                'Similar Movies',
+                'Spoken Languages',
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+            ),
+            Container(
+              height: 25,
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              child: widget.movie.spokenLanguages == null
+                  ? Center(child: Text('Waiting'))
+                  : ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            margin: EdgeInsets.only(right: 16),
+                            child:
+                                Text(widget.movie.spokenLanguages[index].name));
+                      },
+                      itemCount: widget.movie.spokenLanguages.length,
+                    ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Production Countries',
+                style: GoogleFonts.lato(
+                  textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+            ),
+            Container(
+              height: 25,
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              child: widget.movie.productionCountries == null
+                  ? Center(child: Text('Waiting'))
+                  : ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            margin: EdgeInsets.only(right: 16),
+                            child: Text(
+                                widget.movie.productionCountries[index].name));
+                      },
+                      itemCount: widget.movie.productionCountries.length,
+                    ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Production Companies',
+                style: GoogleFonts.lato(
+                  textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+            ),
+            Container(
+              height: 30,
+              margin: EdgeInsets.all(16),
+              child: widget.movie.productionCompanies != null
+                  ? widget.movie.productionCompanies.length != 0
+                      ? ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.only(right: 16),
+                              child: widget.movie.productionCompanies[index]
+                                          .logoPath ==
+                                      null
+                                  ? Center(
+                                      child: Text(widget.movie
+                                              .productionCompanies[index].name +
+                                          ' ' +
+                                          widget
+                                              .movie
+                                              .productionCompanies[index]
+                                              .originCountry),
+                                    )
+                                  : Tooltip(
+                                      message: widget.movie
+                                              .productionCompanies[index].name +
+                                          ' ' +
+                                          widget
+                                              .movie
+                                              .productionCompanies[index]
+                                              .originCountry,
+                                      child: Image.network(baseUrl +
+                                          logoSize +
+                                          widget
+                                              .movie
+                                              .productionCompanies[index]
+                                              .logoPath),
+                                    ),
+                            );
+                          },
+                          itemCount: widget.movie.productionCompanies.length)
+                      : Center(
+                          child: Text('Not Available'),
+                        )
+                  : Container(
+                      child: Text('Waiting'),
+                    ),
+            ),
+            GestureDetector(
+              onTap: widget.movie.imdbId != null
+                  ? () => launch('http://www.imdb.com/title/' +
+                      widget.movie.imdbId +
+                      '/parentalguide')
+                  : () {},
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      'Parental Guide from IMDb',
+                      style: GoogleFonts.lato(
+                        textStyle: Theme.of(context).textTheme.headline6,
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: widget.movie.recommendations != null
+                  ? widget.movie.recommendations.results.length != 0
+                      ? () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RecommendationsScreen(
+                                widget.movie.recommendations.results),
+                          ))
+                      : () {}
+                  : () {},
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      'Recommendations',
+                      style: GoogleFonts.lato(
+                        textStyle: Theme.of(context).textTheme.headline6,
+                        color: widget.movie.recommendations != null
+                            ? widget.movie.recommendations.results.length != 0
+                                ? Theme.of(context).accentColor
+                                : Colors.grey
+                            : Colors.grey,
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: widget.movie.recommendations != null
+                          ? widget.movie.recommendations.results.length != 0
+                              ? Theme.of(context).accentColor
+                              : Colors.grey
+                          : Colors.grey,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            //Removed because of Captain Marvel - Same Hero Tag.
+            // widget.movie.recommendations != null
+            //     ? widget.movie.recommendations.results.length != 0
+            //         ? HorizontalList(
+            //             itemList: widget.movie.recommendations.results,
+            //           )
+            //         : Container(
+            //             padding: EdgeInsets.all(16),
+            //             child: Center(
+            //               child: Text(
+            //                 'Not Available',
+            //                 style: TextStyle(
+            //                   color: Colors.grey,
+            //                 ),
+            //               ),
+            //             ),
+            //           )
+            //     : Container(
+            //         height: 200,
+            //         child: Center(
+            //           child: CircularProgressIndicator(),
+            //         ),
+            //       ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'More like this',
+                style: GoogleFonts.lato(
+                  textStyle: Theme.of(context).textTheme.headline6,
+                  color: widget.movie.similarMovies != null
+                      ? widget.movie.similarMovies.results.length != 0
+                          ? Theme.of(context).accentColor
+                          : Colors.grey
+                      : Colors.grey,
                 ),
               ),
             ),
@@ -328,6 +701,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       child: CircularProgressIndicator(),
                     ),
                   ),
+            GestureDetector(
+              onTap: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ),
+                (Route<dynamic> route) => false,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.home,
+                      color: Theme.of(context).accentColor,
+                    ),
+                    Spacer(),
+                    Text(
+                      'Go Home',
+                      style: GoogleFonts.lato(
+                        textStyle: Theme.of(context).textTheme.headline6,
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

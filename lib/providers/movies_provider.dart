@@ -39,6 +39,7 @@ class MoviesProvider with ChangeNotifier {
       Map movieUpdated = await tmdb.v3.movies.getDetails(movie[index].id,
           appendToResponse: 'release_dates,similar_movies,recommendations');
       movie[index] = Movie.fromJson(movieUpdated);
+      // print(movie[index].homepage);
 
       await getCertification(movie[index]);
     } catch (e) {

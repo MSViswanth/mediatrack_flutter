@@ -131,11 +131,17 @@ class BottomSheetQuickInfo extends StatelessWidget {
                               margin: EdgeInsets.only(left: 10),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Colors.black54,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      .color,
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Text('${movie.genres[genre].name} '),
+                              child: Text(
+                                '${movie.genres[genre].name}',
+                                style: TextStyle(fontSize: 16),
+                              ),
                             );
                           })
                       : Text('Waiting...'),

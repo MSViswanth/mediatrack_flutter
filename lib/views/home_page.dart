@@ -6,10 +6,6 @@ import 'package:mediatrack_flutter/views/profile.dart';
 import 'package:mediatrack_flutter/views/tv.dart';
 
 class HomePage extends StatefulWidget {
-  final String title;
-
-  HomePage({this.title});
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -23,10 +19,6 @@ class _HomePageState extends State<HomePage> with PortraitStatefulModeMixin {
     TVScreen(),
     ProfileScreen(),
   ];
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

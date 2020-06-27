@@ -19,7 +19,7 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Genres.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['home_page'] as String,
+    json['homepage'] as String,
     json['id'] as int,
     json['imdb_id'] as String,
     json['original_language'] as String,
@@ -72,7 +72,7 @@ Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'belongs_to_collection': instance.belongsToCollection?.toJson(),
       'budget': instance.budget,
       'genres': instance.genres?.map((e) => e?.toJson())?.toList(),
-      'home_page': instance.homePage,
+      'homepage': instance.homepage,
       'id': instance.id,
       'imdb_id': instance.imdbId,
       'original_language': instance.originalLanguage,

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'MediaTrack',
           theme: settingsProvider.themeData,
-          home: HomePage(title: 'MediaTrack'),
+          home: HomePage(),
         ),
       ),
     );

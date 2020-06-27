@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mediatrack_flutter/components/bottom_sheet_quick_info.dart';
 import 'package:mediatrack_flutter/constants.dart';
@@ -30,7 +31,7 @@ class HorizontalList extends StatelessWidget {
           // print(index);
 
           return Container(
-            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(8),
             child: GestureDetector(
               onTap: () {
                 Provider.of<MoviesProvider>(context, listen: false)
@@ -55,7 +56,7 @@ class HorizontalList extends StatelessWidget {
                 );
               },
               child: Hero(
-                tag: 'Poster' + index.toString() + itemList[index].title,
+                tag: 'Poster' + itemList[index].title,
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -70,8 +71,58 @@ class HorizontalList extends StatelessWidget {
                   child: ClipRRect(
                     //Removed Aspect Ratio. Add if necessary.
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                        baseUrl + posterSize + itemList[index].posterPath),
+                    child: AspectRatio(
+                      aspectRatio: 500 / 750,
+                      child: itemList[index].posterPath != null
+                          ? CachedNetworkImage(
+                              imageUrl: baseUrl +
+                                  posterSize +
+                                  itemList[index].posterPath,
+                              progressIndicatorBuilder:
+                                  (context, url, progress) => Container(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    value: progress.progress,
+                                  ),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            )
+                          : Container(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox.shrink(),
+                                  Material(
+                                    child: Text(
+                                      'Image not available',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  Material(
+                                    child: Text(
+                                      itemList[index].title,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  SizedBox.shrink(),
+                                ],
+                              ),
+                            ),
+                    ),
                   ),
                 ),
               ),

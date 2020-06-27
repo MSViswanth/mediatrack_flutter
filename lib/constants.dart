@@ -12,3 +12,4 @@ String posterSize = 'w500';
 String profileSize = 'w780';
 String url = 'https://flutter.dev/images/flutter-logo-sharing.png';
 String backdropSize = 'w1280';
+String logoSize = 'w154';
