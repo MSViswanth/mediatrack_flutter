@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => MoviesProvider(),
-        )
+        ),
       ],
       child: Consumer2<SettingsProvider, MoviesProvider>(
         builder: (context, settingsProvider, moviesProvider, child) =>

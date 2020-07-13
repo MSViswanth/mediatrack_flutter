@@ -33,9 +33,11 @@ class Movie {
   bool video;
   double voteAverage;
   int voteCount;
+  String mediaType = 'movie';
   ReleaseDatesParent releaseDates;
   SimilarMovies similarMovies;
   Recommendations recommendations;
+
   Movie(
     this.adult,
     this.backdropPath,
@@ -62,6 +64,7 @@ class Movie {
     this.video,
     this.voteAverage,
     this.voteCount,
+    this.mediaType,
     this.releaseDates,
     this.similarMovies,
     this.recommendations,
