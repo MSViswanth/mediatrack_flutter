@@ -10,7 +10,7 @@ String enumName(AppTheme anyEnum) {
 final appThemeData = {
   AppTheme.White: ThemeData(
     brightness: Brightness.light,
-    primarySwatch: Colors.purple,
+    primarySwatch: Colors.blue,
     scaffoldBackgroundColor: Color(0xffeeeeee),
   ),
   AppTheme.Dark: ThemeData(
@@ -20,6 +20,11 @@ final appThemeData = {
     brightness: Brightness.light,
     primarySwatch: Colors.lightGreen,
     scaffoldBackgroundColor: Color(0xffeeeeee),
+    textTheme: TextTheme(
+      bodyText2: TextStyle(
+        color: Colors.white,
+      ),
+    ),
   ),
   AppTheme.DarkGreen: ThemeData(
     brightness: Brightness.dark,
@@ -45,7 +50,7 @@ class SettingsProvider with ChangeNotifier {
   /// Use this method on UI to get selected theme.
   ThemeData get themeData {
     if (_themeData == null) {
-      _themeData = appThemeData[AppTheme.White];
+      _themeData = appThemeData[AppTheme.Dark];
     }
     return _themeData;
   }

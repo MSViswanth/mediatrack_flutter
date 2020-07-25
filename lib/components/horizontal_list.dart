@@ -5,6 +5,7 @@ import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
 import 'package:mediatrack_flutter/views/details_screen.dart';
+import 'package:mediatrack_flutter/views/details_test.dart';
 import 'package:provider/provider.dart';
 
 class HorizontalList extends StatelessWidget {
@@ -17,7 +18,7 @@ class HorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      // color: Theme.of(context).scaffoldBackgroundColor,
       padding: EdgeInsets.all(5),
       height: 200,
       child: ListView.builder(
@@ -39,7 +40,7 @@ class HorizontalList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailsScreen(
+                      builder: (context) => DetailsTest(
                         movie: itemList[index],
                         index: index,
                       ),
@@ -55,74 +56,69 @@ class HorizontalList extends StatelessWidget {
                   ),
                 );
               },
-              child: Hero(
-                tag: 'Poster' + itemList[index].title,
-                child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(5, 5),
-                        blurRadius: 3,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ClipRRect(
-                    //Removed Aspect Ratio. Add if necessary.
-                    borderRadius: BorderRadius.circular(12),
-                    child: AspectRatio(
-                      aspectRatio: 500 / 750,
-                      child: itemList[index].posterPath != null
-                          ? CachedNetworkImage(
-                              imageUrl: baseUrl +
-                                  posterSize +
-                                  itemList[index].posterPath,
-                              progressIndicatorBuilder:
-                                  (context, url, progress) => Container(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                    value: progress.progress,
-                                  ),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(5, 5),
+                      blurRadius: 3,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ClipRRect(
+                  //Removed Aspect Ratio. Add if necessary.
+                  borderRadius: BorderRadius.circular(12),
+                  child: AspectRatio(
+                    aspectRatio: 500 / 750,
+                    child: itemList[index].posterPath != null
+                        ? CachedNetworkImage(
+                            imageUrl: baseUrl +
+                                posterSize +
+                                itemList[index].posterPath,
+                            progressIndicatorBuilder:
+                                (context, url, progress) => Container(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  value: progress.progress,
                                 ),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                            )
-                          : Container(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                // crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  SizedBox.shrink(),
-                                  Material(
-                                    child: Text(
-                                      'Image not available',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  Material(
-                                    child: Text(
-                                      itemList[index].title,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  SizedBox.shrink(),
-                                ],
-                              ),
                             ),
-                    ),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          )
+                        : Container(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox.shrink(),
+                                Material(
+                                  child: Text(
+                                    'Image not available',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Material(
+                                  child: Text(
+                                    itemList[index].title,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                SizedBox.shrink(),
+                              ],
+                            ),
+                          ),
                   ),
                 ),
               ),

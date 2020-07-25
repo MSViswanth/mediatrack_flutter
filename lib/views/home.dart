@@ -28,10 +28,7 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 'Welcome, ${settingsProvider.getUserName()}. What do you want to watch?',
                 style: GoogleFonts.lato(
-                  textStyle: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  textStyle: Theme.of(context).textTheme.headline5,
                 ),
               ),
             ),
