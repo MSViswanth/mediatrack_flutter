@@ -1,4 +1,4 @@
-package com.example.mediatrack_flutter
+package com.mediorgan.mediatrack
 
 import io.flutter.embedding.android.FlutterActivity
 
