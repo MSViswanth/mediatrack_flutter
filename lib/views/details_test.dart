@@ -301,7 +301,10 @@ class _DetailsTestState extends State<DetailsTest> {
                                       width: 20,
                                     ),
                                     widget.movie.runtime == null
-                                        ? Text('Waiting')
+                                        ? Container(
+                                            width: 50,
+                                            child: LinearProgressIndicator(),
+                                          )
                                         : widget.movie.runtime != 0
                                             ? Text(
                                                 widget.movie.runtime ~/ 60 !=
@@ -309,12 +312,12 @@ class _DetailsTestState extends State<DetailsTest> {
                                                         widget.movie.runtime %
                                                                 60 !=
                                                             0
-                                                    ? '${widget.movie.runtime ~/ 60}h ${widget.movie.runtime % 60}min'
+                                                    ? '${widget.movie.runtime ~/ 60}hr ${widget.movie.runtime % 60}min'
                                                     : widget.movie.runtime ~/
                                                                 60 ==
                                                             0
                                                         ? '${widget.movie.runtime % 60}min'
-                                                        : '${widget.movie.runtime ~/ 60}h',
+                                                        : '${widget.movie.runtime ~/ 60}hr',
                                                 style: TextStyle(fontSize: 18),
                                               )
                                             : Text(''),
@@ -386,7 +389,10 @@ class _DetailsTestState extends State<DetailsTest> {
                                     widget.movie.status,
                                     style: TextStyle(fontSize: 16),
                                   )
-                                : Text('Waiting...'),
+                                : Container(
+                                    width: 50,
+                                    child: LinearProgressIndicator(),
+                                  ),
                             // SizedBox.shrink(),
                             widget.movie.voteAverage != 0
                                 ? Row(
@@ -450,58 +456,69 @@ class _DetailsTestState extends State<DetailsTest> {
                           ],
                         ),
                       ),
-                      widget.movie.homepage != null
-                          ? widget.movie.homepage != ''
-                              ? Container(
-                                  width: double.infinity,
-                                  margin: EdgeInsets.all(16),
-                                  padding: EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    // color: Colors.lightBlue,
-                                    // border: Border.all(
-                                    //   color:
-                                    //       Theme.of(context).textTheme.bodyText2.color,
-                                    // ),
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () => launch(widget.movie.homepage),
-                                    child: Center(
-                                      child: Text(
+                      widget.movie.homepage != null &&
+                              widget.movie.homepage != ''
+                          ? Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.all(16),
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                // color: Colors.lightBlue,
+                                // border: Border.all(
+                                //   color:
+                                //       Theme.of(context).textTheme.bodyText2.color,
+                                // ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Theme.of(context).accentColor,
+                              ),
+                              child: InkWell(
+                                onTap: () => launch(widget.movie.homepage),
+                                child: Center(
+                                  child: Text(
+                                    '"' +
+                                        widget.movie.title +
                                         '"' +
-                                            widget.movie.title +
-                                            '"' +
-                                            ' \' Website',
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor,
-                                        ),
-                                      ),
+                                        ' \' Website',
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
                                     ),
                                   ),
-                                )
-                              : Container()
-                          : Container(
-                              child: Center(
-                                child: Text('Waiting...'),
+                                ),
                               ),
-                            ),
+                            )
+                          : Container(
+                              // width: double.infinity,
+                              // margin: EdgeInsets.all(16),
+                              // padding: EdgeInsets.all(16),
+                              // child: Center(
+                              //   child: LinearProgressIndicator(),
+                              // ),
+                              ),
 
                       Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(16),
-                        child: Text(
-                          widget.movie.tagline != null
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(16),
+                          child: widget.movie.tagline != null
                               ? widget.movie.tagline == ''
-                                  ? 'No Tagline'
-                                  : widget.movie.tagline
-                              : 'Waiting...',
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
+                                  ? Text(
+                                      'No Tagline',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  : Text(
+                                      widget.movie.tagline,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                              : Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(16),
+                                  child: Center(
+                                      child: CircularProgressIndicator()),
+                                )),
                       Padding(
                         padding: EdgeInsets.all(16),
                         child: Text(
@@ -593,7 +610,7 @@ class _DetailsTestState extends State<DetailsTest> {
                               children: <Widget>[
                                 Container(
                                   margin: EdgeInsets.only(
-                                    left: 16,
+                                    left: 0,
                                   ),
                                   height: 200,
                                   decoration: BoxDecoration(
@@ -674,7 +691,7 @@ class _DetailsTestState extends State<DetailsTest> {
                         height: 25,
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.spokenLanguages == null
-                            ? Center(child: Text('Waiting'))
+                            ? Center(child: CircularProgressIndicator())
                             : ListView.builder(
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
