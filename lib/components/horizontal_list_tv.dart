@@ -4,6 +4,7 @@ import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/show.dart';
 import 'package:mediatrack_flutter/providers/tv_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:mediatrack_flutter/views/details_screen_tv.dart';
 
 class HorizontalListTV extends StatelessWidget {
   const HorizontalListTV({
@@ -22,37 +23,37 @@ class HorizontalListTV extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          // Provider.of<MoviesProvider>(context, listen: false)
-          //     .updateDetails(itemList[index], index);
-          // String name = popularMovies[index].title;
+//           Provider.of<TVProvider>(context, listen: false)
+//               .updateDetails(itemList[index], index);
+//           String name = popularMovies[index].title;
 
           // print(index);
 
           return Container(
             margin: EdgeInsets.all(8),
             child: GestureDetector(
-              // onTap: () {
-              //   Provider.of<TVProvider>(context, listen: false)
-              //       .updateDetails(itemList, index);
-              //   Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => DetailsTest(
-              //           movie: itemList[index],
-              //           index: index,
-              //         ),
-              //       ));
-              // },
-              // onLongPress: () {
-              //   Provider.of<MoviesProvider>(context, listen: false)
-              //       .updateDetails(itemList, index);
-              //   showModalBottomSheet(
-              //     context: context,
-              //     builder: (context) => BottomSheetQuickInfo(
-              //       movie: itemList[index],
-              //     ),
-              //   );
-              // },
+               onTap: () {
+                 Provider.of<TVProvider>(context, listen: false)
+                     .updateDetails(itemList, index);
+                 Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                       builder: (context) => DetailsScreenTv(
+                         show: itemList[index],
+                         index: index,
+                       ),
+                     ));
+               },
+//               onLongPress: () {
+//                 Provider.of<TVProvider>(context, listen: false)
+//                     .updateDetails(itemList, index);
+//                 showModalBottomSheet(
+//                   context: context,
+//                   builder: (context) => BottomSheetQuickInfo(
+//                     movie: itemList[index],
+//                   ),
+//                 );
+//               },
               child: Container(
                 decoration: BoxDecoration(
                   boxShadow: [
