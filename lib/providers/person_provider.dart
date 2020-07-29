@@ -3,11 +3,11 @@ import 'package:mediatrack_flutter/models/person.dart';
 import 'package:mediatrack_flutter/services/tmdb_service.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
-class TVProvider with ChangeNotifier {
+class PersonProvider with ChangeNotifier {
   List<Person> _trendingPeople = [];
   bool _isWaiting = true;
 
-  TVProvider() {
+  PersonProvider() {
     getTrendingPeople();
   }
 
