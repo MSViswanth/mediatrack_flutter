@@ -1,13 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 import '../movie/movie.dart';
-part 'show.g.dart';
+part 'tvshow.g.dart';
 
 @JsonSerializable(
   fieldRename: FieldRename.snake,
   nullable: true,
   explicitToJson: true,
 )
-class Show {
+class TVShow {
   String backdropPath;
   List<CreatedBy> createdBy;
   List<int> episodeRunTime;
@@ -38,7 +38,7 @@ class Show {
   int voteCount;
   String mediaType = 'tv';
 
-  Show(
+  TVShow(
     this.backdropPath,
     this.createdBy,
     this.episodeRunTime,
@@ -70,7 +70,7 @@ class Show {
     this.mediaType,
   );
 
-  factory Show.fromJson(Map<String, dynamic> json) => _$ShowFromJson(json);
+  factory TVShow.fromJson(Map<String, dynamic> json) => _$ShowFromJson(json);
   Map<String, dynamic> toJson() => _$ShowToJson(this);
 }
 

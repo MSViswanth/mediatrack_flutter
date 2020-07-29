@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mediatrack_flutter/providers/movies_provider.dart';
-import 'package:mediatrack_flutter/providers/person_provider.dart';
+import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
+import 'package:mediatrack_flutter/providers/person/person_provider.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
-import 'package:mediatrack_flutter/providers/tv_provider.dart';
+import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:provider/provider.dart';
 
@@ -26,16 +26,16 @@ class MyApp extends StatelessWidget {
           create: (context) => SettingsProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => MoviesProvider(),
+          create: (context) => MovieProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => TVProvider(),
+          create: (context) => TVShowProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => PersonProvider(),
         )
       ],
-      child: Consumer4<SettingsProvider, MoviesProvider, TVProvider,
+      child: Consumer4<SettingsProvider, MovieProvider, TVShowProvider,
           PersonProvider>(
         builder: (context, settingsProvider, moviesProvider, tvProvider,
                 personProvider, child) =>

@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'show.dart';
+part of 'tvshow.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Show _$ShowFromJson(Map<String, dynamic> json) {
-  return Show(
+TVShow _$ShowFromJson(Map<String, dynamic> json) {
+  return TVShow(
     json['backdrop_path'] as String,
     (json['created_by'] as List)
         ?.map((e) =>
@@ -59,7 +59,7 @@ Show _$ShowFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ShowToJson(Show instance) => <String, dynamic>{
+Map<String, dynamic> _$ShowToJson(TVShow instance) => <String, dynamic>{
       'backdrop_path': instance.backdropPath,
       'created_by': instance.createdBy?.map((e) => e?.toJson())?.toList(),
       'episode_run_time': instance.episodeRunTime,

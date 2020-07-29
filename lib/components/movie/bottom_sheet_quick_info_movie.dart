@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/movie.dart';
+import 'package:mediatrack_flutter/models/movie/movie.dart';
 
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:provider/provider.dart';

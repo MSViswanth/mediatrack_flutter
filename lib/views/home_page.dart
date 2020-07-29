@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mediatrack_flutter/mixins/portraitmode_mixin.dart';
 import 'package:mediatrack_flutter/views/home.dart';
-import 'package:mediatrack_flutter/views/movies.dart';
+import 'package:mediatrack_flutter/views/movie/movies_screen.dart';
 import 'package:mediatrack_flutter/views/profile.dart';
-import 'package:mediatrack_flutter/views/tv.dart';
+import 'package:mediatrack_flutter/views/tvshow/tvshow_screen.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> with PortraitStatefulModeMixin {
   List<Widget> _children = [
     HomeScreen(),
     MoviesScreen(),
-    TVScreen(),
+    TVShowScreen(),
     ProfileScreen(),
   ];
 

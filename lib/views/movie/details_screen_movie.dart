@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie/movie.dart';
-import 'package:mediatrack_flutter/providers/movie_provider.dart';
+import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
@@ -288,7 +288,6 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                           ],
                         ),
                       ),
-
                       widget.movie.homepage != null &&
                               widget.movie.homepage != ''
                           ? Container(
@@ -540,7 +539,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.productionCountries == null
                             ? Center(child: Text('Waiting'))
-                            : ListView.builder(
+                            :widget.movie.productionCountries.length!=0? ListView.builder(
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
@@ -551,7 +550,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                 },
                                 itemCount:
                                     widget.movie.productionCountries.length,
-                              ),
+                              ):Center(child: Text('Not Available'),),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
@@ -623,77 +622,42 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                 child: Text('Waiting'),
                               ),
                       ),
-                      GestureDetector(
-                        onTap: widget.movie.imdbId != null
-                            ? () => launch('http://www.imdb.com/title/' +
-                                widget.movie.imdbId +
-                                '/parentalguide')
-                            : () {},
-                        child: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                'Parental Guide from IMDb',
-                                style: GoogleFonts.lato(
-                                  textStyle:
-                                      Theme.of(context).textTheme.headline6,
-                                  color: Theme.of(context).accentColor,
-                                ),
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Theme.of(context).accentColor,
+                        ),
+                        child: InkWell(
+                          onTap: widget.movie.imdbId != null
+                              ? () => launch('http://www.imdb.com/title/' +
+                              widget.movie.imdbId +
+                              '/parentalguide')
+                              : () {},
+                          child: Center(
+                            child: Text('Parental Guide from IMDb',
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .scaffoldBackgroundColor,
                               ),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Theme.of(context).accentColor,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              'Recommendations',
-                              style: GoogleFonts.lato(
-                                textStyle:
-                                    Theme.of(context).textTheme.headline6,
-                                color: widget.movie.recommendations != null
-                                    ? widget.movie.recommendations.results
-                                                .length !=
-                                            0
-                                        ? Theme.of(context).accentColor
-                                        : Colors.grey
-                                    : Colors.grey,
-                              ),
-                            ),
-                            Spacer(),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: widget.movie.recommendations != null
-                                  ? widget.movie.recommendations.results
-                                              .length !=
-                                          0
-                                      ? Theme.of(context).accentColor
-                                      : Colors.grey
-                                  : Colors.grey,
-                            ),
-                          ],
-                        ),
-                      ),
-                      //Removed because of Captain Marvel - Same Hero Tag.
                       widget.movie.recommendations != null
                           ? widget.movie.recommendations.results.length != 0
                               ? HorizontalListMovie(
                                   itemList:
                                       widget.movie.recommendations.results,
+                        title: 'Recommendations',
                                 )
                               : Container(
                                   padding: EdgeInsets.all(16),
                                   child: Center(
                                     child: Text(
-                                      'Not Available',
+                                      'Recommendations Not Available',
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -706,30 +670,18 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                 child: CircularProgressIndicator(),
                               ),
                             ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text(
-                          'More like this',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: widget.movie.similarMovies != null
-                                ? widget.movie.similarMovies.results.length != 0
-                                    ? Theme.of(context).accentColor
-                                    : Colors.grey
-                                : Colors.grey,
-                          ),
-                        ),
-                      ),
+
                       widget.movie.similarMovies != null
                           ? widget.movie.similarMovies.results.length != 0
                               ? HorizontalListMovie(
                                   itemList: widget.movie.similarMovies.results,
+                        title: 'More like this',
                                 )
                               : Container(
                                   padding: EdgeInsets.all(16),
                                   child: Center(
                                     child: Text(
-                                      'Not Available',
+                                      'Similar Movies Not Available',
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),

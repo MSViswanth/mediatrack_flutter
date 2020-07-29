@@ -2,18 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/show.dart';
-import 'package:mediatrack_flutter/providers/tv_provider.dart';
+import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
+import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:mediatrack_flutter/views/details_screen_tv.dart';
+import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
 
-class HorizontalListTV extends StatelessWidget {
-  const HorizontalListTV({
+class HorizontalListTVShow extends StatelessWidget {
+  const HorizontalListTVShow({
     @required this.itemList,
     @required this.title,
   });
 
-  final List<Show> itemList;
+  final List<TVShow> itemList;
   final String title;
 
   @override
@@ -27,10 +27,12 @@ class HorizontalListTV extends StatelessWidget {
               Text(title,
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
               Spacer(),
-              Icon(Icons.arrow_forward),
+              Icon(Icons.arrow_forward,
+                color: Theme.of(context).accentColor,),
             ],
           ),
         ),
@@ -45,13 +47,13 @@ class HorizontalListTV extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-                    Provider.of<TVProvider>(context, listen: false)
+                    Provider.of<TVShowProvider>(context, listen: false)
                         .updateDetails(itemList, index);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailsScreenTv(
-                            show: itemList[index],
+                          builder: (context) => DetailsScreenTVShow(
+                            tvshow: itemList[index],
                             index: index,
                           ),
                         ));

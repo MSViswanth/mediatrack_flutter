@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mediatrack_flutter/components/bottom_sheet_quick_info_movie.dart';
+import 'package:mediatrack_flutter/components/movie/bottom_sheet_quick_info_movie.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/movie.dart';
-import 'package:mediatrack_flutter/providers/movies_provider.dart';
-import 'package:mediatrack_flutter/views/details_screen_movie.dart';
+import 'package:mediatrack_flutter/models/movie/movie.dart';
+import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
+import 'package:mediatrack_flutter/views/movie/details_screen_movie.dart';
 import 'package:provider/provider.dart';
 
 
@@ -32,10 +32,11 @@ class HorizontalListMovie extends StatelessWidget {
               Text(title,
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
               Spacer(),
-              Icon(Icons.arrow_forward),
+              Icon(Icons.arrow_forward,color: Theme.of(context).accentColor,),
             ],
           ),
         ),
@@ -51,7 +52,7 @@ class HorizontalListMovie extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-                    Provider.of<MoviesProvider>(context, listen: false)
+                    Provider.of<MovieProvider>(context, listen: false)
                         .updateDetails(itemList, index);
                     Navigator.push(
                         context,
@@ -62,7 +63,7 @@ class HorizontalListMovie extends StatelessWidget {
                         ));
                   },
                   onLongPress: () {
-                    Provider.of<MoviesProvider>(context, listen: false)
+                    Provider.of<MovieProvider>(context, listen: false)
                         .updateDetails(itemList, index);
                     showModalBottomSheet(
                       context: context,

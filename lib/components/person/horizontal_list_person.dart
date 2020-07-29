@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/person.dart';
-import 'package:mediatrack_flutter/providers/person_provider.dart';
+import 'package:mediatrack_flutter/models/person/person.dart';
+import 'package:mediatrack_flutter/providers/person/person_provider.dart';
 import 'package:provider/provider.dart';
 
 class HorizontalListPerson extends StatelessWidget {
@@ -26,10 +26,12 @@ class HorizontalListPerson extends StatelessWidget {
               Text(title,
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
               Spacer(),
-              Icon(Icons.arrow_forward),
+              Icon(Icons.arrow_forward,
+                color: Theme.of(context).accentColor,),
             ],
           ),
         ),
