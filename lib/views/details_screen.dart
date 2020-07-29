@@ -33,7 +33,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     resetDetailsProvider = Provider.of<MoviesProvider>(context, listen: false);
-
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(

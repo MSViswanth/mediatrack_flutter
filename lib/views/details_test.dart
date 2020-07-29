@@ -463,11 +463,6 @@ class _DetailsTestState extends State<DetailsTest> {
                               margin: EdgeInsets.all(16),
                               padding: EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                // color: Colors.lightBlue,
-                                // border: Border.all(
-                                //   color:
-                                //       Theme.of(context).textTheme.bodyText2.color,
-                                // ),
                                 borderRadius: BorderRadius.circular(12),
                                 color: Theme.of(context).accentColor,
                               ),
@@ -487,14 +482,7 @@ class _DetailsTestState extends State<DetailsTest> {
                                 ),
                               ),
                             )
-                          : Container(
-                              // width: double.infinity,
-                              // margin: EdgeInsets.all(16),
-                              // padding: EdgeInsets.all(16),
-                              // child: Center(
-                              //   child: LinearProgressIndicator(),
-                              // ),
-                              ),
+                          : Container(),
 
                       Container(
                           alignment: Alignment.center,
