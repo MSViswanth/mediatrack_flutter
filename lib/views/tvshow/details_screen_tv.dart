@@ -74,6 +74,107 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                 ),
               ),
             ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    height: 200,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: 0.6 * size.width,
+                              child: widget.tvshow.originalName != null
+                                  ? Text(
+                                widget.tvshow.originalName ,
+                                style: GoogleFonts.lato(
+                                  textStyle: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              )
+                                  : Text(widget.tvshow.name),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                widget.tvshow.firstAirDate != ''
+                                    ? Text(
+                                  '${DateTime.parse(widget.tvshow.firstAirDate).year}'+'  -  '+' ${widget.tvshow.status=='Ended'? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year: 'Tomorrow'}',
+                                  style: TextStyle(fontSize: 20),
+                                )
+                                    : Text('Not Available'),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: 200,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset(5, 5),
+                                blurRadius: 3,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 500 / 750,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: widget.tvshow.posterPath != null
+                                  ? CachedNetworkImage(
+                                imageUrl: baseUrl +
+                                    posterSize +
+                                    widget.tvshow.posterPath,
+                                progressIndicatorBuilder:
+                                    (context, url, progress) =>
+                                    Container(
+                                      color: Colors.white,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          value: progress.progress,
+                                        ),
+                                      ),
+                                    ),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              )
+                                  : Container(
+                                color: Theme.of(context)
+                                    .scaffoldBackgroundColor,
+                                padding: EdgeInsets.all(3),
+                                child: Center(
+                                    child: Material(
+                                      child: Text(
+                                        'Image not available',
+                                        textAlign: TextAlign.center,
+                                        style:
+                                        TextStyle(color: Colors.grey),
+                                      ),
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]
+              ),
+            )
           ],
         ),
       )),
