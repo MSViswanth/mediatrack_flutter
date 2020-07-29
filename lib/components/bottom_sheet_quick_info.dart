@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie.dart';
@@ -47,8 +48,8 @@ class BottomSheetQuickInfo extends StatelessWidget {
 
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            baseUrl + posterSize + movie.posterPath,
+                          child: CachedNetworkImage(
+                            imageUrl: baseUrl + posterSize + movie.posterPath,
                           ),
                         ),
                       ),
