@@ -51,6 +51,14 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
+            isWaiting
+                ? Container(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : HorizontalList(itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
