@@ -40,7 +40,7 @@ Show _$ShowFromJson(Map<String, dynamic> json) {
     (json['origin_country'] as List)?.map((e) => e as String)?.toList(),
     json['origin_language'] as String,
     json['overview'] as String,
-    json['popularity'] as int,
+    (json['popularity'] as num)?.toDouble(),
     json['poster_path'] as String,
     (json['production_companies'] as List)
         ?.map((e) => e == null
@@ -53,8 +53,9 @@ Show _$ShowFromJson(Map<String, dynamic> json) {
         ?.toList(),
     json['status'] as String,
     json['type'] as String,
-    json['vote_average'] as int,
+    (json['vote_average'] as num)?.toDouble(),
     json['vote_count'] as int,
+    json['media_type'] as String,
   );
 }
 
@@ -88,6 +89,7 @@ Map<String, dynamic> _$ShowToJson(Show instance) => <String, dynamic>{
       'type': instance.type,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'media_type': instance.mediaType,
     };
 
 CreatedBy _$CreatedByFromJson(Map<String, dynamic> json) {

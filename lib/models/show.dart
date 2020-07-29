@@ -7,7 +7,7 @@ part 'show.g.dart';
   nullable: true,
   explicitToJson: true,
 )
-class Show{
+class Show {
   String backdropPath;
   List<CreatedBy> createdBy;
   List<int> episodeRunTime;
@@ -28,57 +28,57 @@ class Show{
   String originLanguage;
   String originalName;
   String overview;
-  int popularity;
+  double popularity;
   String posterPath;
   List<ProductionCompanies> productionCompanies;
   List<Seasons> seasons;
   String status;
   String type;
-  int voteAverage;
+  double voteAverage;
   int voteCount;
+  String mediaType = 'tv';
 
   Show(
-      this.backdropPath,
-      this.createdBy,
-      this.episodeRunTime,
-      this.firstAirDate,
-      this.genres,
-      this.homepage,
-      this.id,
-      this.inProduction,
-      this.languages,
-      this.lastAirDate,
-      this.lastEpisodeToAir,
-      this.name,
-      this.nextEpisodeToAir,
-      this.networks,
-      this.numberOfEpisodes,
-      this.numberOfSeasons,
-      this.originalName,
-      this.originCountry,
-      this.originLanguage,
-      this.overview,
-      this.popularity,
-      this.posterPath,
-      this.productionCompanies,
-      this.seasons,
-      this.status,
-      this.type,
-      this.voteAverage,
-      this.voteCount,
-      );
+    this.backdropPath,
+    this.createdBy,
+    this.episodeRunTime,
+    this.firstAirDate,
+    this.genres,
+    this.homepage,
+    this.id,
+    this.inProduction,
+    this.languages,
+    this.lastAirDate,
+    this.lastEpisodeToAir,
+    this.name,
+    this.nextEpisodeToAir,
+    this.networks,
+    this.numberOfEpisodes,
+    this.numberOfSeasons,
+    this.originalName,
+    this.originCountry,
+    this.originLanguage,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.productionCompanies,
+    this.seasons,
+    this.status,
+    this.type,
+    this.voteAverage,
+    this.voteCount,
+    this.mediaType,
+  );
 
   factory Show.fromJson(Map<String, dynamic> json) => _$ShowFromJson(json);
   Map<String, dynamic> toJson() => _$ShowToJson(this);
-
 }
-
 
 @JsonSerializable(
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class CreatedBy{
+class CreatedBy {
   int id;
   String creditId;
   String name;
@@ -86,14 +86,15 @@ class CreatedBy{
   String profilePath;
 
   CreatedBy(
-      this.name,
-      this.id,
-      this.creditId,
-      this.gender,
-      this.profilePath,
-      );
+    this.name,
+    this.id,
+    this.creditId,
+    this.gender,
+    this.profilePath,
+  );
 
-  factory CreatedBy.fromJson(Map<String, dynamic> json) => _$CreatedByFromJson(json);
+  factory CreatedBy.fromJson(Map<String, dynamic> json) =>
+      _$CreatedByFromJson(json);
   Map<String, dynamic> toJson() => _$CreatedByToJson(this);
 }
 
@@ -101,7 +102,7 @@ class CreatedBy{
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class LastEpisodeToAir{
+class LastEpisodeToAir {
   String airDate;
   int episodeNumber;
   int id;
@@ -115,43 +116,38 @@ class LastEpisodeToAir{
   int voteCount;
 
   LastEpisodeToAir(
-      this.id,
-      this.name,
-      this.voteCount,
-      this.voteAverage,
-      this.overview,
-      this.airDate,
-      this.episodeNumber,
-      this.productionCode,
-      this.seasonNumber,
-      this.showId,
-      this.stillPath,
-      );
+    this.id,
+    this.name,
+    this.voteCount,
+    this.voteAverage,
+    this.overview,
+    this.airDate,
+    this.episodeNumber,
+    this.productionCode,
+    this.seasonNumber,
+    this.showId,
+    this.stillPath,
+  );
 
-  factory LastEpisodeToAir.fromJson(Map<String, dynamic> json) => _$LastEpisodeToAirFromJson(json);
+  factory LastEpisodeToAir.fromJson(Map<String, dynamic> json) =>
+      _$LastEpisodeToAirFromJson(json);
   Map<String, dynamic> toJson() => _$LastEpisodeToAirToJson(this);
-
-
 }
 
 @JsonSerializable(
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class Networks{
+class Networks {
   String name;
   int id;
   String logoPath;
   String originCountry;
 
-  Networks(
-      this.name,
-      this.id,
-      this.originCountry,
-      this.logoPath
-      );
+  Networks(this.name, this.id, this.originCountry, this.logoPath);
 
-  factory Networks.fromJson(Map<String, dynamic> json) => _$NetworksFromJson(json);
+  factory Networks.fromJson(Map<String, dynamic> json) =>
+      _$NetworksFromJson(json);
   Map<String, dynamic> toJson() => _$NetworksToJson(this);
 }
 
@@ -159,7 +155,7 @@ class Networks{
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class Seasons{
+class Seasons {
   String airDate;
   String episodeCount;
   int id;
@@ -169,16 +165,16 @@ class Seasons{
   int seasonNumber;
 
   Seasons(
-      this.airDate,
-      this.episodeCount,
-      this.id,
-      this.name,
-      this.overview,
-      this.posterPath,
-      this.seasonNumber,
-      );
+    this.airDate,
+    this.episodeCount,
+    this.id,
+    this.name,
+    this.overview,
+    this.posterPath,
+    this.seasonNumber,
+  );
 
-  factory Seasons.fromJson(Map<String, dynamic> json) => _$SeasonsFromJson(json);
+  factory Seasons.fromJson(Map<String, dynamic> json) =>
+      _$SeasonsFromJson(json);
   Map<String, dynamic> toJson() => _$SeasonsToJson(this);
-
 }
