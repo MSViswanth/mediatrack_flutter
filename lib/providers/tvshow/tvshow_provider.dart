@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:mediatrack_flutter/models/show.dart';
+import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/services/tmdb_service.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
-class TVProvider with ChangeNotifier {
-  List<Show> _trendingTVShows = [];
+class TVShowProvider with ChangeNotifier {
+  List<TVShow> _trendingTVShows = [];
   bool _isWaiting = true;
 
-  TVProvider() {
+  TVShowProvider() {
     getTrendingTVShows();
   }
 
-  void updateDetails(List<Show> show, int index) async {
+  void updateDetails(List<TVShow> show, int index) async {
     try {
       Map tvUpdated = await tmdb.v3.tv.getDetails(
         show[index].id,
       );
-      show[index] = Show.fromJson(tvUpdated);
+      show[index] = TVShow.fromJson(tvUpdated);
       // print(movie[index].homepage);
 
     } catch (e) {
@@ -31,7 +31,7 @@ class TVProvider with ChangeNotifier {
       Map trendingTVShowsList = await tmdb.v3.trending
           .getTrending(mediaType: MediaType.tv, timeWindow: TimeWindow.day);
       for (Map trendingShow in trendingTVShowsList['results']) {
-        _trendingTVShows.add(Show.fromJson(trendingShow));
+        _trendingTVShows.add(TVShow.fromJson(trendingShow));
       }
 
       // print(_trendingMovies.length);

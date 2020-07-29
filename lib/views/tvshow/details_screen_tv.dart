@@ -3,17 +3,16 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/show.dart';
+import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/tv_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:mediatrack_flutter/components/horizontal_list_tv.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 
 
 
 class DetailsScreenTv extends StatefulWidget {
-  final Show show;
+  final TVShow show;
   final int index;
   DetailsScreenTv({this.show, this.index});
   @override

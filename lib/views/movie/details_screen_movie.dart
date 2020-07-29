@@ -4,24 +4,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/movie.dart';
-import 'package:mediatrack_flutter/providers/movies_provider.dart';
+import 'package:mediatrack_flutter/models/movie/movie.dart';
+import 'package:mediatrack_flutter/providers/movie_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:provider/provider.dart';
-import 'package:mediatrack_flutter/components/horizontal_list.dart';
+import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailsTest extends StatefulWidget {
+class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;
-  final int index;
-  DetailsTest({this.movie, this.index});
+  DetailsScreenMovie({this.movie,});
 
   @override
-  _DetailsTestState createState() => _DetailsTestState();
+  _DetailsScreenMovieState createState() => _DetailsScreenMovieState();
 }
 
-class _DetailsTestState extends State<DetailsTest> {
-  MoviesProvider resetDetailsProvider;
+class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
+  MovieProvider resetDetailsProvider;
 
   @override
   void dispose() {
@@ -32,7 +31,7 @@ class _DetailsTestState extends State<DetailsTest> {
 
   @override
   Widget build(BuildContext context) {
-    resetDetailsProvider = Provider.of<MoviesProvider>(context, listen: false);
+    resetDetailsProvider = Provider.of<MovieProvider>(context, listen: false);
 
     final Size size = MediaQuery.of(context).size;
 
@@ -94,173 +93,6 @@ class _DetailsTestState extends State<DetailsTest> {
                 SliverList(
                   delegate: SliverChildListDelegate(
                     <Widget>[
-                      // Container(
-                      //   height: 0.5 * size.height,
-                      //   child: Stack(
-                      //     children: <Widget>[
-                      //       Container(
-                      //         //Backdrop
-                      //         width: size.width,
-                      //         height: 0.4 * size.height,
-                      //         decoration: BoxDecoration(
-                      //           gradient: LinearGradient(
-                      //             colors: [Colors.purple, Colors.red],
-                      //           ),
-                      //           // color: Theme.of(context).accentColor,
-                      //           image: DecorationImage(
-                      //               image: widget.movie.backdropPath == null
-                      //                   ? NetworkImage(
-                      //                       url) //TODO: Add placeholder.
-                      //                   : CachedNetworkImageProvider(
-                      //                       baseUrl +
-                      //                           backdropSize +
-                      //                           widget.movie.backdropPath,
-                      //                     ),
-                      //               fit: BoxFit.cover),
-                      //         ),
-                      //         child: Container(
-                      //           width: size.width,
-                      //           alignment: Alignment.bottomLeft,
-                      //           decoration: BoxDecoration(
-                      //             gradient: LinearGradient(
-                      //               begin: Alignment.bottomCenter,
-                      //               end: Alignment.topCenter,
-                      //               colors: [
-                      //                 Colors.black87,
-                      //                 Colors.transparent,
-                      //               ],
-                      //             ),
-                      //           ),
-                      //           child: Container(
-                      //             //Title
-                      //             width: 0.6 * size.width,
-                      //             padding: EdgeInsets.all(16),
-                      //             // margin: EdgeInsets.only(
-                      //             //   left: 0.1 * size.width,
-                      //             // ),
-                      //             child: Text(
-                      //               widget.movie.title,
-                      //               style: TextStyle(
-                      //                 color: Colors.white,
-                      //                 fontSize: 20,
-                      //                 fontWeight: FontWeight.w600,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       //Poster
-                      //       Positioned(
-                      //         bottom: 10,
-                      //         right: 16,
-                      //         child: Container(
-                      //           height: 200,
-                      //           decoration: BoxDecoration(
-                      //             boxShadow: [
-                      //               BoxShadow(
-                      //                 color: Colors.black26,
-                      //                 offset: Offset(5, 5),
-                      //                 blurRadius: 3,
-                      //               ),
-                      //             ],
-                      //             borderRadius: BorderRadius.circular(12),
-                      //           ),
-                      //           child: AspectRatio(
-                      //             aspectRatio: 500 / 750,
-                      //             child: ClipRRect(
-                      //               borderRadius: BorderRadius.circular(12),
-                      //               child: widget.movie.posterPath != null
-                      //                   ? CachedNetworkImage(
-                      //                       imageUrl: baseUrl +
-                      //                           posterSize +
-                      //                           widget.movie.posterPath,
-                      //                       progressIndicatorBuilder:
-                      //                           (context, url, progress) =>
-                      //                               Container(
-                      //                         color: Colors.white,
-                      //                         child: Center(
-                      //                           child:
-                      //                               CircularProgressIndicator(
-                      //                             value: progress.progress,
-                      //                           ),
-                      //                         ),
-                      //                       ),
-                      //                       errorWidget:
-                      //                           (context, url, error) =>
-                      //                               Icon(Icons.error),
-                      //                     )
-                      //                   : Container(
-                      //                       color: Theme.of(context)
-                      //                           .scaffoldBackgroundColor,
-                      //                       padding: EdgeInsets.all(3),
-                      //                       child: Center(
-                      //                           child: Material(
-                      //                         child: Text(
-                      //                           'Image not available',
-                      //                           textAlign: TextAlign.center,
-                      //                           style: TextStyle(
-                      //                               color: Colors.grey),
-                      //                         ),
-                      //                       )),
-                      //                     ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Positioned(
-                      //         left: 8,
-                      //         top: 20,
-                      //         child: IconButton(
-                      //           icon: Icon(Icons.arrow_back),
-                      //           color: Colors.white,
-                      //           onPressed: () => Navigator.pop(context),
-                      //         ),
-                      //       ),
-                      //       //Release date Row
-                      //       Positioned(
-                      //         left: 0,
-                      //         bottom: 0,
-                      //         child: Container(
-                      //           padding: EdgeInsets.all(16),
-                      //           height: 0.1 * size.height,
-                      //           width: 0.6 * size.width,
-                      //           child: Row(
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceBetween,
-                      //             crossAxisAlignment: CrossAxisAlignment.center,
-                      //             children: <Widget>[
-                      //               widget.movie.releaseDate != ''
-                      //                   ? Text(
-                      //                       '${DateTime.parse(widget.movie.releaseDate).year}',
-                      //                       style: TextStyle(fontSize: 20),
-                      //                     )
-                      //                   : Text('Not Available'),
-                      //               widget.movie.runtime == null
-                      //                   ? Text('Waiting')
-                      //                   : widget.movie.runtime != 0
-                      //                       ? Text(
-                      //                           widget.movie.runtime ~/ 60 !=
-                      //                                       0 &&
-                      //                                   widget.movie.runtime %
-                      //                                           60 !=
-                      //                                       0
-                      //                               ? '${widget.movie.runtime ~/ 60}h ${widget.movie.runtime % 60}min'
-                      //                               : widget.movie.runtime ~/
-                      //                                           60 ==
-                      //                                       0
-                      //                                   ? '${widget.movie.runtime % 60}min'
-                      //                                   : '${widget.movie.runtime ~/ 60}h',
-                      //                           style: TextStyle(fontSize: 18),
-                      //                         )
-                      //                       : Text(''),
-                      //               SizedBox.shrink(),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                       Container(
                         padding: EdgeInsets.all(16),
                         height: 200,
@@ -429,14 +261,14 @@ class _DetailsTestState extends State<DetailsTest> {
                                         .color,
                                   ),
                                   borderRadius: BorderRadius.circular(3)),
-                              child: Text(Provider.of<MoviesProvider>(context)
+                              child: Text(Provider.of<MovieProvider>(context)
                                               .certification ==
                                           '' ||
-                                      Provider.of<MoviesProvider>(context)
+                                      Provider.of<MovieProvider>(context)
                                               .certification ==
                                           null
                                   ? 'NR'
-                                  : Provider.of<MoviesProvider>(context)
+                                  : Provider.of<MovieProvider>(context)
                                       .certification),
                             ),
                             // SizedBox.shrink(),
@@ -853,7 +685,7 @@ class _DetailsTestState extends State<DetailsTest> {
                       //Removed because of Captain Marvel - Same Hero Tag.
                       widget.movie.recommendations != null
                           ? widget.movie.recommendations.results.length != 0
-                              ? HorizontalList(
+                              ? HorizontalListMovie(
                                   itemList:
                                       widget.movie.recommendations.results,
                                 )
@@ -890,7 +722,7 @@ class _DetailsTestState extends State<DetailsTest> {
                       ),
                       widget.movie.similarMovies != null
                           ? widget.movie.similarMovies.results.length != 0
-                              ? HorizontalList(
+                              ? HorizontalListMovie(
                                   itemList: widget.movie.similarMovies.results,
                                 )
                               : Container(

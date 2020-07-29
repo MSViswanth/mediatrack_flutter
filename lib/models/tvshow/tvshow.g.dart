@@ -160,7 +160,7 @@ Map<String, dynamic> _$NetworksToJson(Networks instance) => <String, dynamic>{
 Seasons _$SeasonsFromJson(Map<String, dynamic> json) {
   return Seasons(
     json['air_date'] as String,
-    json['episode_count'] as String,
+    json['episode_count'] as int,
     json['id'] as int,
     json['name'] as String,
     json['overview'] as String,

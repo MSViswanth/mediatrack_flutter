@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'movie.dart';
+import '../movie/movie.dart';
 part 'show.g.dart';
 
 @JsonSerializable(
@@ -157,7 +157,7 @@ class Networks {
 )
 class Seasons {
   String airDate;
-  String episodeCount;
+  int episodeCount;
   int id;
   String name;
   String overview;

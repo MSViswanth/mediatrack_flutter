@@ -6,8 +6,8 @@ import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
-class BottomSheetQuickInfo extends StatelessWidget {
-  const BottomSheetQuickInfo({
+class BottomSheetQuickInfoMovie extends StatelessWidget {
+  const BottomSheetQuickInfoMovie({
     Key key,
     @required this.movie,
   }) : super(key: key);

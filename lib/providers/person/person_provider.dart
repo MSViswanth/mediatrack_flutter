@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mediatrack_flutter/models/person.dart';
+import 'package:mediatrack_flutter/models/person/person.dart';
 import 'package:mediatrack_flutter/services/tmdb_service.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
