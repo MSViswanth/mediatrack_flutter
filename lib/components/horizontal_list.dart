@@ -4,7 +4,6 @@ import 'package:mediatrack_flutter/components/bottom_sheet_quick_info.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
-import 'package:mediatrack_flutter/views/details_screen.dart';
 import 'package:mediatrack_flutter/views/details_test.dart';
 import 'package:provider/provider.dart';
 

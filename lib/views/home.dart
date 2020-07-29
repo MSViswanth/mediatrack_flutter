@@ -3,17 +3,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/components/horizontal_list.dart';
 
 import 'package:mediatrack_flutter/models/movie.dart';
+import 'package:mediatrack_flutter/models/show.dart';
 import 'package:mediatrack_flutter/providers/movies_provider.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
+import 'package:mediatrack_flutter/providers/tv_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MoviesProvider moviesProvider = Provider.of<MoviesProvider>(context);
+    TVProvider tvProvider = Provider.of<TVProvider>(context);
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     bool isWaiting = moviesProvider.isWaiting;
     List<Movie> popularMovies = moviesProvider.trendingMovies;
+    List<Show> popularTVShows = tvProvider.trendingTVShows;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -47,15 +51,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            isWaiting
-                ? Container(
-                    height: 200,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : HorizontalList(itemList: popularMovies),
-            // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
