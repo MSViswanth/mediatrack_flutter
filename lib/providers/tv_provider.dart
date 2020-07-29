@@ -13,10 +13,10 @@ class TVProvider with ChangeNotifier {
 
   void updateDetails(List<Show> show, int index) async {
     try {
-      Map movieUpdated = await tmdb.v3.movies.getDetails(
+      Map tvUpdated = await tmdb.v3.movies.getDetails(
         show[index].id,
       );
-      show[index] = Show.fromJson(movieUpdated);
+      show[index] = Show.fromJson(tvUpdated);
       // print(movie[index].homepage);
 
     } catch (e) {
