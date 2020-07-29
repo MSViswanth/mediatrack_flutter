@@ -23,15 +23,18 @@ class HorizontalListPerson extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Row(
             children: <Widget>[
-              Text(title,
+              Text(
+                title,
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
                   color: Theme.of(context).accentColor,
                 ),
               ),
               Spacer(),
-              Icon(Icons.arrow_forward,
-                color: Theme.of(context).accentColor,),
+              Icon(
+                Icons.arrow_forward,
+                color: Theme.of(context).accentColor,
+              ),
             ],
           ),
         ),
@@ -90,7 +93,8 @@ class HorizontalListPerson extends StatelessWidget {
                                     itemList[index].profilePath,
                                 progressIndicatorBuilder:
                                     (context, url, progress) => Container(
-                                  color: Theme.of(context).scaffoldBackgroundColor,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   child: Center(
                                     child: CircularProgressIndicator(
                                       value: progress.progress,
@@ -101,9 +105,11 @@ class HorizontalListPerson extends StatelessWidget {
                                     Icon(Icons.error),
                               )
                             : Container(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   // crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     SizedBox.shrink(),

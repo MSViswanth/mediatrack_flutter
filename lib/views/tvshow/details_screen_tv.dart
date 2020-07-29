@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 
-
-
 class DetailsScreenTVShow extends StatefulWidget {
   final TVShow tvshow;
   final int index;
@@ -25,24 +23,24 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: widget.tvshow.posterPath != null
-                    ? CachedNetworkImageProvider(
-                  baseUrl + posterSize + widget.tvshow.posterPath,
-                )
-                    : NetworkImage(url),
-                fit: BoxFit.cover,
-                colorFilter: widget.tvshow.posterPath != null
-                    ? ColorFilter.mode(Colors.black, BlendMode.screen)
-                    : ColorFilter.mode(Colors.white, BlendMode.clear)),
-          ),
-          child: ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
-              child: CustomScrollView(
-                  slivers: <Widget>[
-              SliverAppBar(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: widget.tvshow.posterPath != null
+                ? CachedNetworkImageProvider(
+                    baseUrl + posterSize + widget.tvshow.posterPath,
+                  )
+                : NetworkImage(url),
+            fit: BoxFit.cover,
+            colorFilter: widget.tvshow.posterPath != null
+                ? ColorFilter.mode(Colors.black, BlendMode.screen)
+                : ColorFilter.mode(Colors.white, BlendMode.clear)),
+      ),
+      child: ClipRect(
+          child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
               title: Text(widget.tvshow.name),
               floating: true,
               expandedHeight: 0.3 * size.height,
@@ -52,10 +50,8 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                     image: widget.tvshow.backdropPath == null
                         ? NetworkImage(url) //TODO: Add placeholder.
                         : CachedNetworkImageProvider(
-                      baseUrl +
-                          backdropSize +
-                          widget.tvshow.backdropPath,
-                    ),
+                            baseUrl + backdropSize + widget.tvshow.backdropPath,
+                          ),
                     fit: BoxFit.cover,
                   ),
                   gradient: LinearGradient(
@@ -78,13 +74,9 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                 ),
               ),
             ),
-
-                  ],
-              ),
-            )
-          ),
-        )
-    );
+          ],
+        ),
+      )),
+    ));
   }
 }
-

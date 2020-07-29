@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
-
 class RecommendationsScreen extends StatelessWidget {
   RecommendationsScreen(this.recommendations);
   final List<Movie> recommendations;

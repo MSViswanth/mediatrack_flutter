@@ -13,7 +13,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;
-  DetailsScreenMovie({this.movie,});
+  DetailsScreenMovie({
+    this.movie,
+  });
 
   @override
   _DetailsScreenMovieState createState() => _DetailsScreenMovieState();
@@ -315,7 +317,6 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                               ),
                             )
                           : Container(),
-
                       Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.all(16),
@@ -539,18 +540,24 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.productionCountries == null
                             ? Center(child: Text('Waiting'))
-                            :widget.movie.productionCountries.length!=0? ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      margin: EdgeInsets.only(right: 16),
-                                      child: Text(widget.movie
-                                          .productionCountries[index].name));
-                                },
-                                itemCount:
-                                    widget.movie.productionCountries.length,
-                              ):Center(child: Text('Not Available'),),
+                            : widget.movie.productionCountries.length != 0
+                                ? ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          margin: EdgeInsets.only(right: 16),
+                                          child: Text(widget
+                                              .movie
+                                              .productionCountries[index]
+                                              .name));
+                                    },
+                                    itemCount:
+                                        widget.movie.productionCountries.length,
+                                  )
+                                : Center(
+                                    child: Text('Not Available'),
+                                  ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
@@ -633,14 +640,15 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         child: InkWell(
                           onTap: widget.movie.imdbId != null
                               ? () => launch('http://www.imdb.com/title/' +
-                              widget.movie.imdbId +
-                              '/parentalguide')
+                                  widget.movie.imdbId +
+                                  '/parentalguide')
                               : () {},
                           child: Center(
-                            child: Text('Parental Guide from IMDb',
+                            child: Text(
+                              'Parental Guide from IMDb',
                               style: TextStyle(
-                                color: Theme.of(context)
-                                    .scaffoldBackgroundColor,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
                               ),
                             ),
                           ),
@@ -651,7 +659,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                               ? HorizontalListMovie(
                                   itemList:
                                       widget.movie.recommendations.results,
-                        title: 'Recommendations',
+                                  title: 'Recommendations',
                                 )
                               : Container(
                                   padding: EdgeInsets.all(16),
@@ -670,12 +678,11 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                 child: CircularProgressIndicator(),
                               ),
                             ),
-
                       widget.movie.similarMovies != null
                           ? widget.movie.similarMovies.results.length != 0
                               ? HorizontalListMovie(
                                   itemList: widget.movie.similarMovies.results,
-                        title: 'More like this',
+                                  title: 'More like this',
                                 )
                               : Container(
                                   padding: EdgeInsets.all(16),

@@ -8,7 +8,6 @@ import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
 import 'package:mediatrack_flutter/views/movie/details_screen_movie.dart';
 import 'package:provider/provider.dart';
 
-
 ///Generates a horizontal list of items in a row.
 ///
 /// It takes `Movie` Object as input.
@@ -29,14 +28,18 @@ class HorizontalListMovie extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Row(
             children: <Widget>[
-              Text(title,
+              Text(
+                title,
                 style: GoogleFonts.lato(
                   textStyle: Theme.of(context).textTheme.headline6,
                   color: Theme.of(context).accentColor,
                 ),
               ),
               Spacer(),
-              Icon(Icons.arrow_forward,color: Theme.of(context).accentColor,),
+              Icon(
+                Icons.arrow_forward,
+                color: Theme.of(context).accentColor,
+              ),
             ],
           ),
         ),
@@ -95,7 +98,8 @@ class HorizontalListMovie extends StatelessWidget {
                                     itemList[index].posterPath,
                                 progressIndicatorBuilder:
                                     (context, url, progress) => Container(
-                                  color: Theme.of(context).scaffoldBackgroundColor,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   child: Center(
                                     child: CircularProgressIndicator(
                                       value: progress.progress,
@@ -106,9 +110,11 @@ class HorizontalListMovie extends StatelessWidget {
                                     Icon(Icons.error),
                               )
                             : Container(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   // crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     SizedBox.shrink(),

@@ -51,7 +51,10 @@ class HomeScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     ),
                   )
-                : HorizontalListMovie(itemList: trendingMovies,title: 'Trending Movies',),
+                : HorizontalListMovie(
+                    itemList: trendingMovies,
+                    title: 'Trending Movies',
+                  ),
             isWaitingTv
                 ? Container(
                     height: 200,
@@ -59,7 +62,10 @@ class HomeScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     ),
                   )
-                : HorizontalListTVShow(itemList: trendingTVShows,title: 'Trending TV Shows',),
+                : HorizontalListTVShow(
+                    itemList: trendingTVShows,
+                    title: 'Trending TV Shows',
+                  ),
             isWaitingPerson
                 ? Container(
                     height: 200,
@@ -67,7 +73,10 @@ class HomeScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     ),
                   )
-                : HorizontalListPerson(itemList: trendingPeople, title: 'Trending People',),
+                : HorizontalListPerson(
+                    itemList: trendingPeople,
+                    title: 'Trending People',
+                  ),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
