@@ -34,11 +34,17 @@ class HomeScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              child: Text(
-                'Trending',
-                style: GoogleFonts.lato(
-                  textStyle: Theme.of(context).textTheme.headline6,
-                ),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'Trending',
+                    style: GoogleFonts.lato(
+                      textStyle: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_forward),
+                ],
               ),
             ),
             isWaiting
