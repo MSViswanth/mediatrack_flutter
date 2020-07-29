@@ -469,10 +469,10 @@ class _DetailsTestState extends State<DetailsTest> {
                                     onTap: () => launch(widget.movie.homepage),
                                     child: Center(
                                       child: Text(
-                                        '"' +
+                                        '\'' +
                                             widget.movie.title +
-                                            '"' +
-                                            ' \' Website',
+                                            '\'' +
+                                            ' Website',
                                         style: TextStyle(
                                           color: Theme.of(context)
                                               .scaffoldBackgroundColor,
