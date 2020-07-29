@@ -15,5 +15,6 @@ class Show{
   String firstAirDate;
   List<Genres> genres;
   List<Languages> languages;
+  String lastAirDate;
 
 }
