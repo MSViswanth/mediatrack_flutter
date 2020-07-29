@@ -18,8 +18,8 @@ class HomeScreen extends StatelessWidget {
     SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
     bool isWaiting = moviesProvider.isWaiting;
     bool isWaitingTv = tvProvider.isWaiting;
-    List<Movie> popularMovies = moviesProvider.trendingMovies;
-    List<Show> popularTVShows = tvProvider.trendingTVShows;
+    List<Movie> trendingMovies = moviesProvider.trendingMovies;
+    List<Show> trendingTVShows = tvProvider.trendingTVShows;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     ),
                   )
-                : HorizontalList(itemList: popularMovies),
+                : HorizontalList(itemList: trendingMovies),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               child: Row(
@@ -83,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     ),
                   )
-                : HorizontalListTV(itemList: popularTVShows),
+                : HorizontalListTV(itemList: trendingTVShows),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
             // HorizontalList(isWaiting: isWaiting, itemList: popularMovies),
