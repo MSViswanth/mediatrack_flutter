@@ -13,7 +13,7 @@ class TVProvider with ChangeNotifier {
 
   void updateDetails(List<Show> show, int index) async {
     try {
-      Map tvUpdated = await tmdb.v3.movies.getDetails(
+      Map tvUpdated = await tmdb.v3.tv.getDetails(
         show[index].id,
       );
       show[index] = Show.fromJson(tvUpdated);
@@ -28,10 +28,10 @@ class TVProvider with ChangeNotifier {
 
   void getTrendingTVShows() async {
     try {
-      Map trendingMoviesList = await tmdb.v3.trending
+      Map trendingTVShowsList = await tmdb.v3.trending
           .getTrending(mediaType: MediaType.tv, timeWindow: TimeWindow.day);
-      for (Map trendingMovie in trendingMoviesList['results']) {
-        _trendingTVShows.add(Show.fromJson(trendingMovie));
+      for (Map trendingShow in trendingTVShowsList['results']) {
+        _trendingTVShows.add(Show.fromJson(trendingShow));
       }
 
       // print(_trendingMovies.length);
