@@ -8,6 +8,7 @@ import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
+import 'package:mediatrack_flutter/components/tvshow/season/horizontal_list_season.dart';
 
 class DetailsScreenTVShow extends StatefulWidget {
   final TVShow tvshow;
@@ -395,6 +396,29 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                         })
                         : Text('Waiting...'),
                   ),
+                  widget.tvshow.seasons != null
+                      ? widget.tvshow.seasons.length != 0
+                      ? HorizontalListSeasons(
+                    itemList:
+                    widget.tvshow.seasons,
+                  )
+                      : Container(
+                    padding: EdgeInsets.all(16),
+                    child: Center(
+                      child: Text(
+                        'Seasons Not Available',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  )
+                      : Container(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.all(16),
                     child: Row(
@@ -555,6 +579,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                       child: Text('Waiting'),
                     ),
                   ),
+
                 ]
               ),
             )
