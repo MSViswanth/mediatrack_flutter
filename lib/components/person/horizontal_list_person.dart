@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/person/person.dart';
 import 'package:mediatrack_flutter/providers/person/person_provider.dart';
+import 'package:mediatrack_flutter/views/person/details_screen_person.dart';
 import 'package:provider/provider.dart';
 
 class HorizontalListPerson extends StatelessWidget {
@@ -48,18 +49,17 @@ class HorizontalListPerson extends StatelessWidget {
               return Container(
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
-                  // onTap: () {
-                  //   Provider.of<TVProvider>(context, listen: false)
-                  //       .updateDetails(itemList, index);
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => DetailsTest(
-                  //           movie: itemList[index],
-                  //           index: index,
-                  //         ),
-                  //       ));
-                  // },
+                  onTap: () {
+                    // Provider.of<PersonProvider>(context, listen: false)
+                    //     .updateDetails(itemList, index);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreenPerson(
+                            person: itemList[index],
+                          ),
+                        ));
+                  },
                   // onLongPress: () {
                   //   Provider.of<PersonProvider>(context, listen: false)
                   //       .updateDetails(itemList, index);
