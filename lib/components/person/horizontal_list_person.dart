@@ -50,8 +50,8 @@ class HorizontalListPerson extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-                    // Provider.of<PersonProvider>(context, listen: false)
-                    //     .updateDetails(itemList, index);
+                    Provider.of<PersonProvider>(context, listen: false)
+                        .updateDetails(itemList, index);
                     Navigator.push(
                         context,
                         MaterialPageRoute(

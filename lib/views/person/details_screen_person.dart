@@ -61,22 +61,81 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                         width: size.width,
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-                        child: Text(
-                          widget.person.name,
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(fontSize: 60)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              widget.person.knownForDepartment,
+                              style: GoogleFonts.lato(
+                                  textStyle: TextStyle(fontSize: 20)),
+                            ),
+                            Text(
+                              widget.person.name,
+                              style: GoogleFonts.lato(
+                                  textStyle: TextStyle(fontSize: 60)),
+                            ),
+                          ],
                         ),
                       ),
                     )
                   ],
                 ),
                 Container(
-                  height: size.height,
+                  // height: size.height,
                   child: ClipRRect(
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
                       child: Container(
+                        // width: size.width,
                         color: Colors.transparent,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            widget.person.biography != null
+                                ? widget.person.biography != ''
+                                    ? Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 16,
+                                            right: 16,
+                                            top: 32,
+                                            bottom: 16),
+                                        child: Text(
+                                          'Bio',
+                                          style: GoogleFonts.lato(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .headline6,
+                                            color:
+                                                Theme.of(context).accentColor,
+                                          ),
+                                        ),
+                                      )
+                                    : Container()
+                                : Container(),
+                            widget.person.biography != null
+                                ? widget.person.biography != ''
+                                    ? Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        child: Text(
+                                          widget.person.biography,
+                                          style: GoogleFonts.lato(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                          ),
+                                        ),
+                                      )
+                                    : Container()
+                                : Container(
+                                    height: 30,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
