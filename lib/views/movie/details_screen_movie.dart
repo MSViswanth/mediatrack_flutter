@@ -137,28 +137,32 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                       SizedBox(
                                         width: 20,
                                       ),
-                                      widget.movie.runtime == null
-                                          ? Container(
-                                              width: 50,
-                                              child: LinearProgressIndicator(),
+                                      widget.movie.voteAverage != 0
+                                          ? Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Color(0xff90cea1),
+                                                  size: 30,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  widget.movie.voteAverage
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
                                             )
-                                          : widget.movie.runtime != 0
-                                              ? Text(
-                                                  widget.movie.runtime ~/ 60 !=
-                                                              0 &&
-                                                          widget.movie.runtime %
-                                                                  60 !=
-                                                              0
-                                                      ? '${widget.movie.runtime ~/ 60}hr ${widget.movie.runtime % 60}min'
-                                                      : widget.movie.runtime ~/
-                                                                  60 ==
-                                                              0
-                                                          ? '${widget.movie.runtime % 60}min'
-                                                          : '${widget.movie.runtime ~/ 60}hr',
-                                                  style:
-                                                      TextStyle(fontSize: 18),
-                                                )
-                                              : Text(''),
+                                          : Text(
+                                              'NR',
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                            ),
                                     ],
                                   ),
                                 ),
@@ -233,30 +237,22 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                     child: LinearProgressIndicator(),
                                   ),
                             // SizedBox.shrink(),
-                            widget.movie.voteAverage != 0
-                                ? Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xff90cea1),
-                                        size: 30,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        widget.movie.voteAverage.toString(),
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
+                            widget.movie.runtime == null
+                                ? Container(
+                                    width: 50,
+                                    child: LinearProgressIndicator(),
                                   )
-                                : Text(
-                                    'NR',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
+                                : widget.movie.runtime != 0
+                                    ? Text(
+                                        widget.movie.runtime ~/ 60 != 0 &&
+                                                widget.movie.runtime % 60 != 0
+                                            ? '${widget.movie.runtime ~/ 60}hr ${widget.movie.runtime % 60}min'
+                                            : widget.movie.runtime ~/ 60 == 0
+                                                ? '${widget.movie.runtime % 60}min'
+                                                : '${widget.movie.runtime ~/ 60}hr',
+                                        style: TextStyle(fontSize: 18),
+                                      )
+                                    : Text(''),
                             // SizedBox.shrink(),
                             Container(
                               padding: EdgeInsets.all(3),
