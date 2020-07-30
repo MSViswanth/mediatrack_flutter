@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie/movie.dart';
 
@@ -152,7 +153,9 @@ class BottomSheetQuickInfoMovie extends StatelessWidget {
                 ),
                 Text(movie.status != null ? movie.status : 'Waiting...'),
                 Text(movie.releaseDate != null
-                    ? movie.releaseDate
+                    ? DateFormat.yMMMd().format(
+                        DateTime.parse(movie.releaseDate),
+                      )
                     : 'Waiting...'),
                 SizedBox.shrink(),
               ],
