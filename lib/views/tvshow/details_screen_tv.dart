@@ -84,21 +84,30 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          //mainAxisAlignment: MainAxisAlignment.spaceAround, //TODO
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
                               width: 0.6 * size.width,
-                              child: widget.tvshow.originalName != null
+                              child: widget.tvshow.originalName != null && widget.tvshow.originalLanguage != null
                                   ? Text(
-                                widget.tvshow.originalName ,
+                                widget.tvshow.originalName+' - '+widget.tvshow.originalLanguage,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
                                 ),
                               )
-                                  : Text(widget.tvshow.name),
+                                  : Text(widget.tvshow.name,
+                                style: GoogleFonts.lato(
+                                  textStyle: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,7 +116,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               children: <Widget>[
                                 widget.tvshow.firstAirDate != ''
                                     ? Text(
-                                  '${DateTime.parse(widget.tvshow.firstAirDate).year}'+'  -  '+' ${widget.tvshow.status=='Ended'? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year: 'Tomorrow'}',
+                                  '${DateTime.parse(widget.tvshow.firstAirDate).year}'+'  -  '+'${widget.tvshow.status=='Ended'? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year: 'Tomorrow'}',
                                   style: TextStyle(fontSize: 20),
                                 )
                                     : Text('Not Available'),
