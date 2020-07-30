@@ -6,7 +6,7 @@ part of 'tvshow.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TVShow _$ShowFromJson(Map<String, dynamic> json) {
+TVShow _$TVShowFromJson(Map<String, dynamic> json) {
   return TVShow(
     json['backdrop_path'] as String,
     (json['created_by'] as List)
@@ -38,7 +38,7 @@ TVShow _$ShowFromJson(Map<String, dynamic> json) {
     json['number_of_seasons'] as int,
     json['original_name'] as String,
     (json['origin_country'] as List)?.map((e) => e as String)?.toList(),
-    json['origin_language'] as String,
+    json['original_language'] as String,
     json['overview'] as String,
     (json['popularity'] as num)?.toDouble(),
     json['poster_path'] as String,
@@ -59,7 +59,7 @@ TVShow _$ShowFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ShowToJson(TVShow instance) => <String, dynamic>{
+Map<String, dynamic> _$TVShowToJson(TVShow instance) => <String, dynamic>{
       'backdrop_path': instance.backdropPath,
       'created_by': instance.createdBy?.map((e) => e?.toJson())?.toList(),
       'episode_run_time': instance.episodeRunTime,
@@ -77,7 +77,7 @@ Map<String, dynamic> _$ShowToJson(TVShow instance) => <String, dynamic>{
       'number_of_episodes': instance.numberOfEpisodes,
       'number_of_seasons': instance.numberOfSeasons,
       'origin_country': instance.originCountry,
-      'origin_language': instance.originLanguage,
+      'original_language': instance.originalLanguage,
       'original_name': instance.originalName,
       'overview': instance.overview,
       'popularity': instance.popularity,

@@ -25,7 +25,7 @@ class TVShow {
   int numberOfEpisodes;
   int numberOfSeasons;
   List<String> originCountry;
-  String originLanguage;
+  String originalLanguage;
   String originalName;
   String overview;
   double popularity;
@@ -57,7 +57,7 @@ class TVShow {
     this.numberOfSeasons,
     this.originalName,
     this.originCountry,
-    this.originLanguage,
+    this.originalLanguage,
     this.overview,
     this.popularity,
     this.posterPath,
@@ -70,8 +70,8 @@ class TVShow {
     this.mediaType,
   );
 
-  factory TVShow.fromJson(Map<String, dynamic> json) => _$ShowFromJson(json);
-  Map<String, dynamic> toJson() => _$ShowToJson(this);
+  factory TVShow.fromJson(Map<String, dynamic> json) => _$TVShowFromJson(json);
+  Map<String, dynamic> toJson() => _$TVShowToJson(this);
 }
 
 @JsonSerializable(
