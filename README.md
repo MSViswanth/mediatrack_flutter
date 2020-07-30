@@ -9,8 +9,8 @@ An app to track your Movies and TV Shows.
   - [ ] Preferences like locale, picture quality, etc.
 - [ ] Homepage
   - [x] Trending Movies
-  - [ ] Trending TV Shows
-  - [ ] Trending People
+  - [x] Trending TV Shows
+  - [x] Trending People
   - [ ] Personal Lists
   - [ ] Discovery
 - [ ] Movies
