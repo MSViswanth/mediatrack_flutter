@@ -610,6 +610,35 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
+                GestureDetector(
+                  onTap: () => Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                        (Route<dynamic> route) => false,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.home,
+                          color: Theme.of(context).accentColor,
+                        ),
+                        Spacer(),
+                        Text(
+                          'Go Home',
+                          style: GoogleFonts.lato(
+                            textStyle:
+                            Theme.of(context).textTheme.headline6,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ]),
             )
           ],
