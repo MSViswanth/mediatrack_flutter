@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 
-class HorizontalListPerson extends StatelessWidget {
-  const HorizontalListPerson({
+class HorizontalListSeasons extends StatelessWidget {
+  const HorizontalListSeasons({
     @required this.itemList,
   });
 
