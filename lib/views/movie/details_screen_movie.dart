@@ -540,7 +540,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         height: 25,
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.spokenLanguages == null
-                            ? Center(child: CircularProgressIndicator())
+                            ? Center(child: Text('Waiting...'))
                             : ListView.builder(
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
