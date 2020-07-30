@@ -317,6 +317,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor,
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
