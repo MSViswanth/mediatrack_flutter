@@ -18,9 +18,9 @@ class TVShow {
   bool inProduction;
   List<String> languages;
   String lastAirDate;
-  LastEpisodeToAir lastEpisodeToAir;
+  EpisodeToAir lastEpisodeToAir;
   String name;
-  String nextEpisodeToAir;
+  EpisodeToAir nextEpisodeToAir;
   List<Networks> networks;
   int numberOfEpisodes;
   int numberOfSeasons;
@@ -106,7 +106,7 @@ class CreatedBy {
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class LastEpisodeToAir {
+class EpisodeToAir {
   String airDate;
   int episodeNumber;
   int id;
@@ -119,7 +119,7 @@ class LastEpisodeToAir {
   double voteAverage;
   int voteCount;
 
-  LastEpisodeToAir(
+  EpisodeToAir(
     this.id,
     this.name,
     this.voteCount,
@@ -133,9 +133,9 @@ class LastEpisodeToAir {
     this.stillPath,
   );
 
-  factory LastEpisodeToAir.fromJson(Map<String, dynamic> json) =>
-      _$LastEpisodeToAirFromJson(json);
-  Map<String, dynamic> toJson() => _$LastEpisodeToAirToJson(this);
+  factory EpisodeToAir.fromJson(Map<String, dynamic> json) =>
+      _$EpisodeToAirFromJson(json);
+  Map<String, dynamic> toJson() => _$EpisodeToAirToJson(this);
 }
 
 @JsonSerializable(

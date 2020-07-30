@@ -26,10 +26,13 @@ TVShow _$TVShowFromJson(Map<String, dynamic> json) {
     json['last_air_date'] as String,
     json['last_episode_to_air'] == null
         ? null
-        : LastEpisodeToAir.fromJson(
+        : EpisodeToAir.fromJson(
             json['last_episode_to_air'] as Map<String, dynamic>),
     json['name'] as String,
-    json['next_episode_to_air'] as String,
+    json['next_episode_to_air'] == null
+        ? null
+        : EpisodeToAir.fromJson(
+            json['next_episode_to_air'] as Map<String, dynamic>),
     (json['networks'] as List)
         ?.map((e) =>
             e == null ? null : Networks.fromJson(e as Map<String, dynamic>))
@@ -79,7 +82,7 @@ Map<String, dynamic> _$TVShowToJson(TVShow instance) => <String, dynamic>{
       'last_air_date': instance.lastAirDate,
       'last_episode_to_air': instance.lastEpisodeToAir?.toJson(),
       'name': instance.name,
-      'next_episode_to_air': instance.nextEpisodeToAir,
+      'next_episode_to_air': instance.nextEpisodeToAir?.toJson(),
       'networks': instance.networks?.map((e) => e?.toJson())?.toList(),
       'number_of_episodes': instance.numberOfEpisodes,
       'number_of_seasons': instance.numberOfSeasons,
@@ -119,8 +122,8 @@ Map<String, dynamic> _$CreatedByToJson(CreatedBy instance) => <String, dynamic>{
       'profile_path': instance.profilePath,
     };
 
-LastEpisodeToAir _$LastEpisodeToAirFromJson(Map<String, dynamic> json) {
-  return LastEpisodeToAir(
+EpisodeToAir _$EpisodeToAirFromJson(Map<String, dynamic> json) {
+  return EpisodeToAir(
     json['id'] as int,
     json['name'] as String,
     json['vote_count'] as int,
@@ -135,7 +138,7 @@ LastEpisodeToAir _$LastEpisodeToAirFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$LastEpisodeToAirToJson(LastEpisodeToAir instance) =>
+Map<String, dynamic> _$EpisodeToAirToJson(EpisodeToAir instance) =>
     <String, dynamic>{
       'air_date': instance.airDate,
       'episode_number': instance.episodeNumber,
