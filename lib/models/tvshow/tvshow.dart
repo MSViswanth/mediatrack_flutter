@@ -18,9 +18,9 @@ class TVShow {
   bool inProduction;
   List<String> languages;
   String lastAirDate;
-  LastEpisodeToAir lastEpisodeToAir;
+  EpisodeToAir lastEpisodeToAir;
   String name;
-  String nextEpisodeToAir;
+  EpisodeToAir nextEpisodeToAir;
   List<Networks> networks;
   int numberOfEpisodes;
   int numberOfSeasons;
@@ -37,6 +37,8 @@ class TVShow {
   double voteAverage;
   int voteCount;
   String mediaType = 'tv';
+  SimilarTVShows similar;
+  RecommendationsTV recommendations;
 
   TVShow(
     this.backdropPath,
@@ -68,6 +70,8 @@ class TVShow {
     this.voteAverage,
     this.voteCount,
     this.mediaType,
+    this.similar,
+    this.recommendations,
   );
 
   factory TVShow.fromJson(Map<String, dynamic> json) => _$TVShowFromJson(json);
@@ -102,7 +106,7 @@ class CreatedBy {
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class LastEpisodeToAir {
+class EpisodeToAir {
   String airDate;
   int episodeNumber;
   int id;
@@ -115,7 +119,7 @@ class LastEpisodeToAir {
   double voteAverage;
   int voteCount;
 
-  LastEpisodeToAir(
+  EpisodeToAir(
     this.id,
     this.name,
     this.voteCount,
@@ -129,9 +133,9 @@ class LastEpisodeToAir {
     this.stillPath,
   );
 
-  factory LastEpisodeToAir.fromJson(Map<String, dynamic> json) =>
-      _$LastEpisodeToAirFromJson(json);
-  Map<String, dynamic> toJson() => _$LastEpisodeToAirToJson(this);
+  factory EpisodeToAir.fromJson(Map<String, dynamic> json) =>
+      _$EpisodeToAirFromJson(json);
+  Map<String, dynamic> toJson() => _$EpisodeToAirToJson(this);
 }
 
 @JsonSerializable(
@@ -177,4 +181,46 @@ class Seasons {
   factory Seasons.fromJson(Map<String, dynamic> json) =>
       _$SeasonsFromJson(json);
   Map<String, dynamic> toJson() => _$SeasonsToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class SimilarTVShows {
+  int page;
+  List<TVShow> results;
+  int totalPages;
+  int totalResults;
+  SimilarTVShows(
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  );
+
+  factory SimilarTVShows.fromJson(Map<String, dynamic> json) =>
+      _$SimilarTVShowsFromJson(json);
+  Map<String, dynamic> toJson() => _$SimilarTVShowsToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class RecommendationsTV {
+  int page;
+  List<TVShow> results;
+  int totalPages;
+  int totalResults;
+  RecommendationsTV(
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  );
+
+  factory RecommendationsTV.fromJson(Map<String, dynamic> json) =>
+      _$RecommendationsTVFromJson(json);
+  Map<String, dynamic> toJson() => _$RecommendationsTVToJson(this);
 }

@@ -61,6 +61,7 @@ class HorizontalListTVShow extends StatelessWidget {
                           ),
                         ));
                   },
+                  //TODO
 //               onLongPress: () {
 //                 Provider.of<TVProvider>(context, listen: false)
 //                     .updateDetails(itemList, index);
