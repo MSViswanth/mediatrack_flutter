@@ -94,20 +94,20 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                 widget.tvshow.originalName+' - '+widget.tvshow.originalLanguage,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 21,
                                       fontWeight: FontWeight.w600),
                                 ),
                               )
                                   : Text(widget.tvshow.name,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 22,
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +117,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                 widget.tvshow.firstAirDate != ''
                                     ? Text(
                                   '${DateTime.parse(widget.tvshow.firstAirDate).year}'+'  -  '+'${widget.tvshow.status=='Ended'? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year: 'Tomorrow'}',
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: 18),
                                 )
                                     : Text('Not Available'),
                                 SizedBox(
@@ -181,6 +181,23 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                       ],
                     ),
                   ),
+                  Container(
+                    margin: EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        widget.tvshow.status != null
+                            ? Text(
+                          widget.tvshow.status,
+                          style: TextStyle(fontSize: 16),
+                        )
+                            : Container(
+                          width: 50,
+                          child: LinearProgressIndicator(),
+                        ),
+                      ],
+                    ),
+                  )
                 ]
               ),
             )
