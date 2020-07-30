@@ -56,14 +56,13 @@ TVShow _$TVShowFromJson(Map<String, dynamic> json) {
     (json['vote_average'] as num)?.toDouble(),
     json['vote_count'] as int,
     json['media_type'] as String,
-    json['similar_t_v_shows'] == null
+    json['similar'] == null
         ? null
-        : SimilarTVShows.fromJson(
-            json['similar_t_v_shows'] as Map<String, dynamic>),
-    json['recommendations_t_v'] == null
+        : SimilarTVShows.fromJson(json['similar'] as Map<String, dynamic>),
+    json['recommendations'] == null
         ? null
         : RecommendationsTV.fromJson(
-            json['recommendations_t_v'] as Map<String, dynamic>),
+            json['recommendations'] as Map<String, dynamic>),
   );
 }
 
@@ -98,8 +97,8 @@ Map<String, dynamic> _$TVShowToJson(TVShow instance) => <String, dynamic>{
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
       'media_type': instance.mediaType,
-      'similar_t_v_shows': instance.similarTVShows?.toJson(),
-      'recommendations_t_v': instance.recommendationsTV?.toJson(),
+      'similar': instance.similar?.toJson(),
+      'recommendations': instance.recommendations?.toJson(),
     };
 
 CreatedBy _$CreatedByFromJson(Map<String, dynamic> json) {

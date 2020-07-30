@@ -37,8 +37,8 @@ class TVShow {
   double voteAverage;
   int voteCount;
   String mediaType = 'tv';
-  SimilarTVShows similarTVShows;
-  RecommendationsTV recommendationsTV;
+  SimilarTVShows similar;
+  RecommendationsTV recommendations;
 
   TVShow(
     this.backdropPath,
@@ -70,8 +70,8 @@ class TVShow {
     this.voteAverage,
     this.voteCount,
     this.mediaType,
-      this.similarTVShows,
-      this.recommendationsTV,
+    this.similar,
+    this.recommendations,
   );
 
   factory TVShow.fromJson(Map<String, dynamic> json) => _$TVShowFromJson(json);
@@ -193,11 +193,11 @@ class SimilarTVShows {
   int totalPages;
   int totalResults;
   SimilarTVShows(
-      this.page,
-      this.results,
-      this.totalPages,
-      this.totalResults,
-      );
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  );
 
   factory SimilarTVShows.fromJson(Map<String, dynamic> json) =>
       _$SimilarTVShowsFromJson(json);
@@ -214,11 +214,11 @@ class RecommendationsTV {
   int totalPages;
   int totalResults;
   RecommendationsTV(
-      this.page,
-      this.results,
-      this.totalPages,
-      this.totalResults,
-      );
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  );
 
   factory RecommendationsTV.fromJson(Map<String, dynamic> json) =>
       _$RecommendationsTVFromJson(json);
