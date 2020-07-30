@@ -440,78 +440,82 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                               ),
                             )
                           : Container(),
-                      widget.movie.belongsToCollection != null
-                          ? Column(
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    left: 0,
-                                  ),
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        offset: Offset(5, 5),
-                                        blurRadius: 3,
-                                      ),
-                                    ],
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: AspectRatio(
-                                    aspectRatio: 16 / 9,
-                                    child: ClipRRect(
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        physics: BouncingScrollPhysics(),
+                        child: widget.movie.belongsToCollection != null
+                            ? Column(
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      left: 16,
+                                    ),
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          offset: Offset(5, 5),
+                                          blurRadius: 3,
+                                        ),
+                                      ],
                                       borderRadius: BorderRadius.circular(12),
-                                      child: widget.movie.belongsToCollection
-                                                  .backdropPath !=
-                                              null
-                                          ? CachedNetworkImage(
-                                              imageUrl: baseUrl +
-                                                  backdropSize +
-                                                  widget
-                                                      .movie
-                                                      .belongsToCollection
-                                                      .backdropPath,
-                                              progressIndicatorBuilder:
-                                                  (context, url, progress) =>
-                                                      Container(
-                                                color: Colors.white,
-                                                child: Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    value: progress.progress,
+                                    ),
+                                    child: AspectRatio(
+                                      aspectRatio: 16 / 9,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: widget.movie.belongsToCollection
+                                                    .backdropPath !=
+                                                null
+                                            ? CachedNetworkImage(
+                                                imageUrl: baseUrl +
+                                                    backdropSize +
+                                                    widget
+                                                        .movie
+                                                        .belongsToCollection
+                                                        .backdropPath,
+                                                progressIndicatorBuilder:
+                                                    (context, url, progress) =>
+                                                        Container(
+                                                  color: Colors.white,
+                                                  child: Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      value: progress.progress,
+                                                    ),
                                                   ),
                                                 ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                              )
+                                            : Container(
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                                padding: EdgeInsets.all(3),
+                                                child: Center(
+                                                    child: Material(
+                                                  child: Text(
+                                                    'Image not available',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
+                                                )),
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
-                                            )
-                                          : Container(
-                                              color: Theme.of(context)
-                                                  .scaffoldBackgroundColor,
-                                              padding: EdgeInsets.all(3),
-                                              child: Center(
-                                                  child: Material(
-                                                child: Text(
-                                                  'Image not available',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ),
-                                              )),
-                                            ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.all(16),
-                                  child: Text(
-                                      widget.movie.belongsToCollection.name),
-                                ),
-                              ],
-                            )
-                          : Container(),
+                                  Container(
+                                    margin: EdgeInsets.all(16),
+                                    child: Text(
+                                        widget.movie.belongsToCollection.name),
+                                  ),
+                                ],
+                              )
+                            : Container(),
+                      ),
                       Padding(
                         padding: EdgeInsets.all(16),
                         child: Row(
