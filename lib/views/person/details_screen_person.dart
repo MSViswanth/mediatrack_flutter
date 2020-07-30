@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/person/person.dart';
 
@@ -36,6 +37,7 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
             ),
           ),
           SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
                 Stack(
@@ -92,14 +94,90 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 16),
+                              child: Row(
+                                children: <Widget>[
+                                  widget.person.birthday != null
+                                      ? widget.person.birthday != ''
+                                          ? Text(
+                                              DateFormat.yMMMd().format(
+                                                      DateTime.parse(widget
+                                                          .person.birthday)) +
+                                                  ' - ',
+                                              style: GoogleFonts.lato(
+                                                textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                      : Container(
+                                          child: Text(
+                                            'Waiting...',
+                                            style: GoogleFonts.lato(
+                                              textStyle: TextStyle(
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                  widget.person.deathday != null
+                                      ? widget.person.deathday != ''
+                                          ? Text(
+                                              DateFormat.yMMMd().format(
+                                                    DateTime.parse(
+                                                        widget.person.deathday),
+                                                  ) +
+                                                  ' ',
+                                              style: GoogleFonts.lato(
+                                                textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            )
+                                          : Text(
+                                              'Present ',
+                                              style: GoogleFonts.lato(
+                                                textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            )
+                                      : Text(
+                                          'Present ',
+                                          style: GoogleFonts.lato(
+                                            textStyle: TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                            ),
+                            widget.person.birthday != null
+                                ? Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 16),
+                                    child: Text(
+                                      widget.person.deathday != null
+                                          ? '(${DateTime.parse(widget.person.deathday).year - DateTime.parse(widget.person.birthday).year} years old)'
+                                          : '(${DateTime.now().year - DateTime.parse(widget.person.birthday).year} years old)',
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
                             widget.person.biography != null
                                 ? widget.person.biography != ''
                                     ? Padding(
                                         padding: EdgeInsets.only(
                                             left: 16,
                                             right: 16,
-                                            top: 32,
-                                            bottom: 16),
+                                            top: 16,
+                                            bottom: 0),
                                         child: Text(
                                           'Bio',
                                           style: GoogleFonts.lato(
@@ -117,7 +195,7 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                                 ? widget.person.biography != ''
                                     ? Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 0),
+                                            horizontal: 16, vertical: 16),
                                         child: Text(
                                           widget.person.biography,
                                           style: GoogleFonts.lato(
