@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/components/tvshow/season/horizontal_list_season.dart';
+import 'package:mediatrack_flutter/components/tvshow/horizontal_list_tvshow.dart';
 
 class DetailsScreenTVShow extends StatefulWidget {
   final TVShow tvshow;
@@ -579,7 +580,54 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                       child: Text('Waiting'),
                     ),
                   ),
-
+                  widget.tvshow.recommendationsTV != null
+                      ? widget.tvshow.recommendationsTV.results.length != 0
+                      ? HorizontalListTVShow(
+                    itemList:
+                    widget.tvshow.recommendationsTV.results,
+                    title: 'Recommendations',
+                  )
+                      : Container(
+                    padding: EdgeInsets.all(16),
+                    child: Center(
+                      child: Text(
+                        'Recommendations Not Available',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  )
+                      : Container(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                  widget.tvshow.similarTVShows != null
+                      ? widget.tvshow.similarTVShows.results.length != 0
+                      ? HorizontalListTVShow(
+                    itemList:
+                    widget.tvshow.similarTVShows.results,
+                    title: 'Similar Shows',
+                  )
+                      : Container(
+                    padding: EdgeInsets.all(16),
+                    child: Center(
+                      child: Text(
+                        'Similar Shows Not Available',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  )
+                      : Container(
+                    height: 200,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ]
               ),
             )

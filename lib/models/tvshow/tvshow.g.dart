@@ -56,6 +56,14 @@ TVShow _$TVShowFromJson(Map<String, dynamic> json) {
     (json['vote_average'] as num)?.toDouble(),
     json['vote_count'] as int,
     json['media_type'] as String,
+    json['similar_t_v_shows'] == null
+        ? null
+        : SimilarTVShows.fromJson(
+            json['similar_t_v_shows'] as Map<String, dynamic>),
+    json['recommendations_t_v'] == null
+        ? null
+        : RecommendationsTV.fromJson(
+            json['recommendations_t_v'] as Map<String, dynamic>),
   );
 }
 
@@ -90,6 +98,8 @@ Map<String, dynamic> _$TVShowToJson(TVShow instance) => <String, dynamic>{
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
       'media_type': instance.mediaType,
+      'similar_t_v_shows': instance.similarTVShows?.toJson(),
+      'recommendations_t_v': instance.recommendationsTV?.toJson(),
     };
 
 CreatedBy _$CreatedByFromJson(Map<String, dynamic> json) {
@@ -177,4 +187,44 @@ Map<String, dynamic> _$SeasonsToJson(Seasons instance) => <String, dynamic>{
       'overview': instance.overview,
       'poster_path': instance.posterPath,
       'season_number': instance.seasonNumber,
+    };
+
+SimilarTVShows _$SimilarTVShowsFromJson(Map<String, dynamic> json) {
+  return SimilarTVShows(
+    json['page'] as int,
+    (json['results'] as List)
+        ?.map((e) =>
+            e == null ? null : TVShow.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['total_pages'] as int,
+    json['total_results'] as int,
+  );
+}
+
+Map<String, dynamic> _$SimilarTVShowsToJson(SimilarTVShows instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'results': instance.results,
+      'total_pages': instance.totalPages,
+      'total_results': instance.totalResults,
+    };
+
+RecommendationsTV _$RecommendationsTVFromJson(Map<String, dynamic> json) {
+  return RecommendationsTV(
+    json['page'] as int,
+    (json['results'] as List)
+        ?.map((e) =>
+            e == null ? null : TVShow.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['total_pages'] as int,
+    json['total_results'] as int,
+  );
+}
+
+Map<String, dynamic> _$RecommendationsTVToJson(RecommendationsTV instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'results': instance.results,
+      'total_pages': instance.totalPages,
+      'total_results': instance.totalResults,
     };

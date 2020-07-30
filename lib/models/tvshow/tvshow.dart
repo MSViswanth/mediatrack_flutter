@@ -37,6 +37,8 @@ class TVShow {
   double voteAverage;
   int voteCount;
   String mediaType = 'tv';
+  SimilarTVShows similarTVShows;
+  RecommendationsTV recommendationsTV;
 
   TVShow(
     this.backdropPath,
@@ -68,6 +70,8 @@ class TVShow {
     this.voteAverage,
     this.voteCount,
     this.mediaType,
+      this.similarTVShows,
+      this.recommendationsTV,
   );
 
   factory TVShow.fromJson(Map<String, dynamic> json) => _$TVShowFromJson(json);
@@ -177,4 +181,46 @@ class Seasons {
   factory Seasons.fromJson(Map<String, dynamic> json) =>
       _$SeasonsFromJson(json);
   Map<String, dynamic> toJson() => _$SeasonsToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class SimilarTVShows {
+  int page;
+  List<TVShow> results;
+  int totalPages;
+  int totalResults;
+  SimilarTVShows(
+      this.page,
+      this.results,
+      this.totalPages,
+      this.totalResults,
+      );
+
+  factory SimilarTVShows.fromJson(Map<String, dynamic> json) =>
+      _$SimilarTVShowsFromJson(json);
+  Map<String, dynamic> toJson() => _$SimilarTVShowsToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class RecommendationsTV {
+  int page;
+  List<TVShow> results;
+  int totalPages;
+  int totalResults;
+  RecommendationsTV(
+      this.page,
+      this.results,
+      this.totalPages,
+      this.totalResults,
+      );
+
+  factory RecommendationsTV.fromJson(Map<String, dynamic> json) =>
+      _$RecommendationsTVFromJson(json);
+  Map<String, dynamic> toJson() => _$RecommendationsTVToJson(this);
 }

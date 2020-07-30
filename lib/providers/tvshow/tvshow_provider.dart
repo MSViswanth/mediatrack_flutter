@@ -14,7 +14,7 @@ class TVShowProvider with ChangeNotifier {
   void updateDetails(List<TVShow> show, int index) async {
     try {
       Map tvUpdated = await tmdb.v3.tv.getDetails(
-        show[index].id,
+        show[index].id,appendToResponse: 'similar,recommendations'
       );
       show[index] = TVShow.fromJson(tvUpdated);
       // print(movie[index].homepage);
