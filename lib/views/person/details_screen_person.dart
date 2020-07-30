@@ -11,6 +11,7 @@ class DetailsScreenPerson extends StatefulWidget {
 class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container();
   }
 }
