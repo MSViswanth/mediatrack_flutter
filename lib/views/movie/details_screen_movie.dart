@@ -102,7 +102,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(
@@ -120,42 +120,47 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                         )
                                       : Text(widget.movie.title),
                                 ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    widget.movie.releaseDate != ''
-                                        ? Text(
-                                            '${DateTime.parse(widget.movie.releaseDate).year}',
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        : Text('Not Available'),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    widget.movie.runtime == null
-                                        ? Container(
-                                            width: 50,
-                                            child: LinearProgressIndicator(),
-                                          )
-                                        : widget.movie.runtime != 0
-                                            ? Text(
-                                                widget.movie.runtime ~/ 60 !=
-                                                            0 &&
-                                                        widget.movie.runtime %
-                                                                60 !=
-                                                            0
-                                                    ? '${widget.movie.runtime ~/ 60}hr ${widget.movie.runtime % 60}min'
-                                                    : widget.movie.runtime ~/
-                                                                60 ==
-                                                            0
-                                                        ? '${widget.movie.runtime % 60}min'
-                                                        : '${widget.movie.runtime ~/ 60}hr',
-                                                style: TextStyle(fontSize: 18),
-                                              )
-                                            : Text(''),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      widget.movie.releaseDate != ''
+                                          ? Text(
+                                              '${DateTime.parse(widget.movie.releaseDate).year}',
+                                              style: TextStyle(fontSize: 20),
+                                            )
+                                          : Text('Not Available'),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      widget.movie.runtime == null
+                                          ? Container(
+                                              width: 50,
+                                              child: LinearProgressIndicator(),
+                                            )
+                                          : widget.movie.runtime != 0
+                                              ? Text(
+                                                  widget.movie.runtime ~/ 60 !=
+                                                              0 &&
+                                                          widget.movie.runtime %
+                                                                  60 !=
+                                                              0
+                                                      ? '${widget.movie.runtime ~/ 60}hr ${widget.movie.runtime % 60}min'
+                                                      : widget.movie.runtime ~/
+                                                                  60 ==
+                                                              0
+                                                          ? '${widget.movie.runtime % 60}min'
+                                                          : '${widget.movie.runtime ~/ 60}hr',
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                )
+                                              : Text(''),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -233,7 +238,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                     children: <Widget>[
                                       Icon(
                                         Icons.star,
-                                        color: Color(0xffe4bb24),
+                                        color: Color(0xff90cea1),
                                         size: 30,
                                       ),
                                       SizedBox(
@@ -327,12 +332,14 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
+                                      textAlign: TextAlign.center,
                                     )
                                   : Text(
                                       widget.movie.tagline,
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
+                                      textAlign: TextAlign.center,
                                     )
                               : Container(
                                   alignment: Alignment.center,
@@ -362,12 +369,22 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Genres',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Genres',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
@@ -500,12 +517,22 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                           : Container(),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Spoken Languages',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Spoken Languages',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
@@ -527,12 +554,22 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Production Countries',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Production Countries',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
@@ -561,17 +598,27 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Production Companies',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Production Companies',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
                         height: 30,
-                        margin: EdgeInsets.all(16),
+                        margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.productionCompanies != null
                             ? widget.movie.productionCompanies.length != 0
                                 ? ListView.builder(
