@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:mediatrack_flutter/models/movie.dart';
+import 'package:mediatrack_flutter/models/movie/movie.dart';
 
 import 'package:mediatrack_flutter/services/tmdb_service.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
-class MoviesProvider with ChangeNotifier {
+class MovieProvider with ChangeNotifier {
   List<Movie> _trendingMovies = [];
   bool _isWaiting = true;
   String _certification = 'NR';
 
   ///Constructor for MoviesProvider class.
-  MoviesProvider() {
+  MovieProvider() {
     getTrendingMovies();
   }
 
@@ -23,8 +23,6 @@ class MoviesProvider with ChangeNotifier {
         _certification = item.releaseDates[0].certification;
       }
     }
-
-    // print(_certification);
   }
 
   get certification => _certification;

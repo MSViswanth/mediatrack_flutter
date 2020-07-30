@@ -4,24 +4,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/movie.dart';
-import 'package:mediatrack_flutter/providers/movies_provider.dart';
+import 'package:mediatrack_flutter/models/movie/movie.dart';
+import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:provider/provider.dart';
-import 'package:mediatrack_flutter/components/horizontal_list.dart';
+import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailsTest extends StatefulWidget {
+class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;
-  final int index;
-  DetailsTest({this.movie, this.index});
+  DetailsScreenMovie({
+    this.movie,
+  });
 
   @override
-  _DetailsTestState createState() => _DetailsTestState();
+  _DetailsScreenMovieState createState() => _DetailsScreenMovieState();
 }
 
-class _DetailsTestState extends State<DetailsTest> {
-  MoviesProvider resetDetailsProvider;
+class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
+  MovieProvider resetDetailsProvider;
 
   @override
   void dispose() {
@@ -32,7 +33,7 @@ class _DetailsTestState extends State<DetailsTest> {
 
   @override
   Widget build(BuildContext context) {
-    resetDetailsProvider = Provider.of<MoviesProvider>(context, listen: false);
+    resetDetailsProvider = Provider.of<MovieProvider>(context, listen: false);
 
     final Size size = MediaQuery.of(context).size;
 
@@ -94,173 +95,6 @@ class _DetailsTestState extends State<DetailsTest> {
                 SliverList(
                   delegate: SliverChildListDelegate(
                     <Widget>[
-                      // Container(
-                      //   height: 0.5 * size.height,
-                      //   child: Stack(
-                      //     children: <Widget>[
-                      //       Container(
-                      //         //Backdrop
-                      //         width: size.width,
-                      //         height: 0.4 * size.height,
-                      //         decoration: BoxDecoration(
-                      //           gradient: LinearGradient(
-                      //             colors: [Colors.purple, Colors.red],
-                      //           ),
-                      //           // color: Theme.of(context).accentColor,
-                      //           image: DecorationImage(
-                      //               image: widget.movie.backdropPath == null
-                      //                   ? NetworkImage(
-                      //                       url) //TODO: Add placeholder.
-                      //                   : CachedNetworkImageProvider(
-                      //                       baseUrl +
-                      //                           backdropSize +
-                      //                           widget.movie.backdropPath,
-                      //                     ),
-                      //               fit: BoxFit.cover),
-                      //         ),
-                      //         child: Container(
-                      //           width: size.width,
-                      //           alignment: Alignment.bottomLeft,
-                      //           decoration: BoxDecoration(
-                      //             gradient: LinearGradient(
-                      //               begin: Alignment.bottomCenter,
-                      //               end: Alignment.topCenter,
-                      //               colors: [
-                      //                 Colors.black87,
-                      //                 Colors.transparent,
-                      //               ],
-                      //             ),
-                      //           ),
-                      //           child: Container(
-                      //             //Title
-                      //             width: 0.6 * size.width,
-                      //             padding: EdgeInsets.all(16),
-                      //             // margin: EdgeInsets.only(
-                      //             //   left: 0.1 * size.width,
-                      //             // ),
-                      //             child: Text(
-                      //               widget.movie.title,
-                      //               style: TextStyle(
-                      //                 color: Colors.white,
-                      //                 fontSize: 20,
-                      //                 fontWeight: FontWeight.w600,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       //Poster
-                      //       Positioned(
-                      //         bottom: 10,
-                      //         right: 16,
-                      //         child: Container(
-                      //           height: 200,
-                      //           decoration: BoxDecoration(
-                      //             boxShadow: [
-                      //               BoxShadow(
-                      //                 color: Colors.black26,
-                      //                 offset: Offset(5, 5),
-                      //                 blurRadius: 3,
-                      //               ),
-                      //             ],
-                      //             borderRadius: BorderRadius.circular(12),
-                      //           ),
-                      //           child: AspectRatio(
-                      //             aspectRatio: 500 / 750,
-                      //             child: ClipRRect(
-                      //               borderRadius: BorderRadius.circular(12),
-                      //               child: widget.movie.posterPath != null
-                      //                   ? CachedNetworkImage(
-                      //                       imageUrl: baseUrl +
-                      //                           posterSize +
-                      //                           widget.movie.posterPath,
-                      //                       progressIndicatorBuilder:
-                      //                           (context, url, progress) =>
-                      //                               Container(
-                      //                         color: Colors.white,
-                      //                         child: Center(
-                      //                           child:
-                      //                               CircularProgressIndicator(
-                      //                             value: progress.progress,
-                      //                           ),
-                      //                         ),
-                      //                       ),
-                      //                       errorWidget:
-                      //                           (context, url, error) =>
-                      //                               Icon(Icons.error),
-                      //                     )
-                      //                   : Container(
-                      //                       color: Theme.of(context)
-                      //                           .scaffoldBackgroundColor,
-                      //                       padding: EdgeInsets.all(3),
-                      //                       child: Center(
-                      //                           child: Material(
-                      //                         child: Text(
-                      //                           'Image not available',
-                      //                           textAlign: TextAlign.center,
-                      //                           style: TextStyle(
-                      //                               color: Colors.grey),
-                      //                         ),
-                      //                       )),
-                      //                     ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Positioned(
-                      //         left: 8,
-                      //         top: 20,
-                      //         child: IconButton(
-                      //           icon: Icon(Icons.arrow_back),
-                      //           color: Colors.white,
-                      //           onPressed: () => Navigator.pop(context),
-                      //         ),
-                      //       ),
-                      //       //Release date Row
-                      //       Positioned(
-                      //         left: 0,
-                      //         bottom: 0,
-                      //         child: Container(
-                      //           padding: EdgeInsets.all(16),
-                      //           height: 0.1 * size.height,
-                      //           width: 0.6 * size.width,
-                      //           child: Row(
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceBetween,
-                      //             crossAxisAlignment: CrossAxisAlignment.center,
-                      //             children: <Widget>[
-                      //               widget.movie.releaseDate != ''
-                      //                   ? Text(
-                      //                       '${DateTime.parse(widget.movie.releaseDate).year}',
-                      //                       style: TextStyle(fontSize: 20),
-                      //                     )
-                      //                   : Text('Not Available'),
-                      //               widget.movie.runtime == null
-                      //                   ? Text('Waiting')
-                      //                   : widget.movie.runtime != 0
-                      //                       ? Text(
-                      //                           widget.movie.runtime ~/ 60 !=
-                      //                                       0 &&
-                      //                                   widget.movie.runtime %
-                      //                                           60 !=
-                      //                                       0
-                      //                               ? '${widget.movie.runtime ~/ 60}h ${widget.movie.runtime % 60}min'
-                      //                               : widget.movie.runtime ~/
-                      //                                           60 ==
-                      //                                       0
-                      //                                   ? '${widget.movie.runtime % 60}min'
-                      //                                   : '${widget.movie.runtime ~/ 60}h',
-                      //                           style: TextStyle(fontSize: 18),
-                      //                         )
-                      //                       : Text(''),
-                      //               SizedBox.shrink(),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                       Container(
                         padding: EdgeInsets.all(16),
                         height: 200,
@@ -268,7 +102,7 @@ class _DetailsTestState extends State<DetailsTest> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(
@@ -286,42 +120,51 @@ class _DetailsTestState extends State<DetailsTest> {
                                         )
                                       : Text(widget.movie.title),
                                 ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    widget.movie.releaseDate != ''
-                                        ? Text(
-                                            '${DateTime.parse(widget.movie.releaseDate).year}',
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        : Text('Not Available'),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    widget.movie.runtime == null
-                                        ? Container(
-                                            width: 50,
-                                            child: LinearProgressIndicator(),
-                                          )
-                                        : widget.movie.runtime != 0
-                                            ? Text(
-                                                widget.movie.runtime ~/ 60 !=
-                                                            0 &&
-                                                        widget.movie.runtime %
-                                                                60 !=
-                                                            0
-                                                    ? '${widget.movie.runtime ~/ 60}hr ${widget.movie.runtime % 60}min'
-                                                    : widget.movie.runtime ~/
-                                                                60 ==
-                                                            0
-                                                        ? '${widget.movie.runtime % 60}min'
-                                                        : '${widget.movie.runtime ~/ 60}hr',
-                                                style: TextStyle(fontSize: 18),
-                                              )
-                                            : Text(''),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      widget.movie.releaseDate != ''
+                                          ? Text(
+                                              '${DateTime.parse(widget.movie.releaseDate).year}',
+                                              style: TextStyle(fontSize: 20),
+                                            )
+                                          : Text('Not Available'),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      widget.movie.voteAverage != 0
+                                          ? Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Color(0xff90cea1),
+                                                  size: 30,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  widget.movie.voteAverage
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : Text(
+                                              'NR',
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                            ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -394,30 +237,22 @@ class _DetailsTestState extends State<DetailsTest> {
                                     child: LinearProgressIndicator(),
                                   ),
                             // SizedBox.shrink(),
-                            widget.movie.voteAverage != 0
-                                ? Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xffe4bb24),
-                                        size: 30,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        widget.movie.voteAverage.toString(),
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
+                            widget.movie.runtime == null
+                                ? Container(
+                                    width: 50,
+                                    child: LinearProgressIndicator(),
                                   )
-                                : Text(
-                                    'NR',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
+                                : widget.movie.runtime != 0
+                                    ? Text(
+                                        widget.movie.runtime ~/ 60 != 0 &&
+                                                widget.movie.runtime % 60 != 0
+                                            ? '${widget.movie.runtime ~/ 60}hr ${widget.movie.runtime % 60}min'
+                                            : widget.movie.runtime ~/ 60 == 0
+                                                ? '${widget.movie.runtime % 60}min'
+                                                : '${widget.movie.runtime ~/ 60}hr',
+                                        style: TextStyle(fontSize: 18),
+                                      )
+                                    : Text(''),
                             // SizedBox.shrink(),
                             Container(
                               padding: EdgeInsets.all(3),
@@ -429,14 +264,14 @@ class _DetailsTestState extends State<DetailsTest> {
                                         .color,
                                   ),
                                   borderRadius: BorderRadius.circular(3)),
-                              child: Text(Provider.of<MoviesProvider>(context)
+                              child: Text(Provider.of<MovieProvider>(context)
                                               .certification ==
                                           '' ||
-                                      Provider.of<MoviesProvider>(context)
+                                      Provider.of<MovieProvider>(context)
                                               .certification ==
                                           null
                                   ? 'NR'
-                                  : Provider.of<MoviesProvider>(context)
+                                  : Provider.of<MovieProvider>(context)
                                       .certification),
                             ),
                             // SizedBox.shrink(),
@@ -456,7 +291,6 @@ class _DetailsTestState extends State<DetailsTest> {
                           ],
                         ),
                       ),
-
                       widget.movie.homepage != null &&
                               widget.movie.homepage != ''
                           ? Container(
@@ -479,12 +313,12 @@ class _DetailsTestState extends State<DetailsTest> {
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor,
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
                             )
                           : Container(),
-
                       Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.all(16),
@@ -495,12 +329,14 @@ class _DetailsTestState extends State<DetailsTest> {
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
+                                      textAlign: TextAlign.center,
                                     )
                                   : Text(
                                       widget.movie.tagline,
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
+                                      textAlign: TextAlign.center,
                                     )
                               : Container(
                                   alignment: Alignment.center,
@@ -530,12 +366,22 @@ class _DetailsTestState extends State<DetailsTest> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Genres',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Genres',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
@@ -668,19 +514,29 @@ class _DetailsTestState extends State<DetailsTest> {
                           : Container(),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Spoken Languages',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Spoken Languages',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
                         height: 25,
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.spokenLanguages == null
-                            ? Center(child: CircularProgressIndicator())
+                            ? Center(child: Text('Waiting...'))
                             : ListView.builder(
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
@@ -695,12 +551,22 @@ class _DetailsTestState extends State<DetailsTest> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Production Countries',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Production Countries',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
@@ -708,32 +574,48 @@ class _DetailsTestState extends State<DetailsTest> {
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.productionCountries == null
                             ? Center(child: Text('Waiting'))
-                            : ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                      margin: EdgeInsets.only(right: 16),
-                                      child: Text(widget.movie
-                                          .productionCountries[index].name));
-                                },
-                                itemCount:
-                                    widget.movie.productionCountries.length,
-                              ),
+                            : widget.movie.productionCountries.length != 0
+                                ? ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          margin: EdgeInsets.only(right: 16),
+                                          child: Text(widget
+                                              .movie
+                                              .productionCountries[index]
+                                              .name));
+                                    },
+                                    itemCount:
+                                        widget.movie.productionCountries.length,
+                                  )
+                                : Center(
+                                    child: Text('Not Available'),
+                                  ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: Text(
-                          'Production Companies',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: Theme.of(context).accentColor,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'Production Companies',
+                              style: GoogleFonts.lato(
+                                textStyle:
+                                    Theme.of(context).textTheme.headline6,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ],
                         ),
                       ),
                       Container(
                         height: 30,
-                        margin: EdgeInsets.all(16),
+                        margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.productionCompanies != null
                             ? widget.movie.productionCompanies.length != 0
                                 ? ListView.builder(
@@ -791,77 +673,43 @@ class _DetailsTestState extends State<DetailsTest> {
                                 child: Text('Waiting'),
                               ),
                       ),
-                      GestureDetector(
-                        onTap: widget.movie.imdbId != null
-                            ? () => launch('http://www.imdb.com/title/' +
-                                widget.movie.imdbId +
-                                '/parentalguide')
-                            : () {},
-                        child: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                'Parental Guide from IMDb',
-                                style: GoogleFonts.lato(
-                                  textStyle:
-                                      Theme.of(context).textTheme.headline6,
-                                  color: Theme.of(context).accentColor,
-                                ),
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Theme.of(context).accentColor,
+                        ),
+                        child: InkWell(
+                          onTap: widget.movie.imdbId != null
+                              ? () => launch('http://www.imdb.com/title/' +
+                                  widget.movie.imdbId +
+                                  '/parentalguide')
+                              : () {},
+                          child: Center(
+                            child: Text(
+                              'Parental Guide from IMDb',
+                              style: TextStyle(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
                               ),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Theme.of(context).accentColor,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              'Recommendations',
-                              style: GoogleFonts.lato(
-                                textStyle:
-                                    Theme.of(context).textTheme.headline6,
-                                color: widget.movie.recommendations != null
-                                    ? widget.movie.recommendations.results
-                                                .length !=
-                                            0
-                                        ? Theme.of(context).accentColor
-                                        : Colors.grey
-                                    : Colors.grey,
-                              ),
-                            ),
-                            Spacer(),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: widget.movie.recommendations != null
-                                  ? widget.movie.recommendations.results
-                                              .length !=
-                                          0
-                                      ? Theme.of(context).accentColor
-                                      : Colors.grey
-                                  : Colors.grey,
-                            ),
-                          ],
-                        ),
-                      ),
-                      //Removed because of Captain Marvel - Same Hero Tag.
                       widget.movie.recommendations != null
                           ? widget.movie.recommendations.results.length != 0
-                              ? HorizontalList(
+                              ? HorizontalListMovie(
                                   itemList:
                                       widget.movie.recommendations.results,
+                                  title: 'Recommendations',
                                 )
                               : Container(
                                   padding: EdgeInsets.all(16),
                                   child: Center(
                                     child: Text(
-                                      'Not Available',
+                                      'Recommendations Not Available',
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -874,30 +722,17 @@ class _DetailsTestState extends State<DetailsTest> {
                                 child: CircularProgressIndicator(),
                               ),
                             ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text(
-                          'More like this',
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            color: widget.movie.similarMovies != null
-                                ? widget.movie.similarMovies.results.length != 0
-                                    ? Theme.of(context).accentColor
-                                    : Colors.grey
-                                : Colors.grey,
-                          ),
-                        ),
-                      ),
                       widget.movie.similarMovies != null
                           ? widget.movie.similarMovies.results.length != 0
-                              ? HorizontalList(
+                              ? HorizontalListMovie(
                                   itemList: widget.movie.similarMovies.results,
+                                  title: 'More like this',
                                 )
                               : Container(
                                   padding: EdgeInsets.all(16),
                                   child: Center(
                                     child: Text(
-                                      'Not Available',
+                                      'Similar Movies Not Available',
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),

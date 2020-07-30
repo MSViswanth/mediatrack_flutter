@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/movie.dart';
+import 'package:mediatrack_flutter/models/movie/movie.dart';
 
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
-class BottomSheetQuickInfo extends StatelessWidget {
-  const BottomSheetQuickInfo({
+class BottomSheetQuickInfoMovie extends StatelessWidget {
+  const BottomSheetQuickInfoMovie({
     Key key,
     @required this.movie,
   }) : super(key: key);
@@ -81,7 +82,7 @@ class BottomSheetQuickInfo extends StatelessWidget {
                                   children: <Widget>[
                                     Icon(
                                       Icons.star,
-                                      color: Color(0xffe4bb24),
+                                      color: Color(0xff90cea1),
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -152,7 +153,9 @@ class BottomSheetQuickInfo extends StatelessWidget {
                 ),
                 Text(movie.status != null ? movie.status : 'Waiting...'),
                 Text(movie.releaseDate != null
-                    ? movie.releaseDate
+                    ? DateFormat.yMMMd().format(
+                        DateTime.parse(movie.releaseDate),
+                      )
                     : 'Waiting...'),
                 SizedBox.shrink(),
               ],

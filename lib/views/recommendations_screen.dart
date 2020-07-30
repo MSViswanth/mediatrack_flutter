@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:mediatrack_flutter/components/bottom_sheet_quick_info.dart';
-import 'package:mediatrack_flutter/models/movie.dart';
-import 'package:mediatrack_flutter/providers/movies_provider.dart';
+import 'package:mediatrack_flutter/components/movie/bottom_sheet_quick_info_movie.dart';
+import 'package:mediatrack_flutter/models/movie/movie.dart';
+import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
+import 'package:mediatrack_flutter/views/movie/details_screen_movie.dart';
 import 'package:mediatrack_flutter/views/home.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
-import 'details_screen.dart';
 
 class RecommendationsScreen extends StatelessWidget {
   RecommendationsScreen(this.recommendations);
@@ -44,23 +44,22 @@ class RecommendationsScreen extends StatelessWidget {
                   margin: EdgeInsets.all(5),
                   child: GestureDetector(
                     onTap: () {
-                      Provider.of<MoviesProvider>(context, listen: false)
+                      Provider.of<MovieProvider>(context, listen: false)
                           .updateDetails(recommendations, index);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailsScreen(
+                            builder: (context) => DetailsScreenMovie(
                               movie: recommendations[index],
-                              index: index,
                             ),
                           ));
                     },
                     onLongPress: () {
-                      Provider.of<MoviesProvider>(context, listen: false)
+                      Provider.of<MovieProvider>(context, listen: false)
                           .updateDetails(recommendations, index);
                       showModalBottomSheet(
                         context: context,
-                        builder: (context) => BottomSheetQuickInfo(
+                        builder: (context) => BottomSheetQuickInfoMovie(
                           movie: recommendations[index],
                         ),
                       );
