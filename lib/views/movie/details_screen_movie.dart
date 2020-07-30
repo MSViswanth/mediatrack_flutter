@@ -618,7 +618,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                       ),
                       Container(
                         height: 30,
-                        margin: EdgeInsets.all(16),
+                        margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.productionCompanies != null
                             ? widget.movie.productionCompanies.length != 0
                                 ? ListView.builder(
