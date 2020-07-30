@@ -81,7 +81,7 @@ class BottomSheetQuickInfoMovie extends StatelessWidget {
                                   children: <Widget>[
                                     Icon(
                                       Icons.star,
-                                      color: Color(0xffe4bb24),
+                                      color: Color(0xff90cea1),
                                     ),
                                     SizedBox(
                                       width: 10,

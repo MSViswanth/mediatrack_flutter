@@ -238,7 +238,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                     children: <Widget>[
                                       Icon(
                                         Icons.star,
-                                        color: Color(0xffe4bb24),
+                                        color: Color(0xff90cea1),
                                         size: 30,
                                       ),
                                       SizedBox(
