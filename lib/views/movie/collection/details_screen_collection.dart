@@ -6,10 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie/collection/collection.dart';
-import 'package:mediatrack_flutter/providers/movie/collection/collection_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/views/movie/details_screen_movie.dart';
-import 'package:provider/provider.dart';
 
 class DetailsScreenCollection extends StatefulWidget {
   final int collectionId;
