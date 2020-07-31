@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import '../../../person/crew.dart';
 part 'episode.g.dart';
-
 
 @JsonSerializable(
   fieldRename: FieldRename.snake,
@@ -32,34 +32,9 @@ class Episode {
       this.seasonNumber,
       this.stillPath,
       this.voteAverage,
-      this.voteCount
-      );
+      this.voteCount);
 
-  factory Episode.fromJson(Map<String, dynamic> json) => _$EpisodeFromJson(json);
+  factory Episode.fromJson(Map<String, dynamic> json) =>
+      _$EpisodeFromJson(json);
   Map<String, dynamic> toJson() => _$EpisodeToJson(this);
-}
-
-@JsonSerializable(
-  fieldRename: FieldRename.snake,
-  nullable: true,
-)
-class Crew {
-  int id;
-  String creditId;
-  String name;
-  String department;
-  String job;
-  String profilePath;
-
-  Crew(
-      this.id,
-      this.creditId,
-      this.name,
-      this.department,
-      this.job,
-      this.profilePath
-      );
-
-  factory Crew.fromJson(Map<String, dynamic> json) => _$CrewFromJson(json);
-  Map<String, dynamic> toJson() => _$CrewToJson(this);
 }
