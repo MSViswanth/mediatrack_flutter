@@ -14,7 +14,9 @@ import 'package:mediatrack_flutter/components/tvshow/horizontal_list_tvshow.dart
 class DetailsScreenTVShow extends StatefulWidget {
   final TVShow tvshow;
   final int index;
+
   DetailsScreenTVShow({this.tvshow, this.index});
+
   @override
   _DetailsScreenTVShowState createState() => _DetailsScreenTVShowState();
 }
@@ -87,7 +89,8 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                       Container(
                         width: 0.6 * size.width,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end, //TODO
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          //TODO
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             widget.tvshow.originalName != null &&
@@ -402,6 +405,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                     ? widget.tvshow.seasons.length != 0
                         ? HorizontalListSeasons(
                             itemList: widget.tvshow.seasons,
+                            tvId: widget.tvshow.id,
                           )
                         : Container(
                             padding: EdgeInsets.all(16),
