@@ -53,6 +53,7 @@ class BottomSheetQuickInfoMovie extends StatelessWidget {
                                 child: CachedNetworkImage(
                                   imageUrl:
                                       baseUrl + posterSize + movie.posterPath,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             )

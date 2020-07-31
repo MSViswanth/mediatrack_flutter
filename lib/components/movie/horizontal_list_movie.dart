@@ -108,6 +108,7 @@ class HorizontalListMovie extends StatelessWidget {
                                 ),
                                 errorWidget: (context, url, error) =>
                                     Icon(Icons.error),
+                                fit: BoxFit.cover,
                               )
                             : Container(
                                 color:

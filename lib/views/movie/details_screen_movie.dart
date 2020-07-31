@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie/movie.dart';
+import 'package:mediatrack_flutter/providers/movie/collection/collection_provider.dart';
 import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
+import 'package:mediatrack_flutter/views/movie/collection/details_screen_collection.dart';
 import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+CollectionProvider collectionProvider;
 
 class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;
@@ -22,19 +26,20 @@ class DetailsScreenMovie extends StatefulWidget {
 }
 
 class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
-  MovieProvider resetDetailsProvider;
+  MovieProvider resetMovieDetailsProvider;
 
   @override
   void dispose() {
-    resetDetailsProvider.resetDetails();
+    resetMovieDetailsProvider.resetDetails();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    resetDetailsProvider = Provider.of<MovieProvider>(context, listen: false);
-
+    resetMovieDetailsProvider =
+        Provider.of<MovieProvider>(context, listen: false);
+    collectionProvider = Provider.of<CollectionProvider>(context);
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -203,6 +208,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                           ),
                                           errorWidget: (context, url, error) =>
                                               Icon(Icons.error),
+                                          fit: BoxFit.cover,
                                         )
                                       : Container(
                                           color: Theme.of(context)
@@ -446,75 +452,91 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
                         child: widget.movie.belongsToCollection != null
-                            ? Column(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      left: 16,
-                                    ),
-                                    height: 200,
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          offset: Offset(5, 5),
-                                          blurRadius: 3,
-                                        ),
-                                      ],
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: AspectRatio(
-                                      aspectRatio: 16 / 9,
-                                      child: ClipRRect(
+                            ? InkWell(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailsScreenCollection(
+                                        widget.movie.belongsToCollection.id,
+                                      ),
+                                    )),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                        left: 16,
+                                      ),
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            offset: Offset(5, 5),
+                                            blurRadius: 3,
+                                          ),
+                                        ],
                                         borderRadius: BorderRadius.circular(12),
-                                        child: widget.movie.belongsToCollection
-                                                    .backdropPath !=
-                                                null
-                                            ? CachedNetworkImage(
-                                                imageUrl: baseUrl +
-                                                    backdropSize +
-                                                    widget
-                                                        .movie
-                                                        .belongsToCollection
-                                                        .backdropPath,
-                                                progressIndicatorBuilder:
-                                                    (context, url, progress) =>
-                                                        Container(
-                                                  color: Colors.white,
-                                                  child: Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      value: progress.progress,
+                                      ),
+                                      child: AspectRatio(
+                                        aspectRatio: 16 / 9,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: widget
+                                                      .movie
+                                                      .belongsToCollection
+                                                      .backdropPath !=
+                                                  null
+                                              ? CachedNetworkImage(
+                                                  imageUrl: baseUrl +
+                                                      backdropSize +
+                                                      widget
+                                                          .movie
+                                                          .belongsToCollection
+                                                          .backdropPath,
+                                                  progressIndicatorBuilder:
+                                                      (context, url,
+                                                              progress) =>
+                                                          Container(
+                                                    color: Colors.white,
+                                                    child: Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        value:
+                                                            progress.progress,
+                                                      ),
                                                     ),
                                                   ),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                )
+                                              : Container(
+                                                  color: Theme.of(context)
+                                                      .scaffoldBackgroundColor,
+                                                  padding: EdgeInsets.all(3),
+                                                  child: Center(
+                                                      child: Material(
+                                                    child: Text(
+                                                      'Image not available',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.grey),
+                                                    ),
+                                                  )),
                                                 ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              )
-                                            : Container(
-                                                color: Theme.of(context)
-                                                    .scaffoldBackgroundColor,
-                                                padding: EdgeInsets.all(3),
-                                                child: Center(
-                                                    child: Material(
-                                                  child: Text(
-                                                    'Image not available',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.grey),
-                                                  ),
-                                                )),
-                                              ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(16),
-                                    child: Text(
-                                        widget.movie.belongsToCollection.name),
-                                  ),
-                                ],
+                                    Container(
+                                      margin: EdgeInsets.all(16),
+                                      child: Text(widget
+                                          .movie.belongsToCollection.name),
+                                    ),
+                                  ],
+                                ),
                               )
                             : Container(),
                       ),

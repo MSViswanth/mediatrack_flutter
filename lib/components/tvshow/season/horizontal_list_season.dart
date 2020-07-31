@@ -60,7 +60,6 @@ class HorizontalListSeasons extends StatelessWidget {
 //                             index: index,
 //                           ),
 //                         ));
-                    print('Hello');
                   },
                   // onLongPress: () {
                   //   Provider.of<PersonProvider>(context, listen: false)
@@ -105,6 +104,7 @@ class HorizontalListSeasons extends StatelessWidget {
                                 ),
                                 errorWidget: (context, url, error) =>
                                     Icon(Icons.error),
+                                fit: BoxFit.cover,
                               )
                             : Container(
                                 color:
