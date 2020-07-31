@@ -57,6 +57,7 @@ class HorizontalListMovie extends StatelessWidget {
                   onTap: () {
                     Provider.of<MovieProvider>(context, listen: false)
                         .updateDetails(itemList, index);
+                    collectionProvider.resetDetails();
                     Navigator.push(
                         context,
                         MaterialPageRoute(

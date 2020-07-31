@@ -6,9 +6,6 @@ import 'package:mediatrack_flutter/services/tmdb_service.dart';
 class CollectionProvider with ChangeNotifier {
   Collection _collection;
   bool _isWaiting = true;
-  CollectionProvider(){
-    resetDetails();
-  }
 
   void getDetails(int collectionId) async {
     try {
@@ -22,7 +19,8 @@ class CollectionProvider with ChangeNotifier {
   }
 
   resetDetails() {
-    _isWaiting=true;
+    _isWaiting = true;
+    _collection = null;
   }
 
   get collection => _collection;
