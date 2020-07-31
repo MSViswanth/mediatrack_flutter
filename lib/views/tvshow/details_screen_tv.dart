@@ -5,12 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/components/tvshow/season/horizontal_list_season.dart';
 import 'package:mediatrack_flutter/components/tvshow/horizontal_list_tvshow.dart';
 
-SeasonProvider seasonProvider = SeasonProvider();
+SeasonProvider
+    seasonProvider; //Here it's not initialized because we only need it after we are on current screen. It's not used on first screen.
 
 class DetailsScreenTVShow extends StatefulWidget {
   final TVShow tvshow;
@@ -27,6 +29,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    seasonProvider = Provider.of<SeasonProvider>(context);
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(

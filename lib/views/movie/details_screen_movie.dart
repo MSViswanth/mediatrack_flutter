@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-CollectionProvider collectionProvider = CollectionProvider();
+CollectionProvider collectionProvider =
+    CollectionProvider(); //Added this line because the function from this class is called on the homescreen. Even before entering current screen.
 
 class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;
