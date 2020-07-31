@@ -203,6 +203,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                     ),
                                     errorWidget: (context, url, error) =>
                                         Icon(Icons.error),
+                                    fit: BoxFit.cover,
                                   )
                                 : Container(
                                     color: Theme.of(context)
