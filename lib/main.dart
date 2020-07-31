@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Consumer6<SettingsProvider, MovieProvider, TVShowProvider,
-          SeasonProvider, PersonProvider, CollectionProvider>(
+          PersonProvider, SeasonProvider, CollectionProvider>(
         builder: (context, settingsProvider, moviesProvider, tvProvider,
-                personProvider, SeasonProvider, CollectionProvider, child) =>
+                personProvider, seasonProvider, collectionProvider, child) =>
             MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'MediaTrack',

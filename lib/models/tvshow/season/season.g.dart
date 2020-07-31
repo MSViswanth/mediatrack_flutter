@@ -23,7 +23,7 @@ Season _$SeasonFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$SeasonToJson(Season instance) => <String, dynamic>{
-      '_id': instance.Id,
+      '_id': instance.sId,
       'air_date': instance.airDate,
       'episodes': instance.episodes?.map((e) => e?.toJson())?.toList(),
       'name': instance.name,

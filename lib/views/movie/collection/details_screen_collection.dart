@@ -18,7 +18,6 @@ class DetailsScreenCollection extends StatefulWidget {
 }
 
 class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
-  Collection collection;
   @override
   void initState() {
     super.initState();
@@ -28,7 +27,7 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    collection = collectionProvider.collection;
+    Collection collection = collectionProvider.collection;
     return Scaffold(
       body: collection != null
           ? Container(

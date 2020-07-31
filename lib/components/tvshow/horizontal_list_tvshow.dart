@@ -57,7 +57,6 @@ class HorizontalListTVShow extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => DetailsScreenTVShow(
                             tvshow: itemList[index],
-                            index: index,
                           ),
                         ));
                   },

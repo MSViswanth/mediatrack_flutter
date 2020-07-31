@@ -8,8 +8,8 @@ part 'season.g.dart';
   explicitToJson: true,
 )
 class Season {
-  @JsonKey(name:'_id')
-  String Id;
+  @JsonKey(name: '_id')
+  String sId;
   String airDate;
   List<Episode> episodes;
   String name;
@@ -18,19 +18,9 @@ class Season {
   String posterPath;
   int seasonNumber;
 
-  Season(
-      this.Id,
-      this.airDate,
-      this.episodes,
-      this.name,
-      this.overview,
-      this.id,
-      this.posterPath,
-      this.seasonNumber
-
-      );
+  Season(this.sId, this.airDate, this.episodes, this.name, this.overview,
+      this.id, this.posterPath, this.seasonNumber);
 
   factory Season.fromJson(Map<String, dynamic> json) => _$SeasonFromJson(json);
   Map<String, dynamic> toJson() => _$SeasonToJson(this);
-
 }
