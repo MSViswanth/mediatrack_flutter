@@ -6,6 +6,7 @@ import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:mediatrack_flutter/views/tvshow/season/details_screen_season.dart';
 import 'package:provider/provider.dart';
+import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
 
 class HorizontalListSeasons extends StatelessWidget {
   const HorizontalListSeasons({
@@ -51,12 +52,14 @@ class HorizontalListSeasons extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-                    Provider.of<SeasonProvider>(context, listen: false)
-                        .getSeasonDetails(tvId, itemList[index].seasonNumber);
+                    seasonProvider.resetDetails();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailsScreenSeason(),
+                          builder: (context) => DetailsScreenSeason(
+                            tvId: tvId,
+                            seasonNumber: itemList[index].seasonNumber,
+                          ),
                         ));
                   },
                   // onLongPress: () {

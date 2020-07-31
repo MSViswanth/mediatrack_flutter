@@ -4,18 +4,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
-import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/components/tvshow/season/horizontal_list_season.dart';
 import 'package:mediatrack_flutter/components/tvshow/horizontal_list_tvshow.dart';
 
+SeasonProvider seasonProvider = SeasonProvider();
+
 class DetailsScreenTVShow extends StatefulWidget {
   final TVShow tvshow;
-  final int index;
 
-  DetailsScreenTVShow({this.tvshow, this.index});
+  DetailsScreenTVShow({
+    this.tvshow,
+  });
 
   @override
   _DetailsScreenTVShowState createState() => _DetailsScreenTVShowState();
