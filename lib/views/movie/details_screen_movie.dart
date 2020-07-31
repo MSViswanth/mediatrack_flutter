@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-CollectionProvider collectionProvider;
+CollectionProvider collectionProvider = CollectionProvider();
 
 class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;

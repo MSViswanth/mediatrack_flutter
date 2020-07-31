@@ -20,22 +20,19 @@ class DetailsScreenCollection extends StatefulWidget {
 }
 
 class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
+  Collection collection;
   @override
   void initState() {
     super.initState();
     collectionProvider.getDetails(widget.collectionId);
   }
-  @override
-  void dispose() {
-    collectionProvider.resetDetails();
-    super.dispose();
-  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    Collection collection = collectionProvider.collection;
+    collection = collectionProvider.collection;
     return Scaffold(
-      body: !collectionProvider.isWaiting
+      body: collection != null
           ? Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -58,19 +55,31 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
                       SliverAppBar(
                         floating: true,
                         expandedHeight: 0.3 * size.height,
-                        flexibleSpace: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: CachedNetworkImageProvider(
-                                  baseUrl +
-                                      backdropSize +
-                                      collection.backdropPath,
-                                ),
-                                fit: BoxFit.cover,
+                        flexibleSpace: collection.backdropPath != null
+                            ? Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                        baseUrl +
+                                            backdropSize +
+                                            collection.backdropPath,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    gradient: LinearGradient(
+                                        colors: [Colors.teal, Colors.blue])),
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        colors: [Colors.teal, Colors.blue])),
+                                padding: EdgeInsets.all(3),
+                                child: Center(
+                                    child: Text(
+                                  'Image not available',
+                                  textAlign: TextAlign.center,
+                                )),
                               ),
-                              gradient: LinearGradient(
-                                  colors: [Colors.teal, Colors.blue])),
-                        ),
                       ),
                       SliverList(
                         delegate: SliverChildListDelegate(
@@ -192,13 +201,23 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
                                 horizontal: 16,
                                 vertical: 8,
                               ),
-                              child: Text(
-                                collection.overview,
-                                style: GoogleFonts.lato(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                ),
-                              ),
+                              child: collection.overview != ''
+                                  ? Text(
+                                      collection.overview,
+                                      style: GoogleFonts.lato(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Not Available',
+                                      style: GoogleFonts.lato(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          color: Colors.grey),
+                                    ),
                             ),
                             HorizontalListMovie(
                                 itemList: collection.parts, title: 'Movies'),
