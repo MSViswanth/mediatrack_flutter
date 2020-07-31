@@ -32,7 +32,6 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     Season season = seasonProvider.season;
-    // print(season.name);
     return Scaffold(
         body: season != null
             ? Container(

@@ -14,6 +14,9 @@ import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 CollectionProvider collectionProvider = CollectionProvider();
+//This need to be initialized.
+//Added this line because the function from this class is called on the homescreen. Even before entering current screen.
+//Because a `resetDetails` function from this class is called from HorizontalListMovie().
 
 class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;
