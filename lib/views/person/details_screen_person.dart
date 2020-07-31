@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/person/person.dart';
+import 'red_more_text.dart';
 
 class DetailsScreenPerson extends StatefulWidget {
   DetailsScreenPerson({this.person});
@@ -113,10 +114,19 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                                                 ),
                                               ),
                                             )
-                                          : Container()
+                                          : Container(
+                                              child: Text(
+                                                'Unknown - ',
+                                                style: GoogleFonts.lato(
+                                                  textStyle: TextStyle(
+                                                    fontSize: 20,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
                                       : Container(
                                           child: Text(
-                                            'Waiting...',
+                                            'Unknown - ',
                                             style: GoogleFonts.lato(
                                               textStyle: TextStyle(
                                                 fontSize: 20,
@@ -197,14 +207,28 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                                     ? Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 16),
-                                        child: Text(
+                                        child: ReadMoreText(
                                           widget.person.biography,
+                                          trimLines: 5,
+                                          colorClickableText:
+                                              Colors.greenAccent,
+                                          trimMode: TrimMode.Line,
+                                          trimCollapsedText: '...Show more',
+                                          trimExpandedText: ' show less',
                                           style: GoogleFonts.lato(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2,
                                           ),
                                         ),
+//                                        Text(
+//                                          widget.person.biography,
+//                                          style: GoogleFonts.lato(
+//                                            textStyle: Theme.of(context)
+//                                                .textTheme
+//                                                .bodyText2,
+//                                          ),
+//                                        ),
                                       )
                                     : Container()
                                 : Container(
