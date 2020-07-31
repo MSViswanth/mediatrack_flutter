@@ -246,20 +246,24 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               width: 50,
                               child: LinearProgressIndicator(),
                             )
-                          : widget.tvshow.episodeRunTime[0] != 0
-                              ? Text(
-                                  widget.tvshow.episodeRunTime[0] ~/ 60 != 0 &&
-                                          widget.tvshow.episodeRunTime[0] %
-                                                  60 !=
-                                              0
-                                      ? '${widget.tvshow.episodeRunTime[0] ~/ 60}hr ${widget.tvshow.episodeRunTime[0] % 60}min'
-                                      : widget.tvshow.episodeRunTime[0] ~/ 60 ==
-                                              0
-                                          ? '${widget.tvshow.episodeRunTime[0] % 60}min'
-                                          : '${widget.tvshow.episodeRunTime[0] ~/ 60}hr',
-                                  style: TextStyle(fontSize: 18),
-                                )
-                              : Text(''),
+                          : widget.tvshow.episodeRunTime.length != 0
+                              ? widget.tvshow.episodeRunTime[0] != 0
+                                  ? Text(
+                                      widget.tvshow.episodeRunTime[0] ~/ 60 !=
+                                                  0 &&
+                                              widget.tvshow.episodeRunTime[0] %
+                                                      60 !=
+                                                  0
+                                          ? '${widget.tvshow.episodeRunTime[0] ~/ 60}hr ${widget.tvshow.episodeRunTime[0] % 60}min'
+                                          : widget.tvshow.episodeRunTime[0] ~/
+                                                      60 ==
+                                                  0
+                                              ? '${widget.tvshow.episodeRunTime[0] % 60}min'
+                                              : '${widget.tvshow.episodeRunTime[0] ~/ 60}hr',
+                                      style: TextStyle(fontSize: 18),
+                                    )
+                                  : Text('NA')
+                              : Text('NA'),
                       Container(
                         padding: EdgeInsets.all(3),
                         decoration: BoxDecoration(
@@ -616,7 +620,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                     MaterialPageRoute(
                       builder: (context) => HomePage(),
                     ),
-                        (Route<dynamic> route) => false,
+                    (Route<dynamic> route) => false,
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(16),
@@ -630,8 +634,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                         Text(
                           'Go Home',
                           style: GoogleFonts.lato(
-                            textStyle:
-                            Theme.of(context).textTheme.headline6,
+                            textStyle: Theme.of(context).textTheme.headline6,
                             color: Theme.of(context).accentColor,
                           ),
                         ),
