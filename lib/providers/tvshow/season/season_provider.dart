@@ -12,8 +12,9 @@ class SeasonProvider with ChangeNotifier {
       Map seasonDetails =
           await tmdb.v3.tvSeasons.getDetails(tvId, seasonNumber);
       _season = Season.fromJson(seasonDetails);
+      _isWaiting = false;
       // print(movie[index].homepage);
-      print(_season.episodes);
+      //print(_season.episodes);
     } catch (e) {
       print(e);
     }

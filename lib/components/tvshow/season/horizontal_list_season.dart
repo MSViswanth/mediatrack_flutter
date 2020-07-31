@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/details_screen_season.dart';
 import 'package:provider/provider.dart';
 
 class HorizontalListSeasons extends StatelessWidget {
@@ -52,14 +53,11 @@ class HorizontalListSeasons extends StatelessWidget {
                   onTap: () {
                     Provider.of<SeasonProvider>(context, listen: false)
                         .getSeasonDetails(tvId, itemList[index].seasonNumber);
-//                     Navigator.push(
-//                         context,
-//                         MaterialPageRoute(
-//                           builder: (context) => DetailsTest(
-//                             movie: itemList[index],
-//                             index: index,
-//                           ),
-//                         ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreenSeason(),
+                        ));
                   },
                   // onLongPress: () {
                   //   Provider.of<PersonProvider>(context, listen: false)
