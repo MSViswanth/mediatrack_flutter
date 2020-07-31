@@ -84,13 +84,13 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end, //TODO
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: 0.6 * size.width,
-                            child: widget.tvshow.originalName != null &&
+                      Container(
+                        width: 0.6 * size.width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end, //TODO
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            widget.tvshow.originalName != null &&
                                     widget.tvshow.originalLanguage != null
                                 ? Text(
                                     widget.tvshow.originalName +
@@ -110,70 +110,66 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                           fontWeight: FontWeight.w600),
                                     ),
                                   ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              widget.tvshow.firstAirDate != ''
-                                  ? Text(
-                                      '${DateTime.parse(widget.tvshow.firstAirDate).year}' +
-                                          '  -  ' +
-                                          '${widget.tvshow.status == 'Ended' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
-                                      style: TextStyle(fontSize: 18),
-                                    )
-                                  : Text('Not Available'),
-                              SizedBox(
-                                width: 20,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  widget.tvshow.firstAirDate != ''
+                                      ? Text(
+                                          '${DateTime.parse(widget.tvshow.firstAirDate).year}' +
+                                              ' - ' +
+                                              '${widget.tvshow.status == 'Ended' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                      : Text('Not Available'),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  widget.tvshow.voteAverage != 0
+                                      ? Row(
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.star,
+                                              color: Color(0xff90cea1),
+                                              size: 28,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              widget.tvshow.voteAverage
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Text(
+                                          'NR',
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                ],
                               ),
-                              widget.tvshow.voteAverage != 0
-                                  ? Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.star,
-                                          color: Color(0xff90cea1),
-                                          size: 30,
+                            ),
+                            Container(
+                              child: widget.tvshow.seasons != null
+                                  ? Text(
+                                      '${widget.tvshow.numberOfEpisodes} Episodes',
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16,
                                         ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          widget.tvshow.voteAverage.toString(),
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : Text(
-                                      'NR',
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 0.6 * size.width,
-                            child: widget.tvshow.seasons != null
-                                ? Text(
-                                    '${widget.tvshow.numberOfEpisodes} Episodes',
-                                    style: GoogleFonts.lato(
-                                      textStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
                                       ),
-                                    ),
-                                  )
-                                : null,
-                          ),
-                        ],
+                                    )
+                                  : null,
+                            ),
+                          ],
+                        ),
                       ),
                       Container(
                         height: 200,
@@ -232,15 +228,20 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      widget.tvshow.status != null
-                          ? Text(
-                              widget.tvshow.status,
-                              style: TextStyle(fontSize: 16),
-                            )
-                          : Container(
-                              width: 50,
-                              child: LinearProgressIndicator(),
-                            ),
+                      Container(
+                        width: 80,
+                        child: widget.tvshow.status != null
+                            ? Text(
+                                widget.tvshow.status,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 16),
+                                maxLines: 2,
+                              )
+                            : Container(
+                                width: 50,
+                                child: LinearProgressIndicator(),
+                              ),
+                      ),
                       widget.tvshow.episodeRunTime == null
                           ? Container(
                               width: 50,
@@ -614,7 +615,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
-                GestureDetector(
+                InkWell(
                   onTap: () => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(

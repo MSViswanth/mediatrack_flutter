@@ -101,13 +101,13 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  width: 0.6 * size.width,
-                                  child: widget.movie.originalTitle != null
+                            Container(
+                              width: 0.6 * size.width,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  widget.movie.originalTitle != null
                                       ? Text(
                                           widget.movie.originalTitle +
                                               ' - ' +
@@ -119,54 +119,56 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                           ),
                                         )
                                       : Text(widget.movie.title),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 16.0),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: <Widget>[
-                                      widget.movie.releaseDate != ''
-                                          ? Text(
-                                              '${DateTime.parse(widget.movie.releaseDate).year}',
-                                              style: TextStyle(fontSize: 20),
-                                            )
-                                          : Text('Not Available'),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      widget.movie.voteAverage != 0
-                                          ? Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Color(0xff90cea1),
-                                                  size: 30,
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                  widget.movie.voteAverage
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 16.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: <Widget>[
+                                        widget.movie.releaseDate != ''
+                                            ? Text(
+                                                '${DateTime.parse(widget.movie.releaseDate).year}',
+                                                style: TextStyle(fontSize: 16),
+                                              )
+                                            : Text('Not Available'),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        widget.movie.voteAverage != 0
+                                            ? Row(
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Color(0xff90cea1),
+                                                    size: 28,
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                          : Text(
-                                              'NR',
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                            ),
-                                    ],
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    widget.movie.voteAverage
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            : Text(
+                                                'NR',
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             Container(
                               height: 200,
@@ -749,7 +751,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                 child: CircularProgressIndicator(),
                               ),
                             ),
-                      GestureDetector(
+                      InkWell(
                         onTap: () => Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
