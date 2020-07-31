@@ -99,6 +99,7 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                                   horizontal: 16, vertical: 16),
                               child: Row(
                                 children: <Widget>[
+                                  //TODO: Birthday can be null, adjust value accordingly id 196735
                                   widget.person.birthday != null
                                       ? widget.person.birthday != ''
                                           ? Text(
