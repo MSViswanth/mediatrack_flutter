@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/person/person.dart';
+import 'package:mediatrack_flutter/providers/person/person_provider.dart';
+import 'package:provider/provider.dart';
 import 'red_more_text.dart';
 
 class DetailsScreenPerson extends StatefulWidget {

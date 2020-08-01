@@ -50,15 +50,15 @@ class HorizontalListCast extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-//                    Provider.of<PersonProvider>(context, listen: false)
-//                        .updateDetails(itemList, index);
-//                    Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                          builder: (context) => DetailsScreenPerson(
-//                            person: itemList[index],
-//                          ),
-//                        ));
+                    Provider.of<PersonProvider>(context, listen: false)
+                        .getPerson(itemList[index].id);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreenPerson(
+                            person: Provider.of<PersonProvider>(context).person,
+                          ),
+                        ));
                   },
                   // onLongPress: () {
                   //   Provider.of<PersonProvider>(context, listen: false)

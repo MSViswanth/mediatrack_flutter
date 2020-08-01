@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+
+import 'package:mediatrack_flutter/models/configuration/languages.dart';
 import 'package:mediatrack_flutter/models/movie/movie.dart';
+
+import 'package:mediatrack_flutter/providers/settings_provider.dart';
 
 import 'package:mediatrack_flutter/services/tmdb_service.dart';
 import 'package:tmdb_api/tmdb_api.dart';
@@ -8,6 +14,7 @@ class MovieProvider with ChangeNotifier {
   List<Movie> _trendingMovies = [];
   bool _isWaiting = true;
   String _certification = 'NR';
+  String _originalLanguage;
 
   ///Constructor for MoviesProvider class.
   MovieProvider() {
@@ -38,8 +45,6 @@ class MovieProvider with ChangeNotifier {
           appendToResponse:
               'release_dates,similar_movies,recommendations,credits');
       movie[index] = Movie.fromJson(movieUpdated);
-//      print(movie[index].credits.cast[1].name);
-      // print(movie[index].homepage);
 
       await getCertification(movie[index]);
     } catch (e) {
@@ -64,6 +69,19 @@ class MovieProvider with ChangeNotifier {
     }
     _isWaiting = false;
     notifyListeners();
+  }
+
+  String getLanguage(String lang) {
+    for (Language item in configurationProvider.languages) {
+      if (lang == item.iso_639_1) {
+        if (item.name != '') {
+          _originalLanguage = item.name;
+        } else {
+          _originalLanguage = item.englishName;
+        }
+      }
+    }
+    return _originalLanguage;
   }
 
   ///Get the boolean of isWaiting Property.

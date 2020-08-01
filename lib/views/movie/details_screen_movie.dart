@@ -116,9 +116,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                 children: <Widget>[
                                   widget.movie.originalTitle != null
                                       ? Text(
-                                          widget.movie.originalTitle +
-                                              ' - ' +
-                                              widget.movie.originalLanguage,
+                                          widget.movie.originalTitle,
                                           style: GoogleFonts.lato(
                                             textStyle: TextStyle(
                                                 fontSize: 20,
@@ -126,6 +124,18 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                           ),
                                         )
                                       : Text(widget.movie.title),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Provider.of<MovieProvider>(context)
+                                                .getLanguage(widget
+                                                    .movie.originalLanguage) !=
+                                            null
+                                        ? Text(Provider.of<MovieProvider>(
+                                                context)
+                                            .getLanguage(
+                                                widget.movie.originalLanguage))
+                                        : Text(widget.movie.originalLanguage),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 16.0),
                                     child: Row(
