@@ -25,6 +25,7 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
   @override
   void initState() {
     super.initState();
+    seasonProvider.resetDetails();
     seasonProvider.getDetails(widget.tvId, widget.seasonNumber);
   }
 
