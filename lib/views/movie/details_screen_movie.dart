@@ -599,7 +599,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         height: 25,
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.spokenLanguages == null
-                            ? Center(child: Text('Waiting...'))
+                            ? Text('Waiting...')
                             : ListView.builder(
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
@@ -636,7 +636,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         height: 25,
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: widget.movie.productionCountries == null
-                            ? Center(child: Text('Waiting'))
+                            ? Text('Waiting...')
                             : widget.movie.productionCountries.length != 0
                                 ? ListView.builder(
                                     physics: BouncingScrollPhysics(),
@@ -733,7 +733,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                     child: Text('Not Available'),
                                   )
                             : Container(
-                                child: Text('Waiting'),
+                                child: Text('Waiting...'),
                               ),
                       ),
                       Container(
