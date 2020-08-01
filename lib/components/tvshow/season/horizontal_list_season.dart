@@ -52,7 +52,6 @@ class HorizontalListSeasons extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-                    seasonProvider.resetDetails();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
