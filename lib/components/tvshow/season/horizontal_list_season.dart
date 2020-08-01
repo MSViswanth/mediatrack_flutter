@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
+import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/details_screen_season.dart';
+import 'package:provider/provider.dart';
+import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
 
 class HorizontalListSeasons extends StatelessWidget {
   const HorizontalListSeasons({
     @required this.itemList,
+    @required this.tvId,
   });
 
   final List<Seasons> itemList;
   final String title = 'Seasons';
+  final int tvId;
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +51,16 @@ class HorizontalListSeasons extends StatelessWidget {
               return Container(
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
-                  // onTap: () {
-                  //   Provider.of<TVProvider>(context, listen: false)
-                  //       .updateDetails(itemList, index);
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => DetailsTest(
-                  //           movie: itemList[index],
-                  //           index: index,
-                  //         ),
-                  //       ));
-                  // },
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreenSeason(
+                            tvId: tvId,
+                            seasonNumber: itemList[index].seasonNumber,
+                          ),
+                        ));
+                  },
                   // onLongPress: () {
                   //   Provider.of<PersonProvider>(context, listen: false)
                   //       .updateDetails(itemList, index);

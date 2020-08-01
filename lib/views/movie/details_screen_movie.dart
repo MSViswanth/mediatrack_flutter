@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mediatrack_flutter/components/person/horizontal_list_cast.dart';
+import 'package:mediatrack_flutter/components/person/horizontal_list_crew.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/movie/movie.dart';
 import 'package:mediatrack_flutter/providers/movie/collection/collection_provider.dart';
@@ -13,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/components/movie/horizontal_list_movie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-CollectionProvider collectionProvider = CollectionProvider();
+CollectionProvider collectionProvider;
 
 class DetailsScreenMovie extends StatefulWidget {
   final Movie movie;
@@ -114,9 +116,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                 children: <Widget>[
                                   widget.movie.originalTitle != null
                                       ? Text(
-                                          widget.movie.originalTitle +
-                                              ' - ' +
-                                              widget.movie.originalLanguage,
+                                          widget.movie.originalTitle,
                                           style: GoogleFonts.lato(
                                             textStyle: TextStyle(
                                                 fontSize: 20,
@@ -124,6 +124,18 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                           ),
                                         )
                                       : Text(widget.movie.title),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Provider.of<MovieProvider>(context)
+                                                .getLanguage(widget
+                                                    .movie.originalLanguage) !=
+                                            null
+                                        ? Text(Provider.of<MovieProvider>(
+                                                context)
+                                            .getLanguage(
+                                                widget.movie.originalLanguage))
+                                        : Text(widget.movie.originalLanguage),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 16.0),
                                     child: Row(
@@ -540,6 +552,29 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                               )
                             : Container(),
                       ),
+                      widget.movie.credits != null
+                          ? widget.movie.credits.cast.length != 0
+                              ? HorizontalListCast(
+                                  itemList: widget.movie.credits.cast,
+                                  title: 'Cast',
+                                )
+                              : Container(
+                                  padding: EdgeInsets.all(16),
+                                  child: Center(
+                                    child: Text(
+                                      'Cast Not Available',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                          : Container(
+                              height: 200,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
                       Padding(
                         padding: EdgeInsets.all(16),
                         child: Row(
@@ -726,6 +761,29 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                           ),
                         ),
                       ),
+                      widget.movie.credits != null
+                          ? widget.movie.credits.crew.length != 0
+                              ? HorizontalListCrew(
+                                  itemList: widget.movie.credits.crew,
+                                  title: 'Crew',
+                                )
+                              : Container(
+                                  padding: EdgeInsets.all(16),
+                                  child: Center(
+                                    child: Text(
+                                      'Crew Not Available',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                          : Container(
+                              height: 200,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
                       widget.movie.recommendations != null
                           ? widget.movie.recommendations.results.length != 0
                               ? HorizontalListMovie(

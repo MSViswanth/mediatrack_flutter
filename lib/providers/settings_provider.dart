@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mediatrack_flutter/providers/configuration/configuration_provider.dart';
 
 enum AppTheme { White, Dark, LightGreen, DarkGreen }
+
+ConfigurationProvider configurationProvider = ConfigurationProvider();
 
 /// Returns enum value name without enum class name.
 String enumName(AppTheme anyEnum) {

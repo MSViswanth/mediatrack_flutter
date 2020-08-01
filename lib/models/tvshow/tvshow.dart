@@ -39,6 +39,8 @@ class TVShow {
   String mediaType = 'tv';
   SimilarTVShows similar;
   RecommendationsTV recommendations;
+  ContentRatings contentRatings;
+  ExternalIds externalIds;
 
   TVShow(
     this.backdropPath,
@@ -72,6 +74,8 @@ class TVShow {
     this.mediaType,
     this.similar,
     this.recommendations,
+    this.contentRatings,
+    this.externalIds,
   );
 
   factory TVShow.fromJson(Map<String, dynamic> json) => _$TVShowFromJson(json);
@@ -223,4 +227,65 @@ class RecommendationsTV {
   factory RecommendationsTV.fromJson(Map<String, dynamic> json) =>
       _$RecommendationsTVFromJson(json);
   Map<String, dynamic> toJson() => _$RecommendationsTVToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class ContentRatings {
+  List<Rating> results;
+  int id;
+  ContentRatings(
+    this.results,
+    this.id,
+  );
+  factory ContentRatings.fromJson(Map<String, dynamic> json) =>
+      _$ContentRatingsFromJson(json);
+  Map<String, dynamic> toJson() => _$ContentRatingsToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class Rating {
+  String iso_3166_1;
+  String rating;
+  Rating(
+    this.iso_3166_1,
+    this.rating,
+  );
+  factory Rating.fromJson(Map<String, dynamic> json) => _$RatingFromJson(json);
+  Map<String, dynamic> toJson() => _$RatingToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class ExternalIds {
+  String imdbId;
+  String freebaseMid;
+  String freebaseId;
+  int tvdbId;
+  int tvrageId;
+  String facebookId;
+  String instagramId;
+  String twitterId;
+  int id;
+  ExternalIds(
+    this.imdbId,
+    this.freebaseMid,
+    this.freebaseId,
+    this.tvdbId,
+    this.tvrageId,
+    this.facebookId,
+    this.instagramId,
+    this.twitterId,
+    this.id,
+  );
+  factory ExternalIds.fromJson(Map<String, dynamic> json) =>
+      _$ExternalIdsFromJson(json);
+  Map<String, dynamic> toJson() => _$ExternalIdsToJson(this);
 }

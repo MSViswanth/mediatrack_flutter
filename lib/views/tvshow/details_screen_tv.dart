@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
+import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,18 +12,34 @@ import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/components/tvshow/season/horizontal_list_season.dart';
 import 'package:mediatrack_flutter/components/tvshow/horizontal_list_tvshow.dart';
 
+SeasonProvider
+    seasonProvider; //Here it's not initialized because we only need it after we are on current screen. It's not used on first screen.
+
 class DetailsScreenTVShow extends StatefulWidget {
   final TVShow tvshow;
-  final int index;
-  DetailsScreenTVShow({this.tvshow, this.index});
+
+  DetailsScreenTVShow({
+    this.tvshow,
+  });
+
   @override
   _DetailsScreenTVShowState createState() => _DetailsScreenTVShowState();
 }
 
 class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
+  TVShowProvider resetTVDetailsProvider;
+
+  @override
+  void dispose() {
+    resetTVDetailsProvider.resetDetails();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    seasonProvider = Provider.of<SeasonProvider>(context);
+    resetTVDetailsProvider = Provider.of<TVShowProvider>(context);
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -87,15 +104,14 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                       Container(
                         width: 0.6 * size.width,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end, //TODO
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          //TODO
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             widget.tvshow.originalName != null &&
                                     widget.tvshow.originalLanguage != null
                                 ? Text(
-                                    widget.tvshow.originalName +
-                                        ' - ' +
-                                        widget.tvshow.originalLanguage,
+                                    widget.tvshow.originalName,
                                     style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                           fontSize: 20,
@@ -110,6 +126,15 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                           fontWeight: FontWeight.w600),
                                     ),
                                   ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Provider.of<TVShowProvider>(context)
+                                          .getLanguage(widget.tvshow) !=
+                                      null
+                                  ? Text(Provider.of<TVShowProvider>(context)
+                                      .getLanguage(widget.tvshow))
+                                  : Text(widget.tvshow.originalLanguage),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(top: 16),
                               child: Row(
@@ -274,19 +299,25 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                   Theme.of(context).textTheme.bodyText2.color,
                             ),
                             borderRadius: BorderRadius.circular(3)),
-//                          child: Text(Provider.of<MovieProvider>(context)
-//                              .certification ==
-//                              '' ||
-//                              Provider.of<MovieProvider>(context)
-//                                  .certification ==
-//                                  null
-//                              ? 'NR'
-//                              : Provider.of<MovieProvider>(context)
-//                              .certification),
-                        child: Text('TV-MA'),
+                        child: Text(Provider.of<TVShowProvider>(context)
+                                        .certification ==
+                                    '' ||
+                                Provider.of<TVShowProvider>(context)
+                                        .certification ==
+                                    null
+                            ? 'NR'
+                            : Provider.of<TVShowProvider>(context)
+                                .certification),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: widget.tvshow.externalIds != null
+                            ? () {
+                                launch(
+                                  'http://www.imdb.com/title/' +
+                                      widget.tvshow.externalIds.imdbId,
+                                );
+                              }
+                            : () {},
                         child: Image.asset(
                           'assets/images/imdb.png',
                           scale: 1.5,
@@ -399,13 +430,16 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               })
                       : Text('Waiting...'),
                 ),
+                SizedBox(
+                  height: 8,
+                ),
                 widget.tvshow.seasons != null
                     ? widget.tvshow.seasons.length != 0
                         ? HorizontalListSeasons(
                             itemList: widget.tvshow.seasons,
+                            tvId: widget.tvshow.id,
                           )
                         : Container(
-                            padding: EdgeInsets.all(16),
                             child: Center(
                               child: Text(
                                 'Seasons Not Available',
@@ -451,7 +485,9 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: EdgeInsets.only(right: 16),
-                                child: Text(widget.tvshow.languages[index]));
+                                child: Text(Provider.of<TVShowProvider>(context)
+                                    .getSpokenLanguages(
+                                        widget.tvshow.languages[index])));
                           },
                           itemCount: widget.tvshow.languages.length,
                         ),
@@ -488,7 +524,9 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                 return Container(
                                     margin: EdgeInsets.only(right: 16),
                                     child: Text(
-                                        widget.tvshow.originCountry[index]));
+                                        Provider.of<TVShowProvider>(context)
+                                            .getOriginCoutries(widget
+                                                .tvshow.originCountry[index])));
                               },
                               itemCount: widget.tvshow.originCountry.length,
                             )
@@ -569,6 +607,30 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                       : Container(
                           child: Text('Waiting'),
                         ),
+                ),
+                Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Theme.of(context).accentColor,
+                  ),
+                  child: InkWell(
+                    onTap: widget.tvshow.externalIds != null
+                        ? () => launch('http://www.imdb.com/title/' +
+                            widget.tvshow.externalIds.imdbId +
+                            '/parentalguide')
+                        : () {},
+                    child: Center(
+                      child: Text(
+                        'Parental Guide from IMDb',
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 widget.tvshow.recommendations != null
                     ? widget.tvshow.recommendations.results.length != 0

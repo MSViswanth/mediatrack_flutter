@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mediatrack_flutter/models/person/cast.dart';
+import 'package:mediatrack_flutter/models/person/crew.dart';
 
 part 'movie.g.dart';
 
@@ -37,6 +39,7 @@ class Movie {
   ReleaseDatesParent releaseDates;
   SimilarMovies similarMovies;
   Recommendations recommendations;
+  Credits credits;
 
   Movie(
     this.adult,
@@ -252,4 +255,23 @@ class Recommendations {
   factory Recommendations.fromJson(Map<String, dynamic> json) =>
       _$RecommendationsFromJson(json);
   Map<String, dynamic> toJson() => _$RecommendationsToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+)
+class Credits {
+  int id;
+  List<Cast> cast;
+  List<Crew> crew;
+
+  Credits(
+    this.id,
+    this.cast,
+    this.crew,
+  );
+  factory Credits.fromJson(Map<String, dynamic> json) =>
+      _$CreditsFromJson(json);
+  Map<String, dynamic> toJson() => _$CreditsToJson(this);
 }

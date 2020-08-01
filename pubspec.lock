@@ -591,12 +591,10 @@ packages:
   tmdb_api:
     dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: "555ca6182c9c6cf43caaf5cd2476330ffb7b72b9"
-      url: "https://github.com/RatakondalaArun/tmdb_api.git"
-    source: git
-    version: "1.2.3"
+      name: tmdb_api
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.4"
   typed_data:
     dependency: transitive
     description:

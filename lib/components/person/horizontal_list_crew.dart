@@ -1,23 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mediatrack_flutter/components/movie/bottom_sheet_quick_info_movie.dart';
 import 'package:mediatrack_flutter/constants.dart';
-import 'package:mediatrack_flutter/models/movie/movie.dart';
-import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
-import 'package:mediatrack_flutter/views/movie/details_screen_movie.dart';
+import 'package:mediatrack_flutter/models/person/crew.dart';
+import 'package:mediatrack_flutter/providers/person/person_provider.dart';
+import 'package:mediatrack_flutter/views/person/details_screen_person.dart';
 import 'package:provider/provider.dart';
 
-///Generates a horizontal list of items in a row.
-///
-/// It takes `Movie` Object as input.
-class HorizontalListMovie extends StatelessWidget {
-  const HorizontalListMovie({
+class HorizontalListCrew extends StatelessWidget {
+  const HorizontalListCrew({
     @required this.itemList,
     @required this.title,
   });
 
-  final List<Movie> itemList;
+  final List<Crew> itemList;
   final String title;
 
   @override
@@ -44,7 +40,6 @@ class HorizontalListMovie extends StatelessWidget {
           ),
         ),
         Container(
-          // color: Theme.of(context).scaffoldBackgroundColor,
           padding: EdgeInsets.all(5),
           height: 200,
           child: ListView.builder(
@@ -55,27 +50,26 @@ class HorizontalListMovie extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: GestureDetector(
                   onTap: () {
-                    Provider.of<MovieProvider>(context, listen: false)
-                        .updateDetails(itemList, index);
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreenMovie(
-                            movie: itemList[index],
-                          ),
-                        ));
+//                    Provider.of<PersonProvider>(context, listen: false)
+//                        .updateDetails(itemList, index);
+//                    Navigator.push(
+//                        context,
+//                        MaterialPageRoute(
+//                          builder: (context) => DetailsScreenPerson(
+//                            person: itemList[index],
+//                          ),
+//                        ));
                   },
-                  onLongPress: () {
-                    Provider.of<MovieProvider>(context, listen: false)
-                        .updateDetails(itemList, index);
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => BottomSheetQuickInfoMovie(
-                        movie: itemList[index],
-                      ),
-                    );
-                  },
+                  // onLongPress: () {
+                  //   Provider.of<PersonProvider>(context, listen: false)
+                  //       .updateDetails(itemList, index);
+                  //   showModalBottomSheet(
+                  //     context: context,
+                  //     builder: (context) => BottomSheetQuickInfo(
+                  //       movie: itemList[index],
+                  //     ),
+                  //   );
+                  // },
                   child: Container(
                     decoration: BoxDecoration(
                       boxShadow: [
@@ -92,11 +86,11 @@ class HorizontalListMovie extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       child: AspectRatio(
                         aspectRatio: 500 / 750,
-                        child: itemList[index].posterPath != null
+                        child: itemList[index].profilePath != null
                             ? CachedNetworkImage(
                                 imageUrl: baseUrl +
                                     posterSize +
-                                    itemList[index].posterPath,
+                                    itemList[index].profilePath,
                                 progressIndicatorBuilder:
                                     (context, url, progress) => Container(
                                   color:
@@ -131,7 +125,7 @@ class HorizontalListMovie extends StatelessWidget {
                                     ),
                                     Material(
                                       child: Text(
-                                        itemList[index].title,
+                                        itemList[index].name,
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 12,

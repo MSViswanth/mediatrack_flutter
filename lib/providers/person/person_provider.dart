@@ -6,6 +6,7 @@ import 'package:tmdb_api/tmdb_api.dart';
 class PersonProvider with ChangeNotifier {
   List<Person> _trendingPeople = [];
   bool _isWaiting = true;
+  Person _person;
 
   PersonProvider() {
     getTrendingPeople();
@@ -17,6 +18,21 @@ class PersonProvider with ChangeNotifier {
         person[index].id,
       );
       person[index] = Person.fromJson(personUpdated);
+      // print(movie[index].homepage);
+
+    } catch (e) {
+      print(e);
+    }
+
+    notifyListeners();
+  }
+
+  void getPerson(int id) async {
+    try {
+      Map personUpdated = await tmdb.v3.people.getDetails(
+        id,
+      );
+      _person = Person.fromJson(personUpdated);
       // print(movie[index].homepage);
 
     } catch (e) {
@@ -46,4 +62,6 @@ class PersonProvider with ChangeNotifier {
   get isWaiting => _isWaiting;
 
   get trendingPeople => _trendingPeople;
+
+  get person => _person;
 }

@@ -66,6 +66,13 @@ TVShow _$TVShowFromJson(Map<String, dynamic> json) {
         ? null
         : RecommendationsTV.fromJson(
             json['recommendations'] as Map<String, dynamic>),
+    json['content_ratings'] == null
+        ? null
+        : ContentRatings.fromJson(
+            json['content_ratings'] as Map<String, dynamic>),
+    json['external_ids'] == null
+        ? null
+        : ExternalIds.fromJson(json['external_ids'] as Map<String, dynamic>),
   );
 }
 
@@ -102,6 +109,8 @@ Map<String, dynamic> _$TVShowToJson(TVShow instance) => <String, dynamic>{
       'media_type': instance.mediaType,
       'similar': instance.similar?.toJson(),
       'recommendations': instance.recommendations?.toJson(),
+      'content_ratings': instance.contentRatings?.toJson(),
+      'external_ids': instance.externalIds?.toJson(),
     };
 
 CreatedBy _$CreatedByFromJson(Map<String, dynamic> json) {
@@ -229,4 +238,59 @@ Map<String, dynamic> _$RecommendationsTVToJson(RecommendationsTV instance) =>
       'results': instance.results,
       'total_pages': instance.totalPages,
       'total_results': instance.totalResults,
+    };
+
+ContentRatings _$ContentRatingsFromJson(Map<String, dynamic> json) {
+  return ContentRatings(
+    (json['results'] as List)
+        ?.map((e) =>
+            e == null ? null : Rating.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['id'] as int,
+  );
+}
+
+Map<String, dynamic> _$ContentRatingsToJson(ContentRatings instance) =>
+    <String, dynamic>{
+      'results': instance.results,
+      'id': instance.id,
+    };
+
+Rating _$RatingFromJson(Map<String, dynamic> json) {
+  return Rating(
+    json['iso_3166_1'] as String,
+    json['rating'] as String,
+  );
+}
+
+Map<String, dynamic> _$RatingToJson(Rating instance) => <String, dynamic>{
+      'iso_3166_1': instance.iso_3166_1,
+      'rating': instance.rating,
+    };
+
+ExternalIds _$ExternalIdsFromJson(Map<String, dynamic> json) {
+  return ExternalIds(
+    json['imdb_id'] as String,
+    json['freebase_mid'] as String,
+    json['freebase_id'] as String,
+    json['tvdb_id'] as int,
+    json['tvrage_id'] as int,
+    json['facebook_id'] as String,
+    json['instagram_id'] as String,
+    json['twitter_id'] as String,
+    json['id'] as int,
+  );
+}
+
+Map<String, dynamic> _$ExternalIdsToJson(ExternalIds instance) =>
+    <String, dynamic>{
+      'imdb_id': instance.imdbId,
+      'freebase_mid': instance.freebaseMid,
+      'freebase_id': instance.freebaseId,
+      'tvdb_id': instance.tvdbId,
+      'tvrage_id': instance.tvrageId,
+      'facebook_id': instance.facebookId,
+      'instagram_id': instance.instagramId,
+      'twitter_id': instance.twitterId,
+      'id': instance.id,
     };
