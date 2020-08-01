@@ -22,6 +22,7 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
   @override
   void initState() {
     super.initState();
+    collectionProvider.resetDetails();
     collectionProvider.getDetails(widget.collectionId);
   }
 
