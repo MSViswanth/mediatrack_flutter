@@ -737,17 +737,17 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                     ),
                   ),
                 ),
-                widget.tvshow.credits != null
-                    ? widget.tvshow.credits.crew.length != 0
-                        ? HorizontalListCrew(
-                            itemList: widget.tvshow.credits.crew,
-                            title: 'Crew',
+                widget.tvshow.recommendations != null
+                    ? widget.tvshow.recommendations.results.length != 0
+                        ? HorizontalListTVShow(
+                            itemList: widget.tvshow.recommendations.results,
+                            title: 'Recommendations',
                           )
                         : Container(
                             padding: EdgeInsets.all(16),
                             child: Center(
                               child: Text(
-                                'Crew Not Available',
+                                'Recommendations Not Available',
                                 style: TextStyle(
                                   color: Colors.grey,
                                 ),
@@ -760,17 +760,17 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
-                widget.tvshow.recommendations != null
-                    ? widget.tvshow.recommendations.results.length != 0
-                        ? HorizontalListTVShow(
-                            itemList: widget.tvshow.recommendations.results,
-                            title: 'Recommendations',
+                widget.tvshow.credits != null
+                    ? widget.tvshow.credits.crew.length != 0
+                        ? HorizontalListCrew(
+                            itemList: widget.tvshow.credits.crew,
+                            title: 'Crew',
                           )
                         : Container(
                             padding: EdgeInsets.all(16),
                             child: Center(
                               child: Text(
-                                'Recommendations Not Available',
+                                'Crew Not Available',
                                 style: TextStyle(
                                   color: Colors.grey,
                                 ),
