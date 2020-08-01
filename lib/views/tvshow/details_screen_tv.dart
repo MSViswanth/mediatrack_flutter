@@ -438,6 +438,8 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                         ? HorizontalListSeasons(
                             itemList: widget.tvshow.seasons,
                             tvId: widget.tvshow.id,
+                            backdropPath: widget.tvshow.backdropPath,
+                            tvshowName: widget.tvshow.name,
                           )
                         : Container(
                             child: Center(

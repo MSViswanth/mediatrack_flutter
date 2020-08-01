@@ -12,11 +12,15 @@ class HorizontalListSeasons extends StatelessWidget {
   const HorizontalListSeasons({
     @required this.itemList,
     @required this.tvId,
+    @required this.backdropPath,
+    @required this.tvshowName,
   });
 
   final List<Seasons> itemList;
   final String title = 'Seasons';
   final int tvId;
+  final String backdropPath;
+  final String tvshowName;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +62,8 @@ class HorizontalListSeasons extends StatelessWidget {
                           builder: (context) => DetailsScreenSeason(
                             tvId: tvId,
                             seasonNumber: itemList[index].seasonNumber,
+                            backdropPath: backdropPath,
+                            tvshowName: tvshowName,
                           ),
                         ));
                   },
