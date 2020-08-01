@@ -480,16 +480,21 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   height: 25,
                   margin: EdgeInsets.symmetric(horizontal: 16),
                   child: widget.tvshow.languages == null
-                      ? Center(child: Text('Waiting...'))
+                      ? Text('Waiting...')
                       : ListView.builder(
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: EdgeInsets.only(right: 16),
-                                child: Text(Provider.of<TVShowProvider>(context)
-                                    .getSpokenLanguages(
-                                        widget.tvshow.languages[index])));
+                                child: Provider.of<TVShowProvider>(context)
+                                            .getSpokenLanguages(widget
+                                                .tvshow.languages[index]) !=
+                                        null
+                                    ? Text(Provider.of<TVShowProvider>(context)
+                                        .getSpokenLanguages(
+                                            widget.tvshow.languages[index]))
+                                    : Text(widget.tvshow.languages[index]));
                           },
                           itemCount: widget.tvshow.languages.length,
                         ),
@@ -517,7 +522,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   height: 25,
                   margin: EdgeInsets.symmetric(horizontal: 16),
                   child: widget.tvshow.originCountry == null
-                      ? Center(child: Text('Waiting'))
+                      ? Text('Waiting...')
                       : widget.tvshow.originCountry.length != 0
                           ? ListView.builder(
                               physics: BouncingScrollPhysics(),
@@ -525,10 +530,16 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               itemBuilder: (context, index) {
                                 return Container(
                                     margin: EdgeInsets.only(right: 16),
-                                    child: Text(
-                                        Provider.of<TVShowProvider>(context)
-                                            .getOriginCoutries(widget
-                                                .tvshow.originCountry[index])));
+                                    child: Provider.of<TVShowProvider>(context)
+                                                .getOriginCoutries(widget.tvshow
+                                                    .originCountry[index]) !=
+                                            null
+                                        ? Text(
+                                            Provider.of<TVShowProvider>(context)
+                                                .getOriginCoutries(widget.tvshow
+                                                    .originCountry[index]))
+                                        : Text(widget
+                                            .tvshow.originCountry[index]));
                               },
                               itemCount: widget.tvshow.originCountry.length,
                             )
@@ -607,7 +618,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               child: Text('Not Available'),
                             )
                       : Container(
-                          child: Text('Waiting'),
+                          child: Text('Waiting...'),
                         ),
                 ),
                 Container(
