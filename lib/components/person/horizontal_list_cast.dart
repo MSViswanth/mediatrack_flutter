@@ -40,15 +40,16 @@ class HorizontalListCast extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(5),
-          height: 200,
+          padding: EdgeInsets.all(8),
+          height: 260,
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.all(8),
-                child: GestureDetector(
+                width: 120,
+                child: InkWell(
                   onTap: () {
                     Provider.of<PersonProvider>(context, listen: false)
                         .getPerson(itemList[index].id);
@@ -70,75 +71,94 @@ class HorizontalListCast extends StatelessWidget {
                   //     ),
                   //   );
                   // },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(5, 5),
-                          blurRadius: 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(5, 5),
+                              blurRadius: 3,
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                      ],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ClipRRect(
-                      //Removed Aspect Ratio. Add if necessary.
-                      borderRadius: BorderRadius.circular(12),
-                      child: AspectRatio(
-                        aspectRatio: 500 / 750,
-                        child: itemList[index].profilePath != null
-                            ? CachedNetworkImage(
-                                imageUrl: baseUrl +
-                                    posterSize +
-                                    itemList[index].profilePath,
-                                progressIndicatorBuilder:
-                                    (context, url, progress) => Container(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      value: progress.progress,
+                        child: ClipRRect(
+                          //Removed Aspect Ratio. Add if necessary.
+                          borderRadius: BorderRadius.circular(12),
+                          child: AspectRatio(
+                            aspectRatio: 500 / 750,
+                            child: itemList[index].profilePath != null
+                                ? CachedNetworkImage(
+                                    imageUrl: baseUrl +
+                                        posterSize +
+                                        itemList[index].profilePath,
+                                    progressIndicatorBuilder:
+                                        (context, url, progress) => Container(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          value: progress.progress,
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Container(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      // crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        SizedBox.shrink(),
+                                        Material(
+                                          child: Text(
+                                            'Image not available',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        Material(
+                                          child: Text(
+                                            itemList[index].name,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 12,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        SizedBox.shrink(),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                                fit: BoxFit.cover,
-                              )
-                            : Container(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox.shrink(),
-                                    Material(
-                                      child: Text(
-                                        'Image not available',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Material(
-                                      child: Text(
-                                        itemList[index].name,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 12,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    SizedBox.shrink(),
-                                  ],
-                                ),
-                              ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Text(
+                        itemList[index].character,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.lato(),
+                      ),
+                      Text(
+                        itemList[index].name,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
