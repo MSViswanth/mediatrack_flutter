@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mediatrack_flutter/providers/configuration/configuration_provider.dart';
 import 'package:mediatrack_flutter/providers/movie/collection/collection_provider.dart';
 import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
 import 'package:mediatrack_flutter/providers/person/person_provider.dart';
@@ -42,16 +43,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => CollectionProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ConfigurationProvider(),
+        )
       ],
       child: Consumer6<SettingsProvider, MovieProvider, TVShowProvider,
           PersonProvider, SeasonProvider, CollectionProvider>(
         builder: (context, settingsProvider, moviesProvider, tvProvider,
                 personProvider, seasonProvider, collectionProvider, child) =>
-            MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'MediaTrack',
-          theme: settingsProvider.themeData,
-          home: HomePage(),
+            Consumer<ConfigurationProvider>(
+          builder: (context, configurationProvider, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'MediaTrack',
+            theme: settingsProvider.themeData,
+            home: HomePage(),
+          ),
         ),
       ),
     );
