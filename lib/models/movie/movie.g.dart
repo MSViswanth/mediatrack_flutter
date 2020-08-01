@@ -64,7 +64,9 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
         ? null
         : Recommendations.fromJson(
             json['recommendations'] as Map<String, dynamic>),
-  );
+  )..credits = json['credits'] == null
+      ? null
+      : Credits.fromJson(json['credits'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
@@ -100,6 +102,7 @@ Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'release_dates': instance.releaseDates?.toJson(),
       'similar_movies': instance.similarMovies?.toJson(),
       'recommendations': instance.recommendations?.toJson(),
+      'credits': instance.credits?.toJson(),
     };
 
 BelongsToCollection _$BelongsToCollectionFromJson(Map<String, dynamic> json) {
@@ -265,4 +268,24 @@ Map<String, dynamic> _$RecommendationsToJson(Recommendations instance) =>
       'results': instance.results,
       'total_pages': instance.totalPages,
       'total_results': instance.totalResults,
+    };
+
+Credits _$CreditsFromJson(Map<String, dynamic> json) {
+  return Credits(
+    json['id'] as int,
+    (json['cast'] as List)
+        ?.map(
+            (e) => e == null ? null : Cast.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    (json['crew'] as List)
+        ?.map(
+            (e) => e == null ? null : Crew.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$CreditsToJson(Credits instance) => <String, dynamic>{
+      'id': instance.id,
+      'cast': instance.cast,
+      'crew': instance.crew,
     };

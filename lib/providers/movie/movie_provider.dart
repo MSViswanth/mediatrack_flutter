@@ -35,8 +35,10 @@ class MovieProvider with ChangeNotifier {
   void updateDetails(List<Movie> movie, int index) async {
     try {
       Map movieUpdated = await tmdb.v3.movies.getDetails(movie[index].id,
-          appendToResponse: 'release_dates,similar_movies,recommendations');
+          appendToResponse:
+              'release_dates,similar_movies,recommendations,credits');
       movie[index] = Movie.fromJson(movieUpdated);
+//      print(movie[index].credits.cast[1].name);
       // print(movie[index].homepage);
 
       await getCertification(movie[index]);
