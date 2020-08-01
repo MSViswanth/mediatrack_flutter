@@ -11,7 +11,7 @@ import 'package:mediatrack_flutter/models/tvshow/season/season.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
-import 'package:mediatrack_flutter/views/tvshow/season/episode/episode.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/episode/details_screen_episode.dart';
 import 'package:provider/provider.dart';
 
 class DetailsScreenSeason extends StatefulWidget {

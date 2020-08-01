@@ -16,7 +16,7 @@ Episode _$EpisodeFromJson(Map<String, dynamic> json) {
     json['episode_number'] as int,
     (json['guest_stars'] as List)
         ?.map(
-            (e) => e == null ? null : Crew.fromJson(e as Map<String, dynamic>))
+            (e) => e == null ? null : Cast.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['name'] as String,
     json['overview'] as String,
