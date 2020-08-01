@@ -35,7 +35,7 @@ class TVShowProvider with ChangeNotifier {
     try {
       Map tvUpdated = await tmdb.v3.tv.getDetails(show[index].id,
           appendToResponse:
-              'similar,recommendations,content_ratings,external_ids');
+              'similar,recommendations,content_ratings,external_ids,credits');
       show[index] = TVShow.fromJson(tvUpdated);
 
       await getCertification(show[index]);

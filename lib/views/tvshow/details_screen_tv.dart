@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mediatrack_flutter/components/person/horizontal_list_cast.dart';
+import 'package:mediatrack_flutter/components/person/horizontal_list_crew.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
@@ -455,6 +457,29 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
+                widget.tvshow.credits != null
+                    ? widget.tvshow.credits.cast.length != 0
+                        ? HorizontalListCast(
+                            itemList: widget.tvshow.credits.cast,
+                            title: 'Cast',
+                          )
+                        : Container(
+                            padding: EdgeInsets.all(16),
+                            child: Center(
+                              child: Text(
+                                'Cast Not Available',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          )
+                    : Container(
+                        height: 200,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
                 Padding(
                   padding: EdgeInsets.all(16),
                   child: Row(
@@ -632,6 +657,29 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                     ),
                   ),
                 ),
+                widget.tvshow.credits != null
+                    ? widget.tvshow.credits.crew.length != 0
+                        ? HorizontalListCrew(
+                            itemList: widget.tvshow.credits.crew,
+                            title: 'Crew',
+                          )
+                        : Container(
+                            padding: EdgeInsets.all(16),
+                            child: Center(
+                              child: Text(
+                                'Crew Not Available',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          )
+                    : Container(
+                        height: 200,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
                 widget.tvshow.recommendations != null
                     ? widget.tvshow.recommendations.results.length != 0
                         ? HorizontalListTVShow(
