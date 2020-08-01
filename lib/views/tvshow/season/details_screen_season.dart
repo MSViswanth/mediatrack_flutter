@@ -11,6 +11,7 @@ import 'package:mediatrack_flutter/models/tvshow/season/season.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/episode/episode.dart';
 import 'package:provider/provider.dart';
 
 class DetailsScreenSeason extends StatefulWidget {
@@ -253,119 +254,140 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                           SliverList(
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                  height: 100,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 8, horizontal: 8),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(5, 5),
-                                                  blurRadius: 3,
-                                                ),
-                                              ],
+                                return InkWell(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailsScreenEpisode(
+                                          season.episodes[index],
+                                          season.posterPath,
+                                        ),
+                                      )),
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    height: 100,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 8),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black26,
+                                                    offset: Offset(5, 5),
+                                                    blurRadius: 3,
+                                                  ),
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                            child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            child: AspectRatio(
-                                              aspectRatio: 16 / 9,
-                                              child: season.episodes[index]
-                                                          .stillPath !=
-                                                      null
-                                                  ? CachedNetworkImage(
-                                                      imageUrl: baseUrl +
-                                                          stillSize +
-                                                          season.episodes[index]
-                                                              .stillPath,
-                                                      progressIndicatorBuilder:
-                                                          (context, url,
-                                                                  progress) =>
-                                                              Container(
+                                                  BorderRadius.circular(5),
+                                              child: AspectRatio(
+                                                aspectRatio: 16 / 9,
+                                                child: season.episodes[index]
+                                                            .stillPath !=
+                                                        null
+                                                    ? CachedNetworkImage(
+                                                        imageUrl: baseUrl +
+                                                            stillSize +
+                                                            season
+                                                                .episodes[index]
+                                                                .stillPath,
+                                                        progressIndicatorBuilder:
+                                                            (context, url,
+                                                                    progress) =>
+                                                                Container(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .scaffoldBackgroundColor,
+                                                          child: Center(
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              value: progress
+                                                                  .progress,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : Container(
                                                         color: Theme.of(context)
                                                             .scaffoldBackgroundColor,
                                                         child: Center(
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            value: progress
-                                                                .progress,
-                                                          ),
+                                                          child: Text(
+                                                              'Image Not Available'),
                                                         ),
                                                       ),
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          Icon(Icons.error),
-                                                      fit: BoxFit.cover,
-                                                    )
-                                                  : Center(
-                                                      child: Text(
-                                                          'Image Not Available'),
-                                                    ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 8),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text(
-                                                season.episodes[index].name,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: GoogleFonts.lato(
-                                                  textStyle: TextStyle(
-                                                    fontSize: 16,
+                                        Expanded(
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 8, horizontal: 8),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Text(
+                                                  season.episodes[index].name,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: GoogleFonts.lato(
+                                                    textStyle: TextStyle(
+                                                      fontSize: 16,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              season.episodes[index]
-                                                          .voteAverage !=
-                                                      0
-                                                  ? Text(
-                                                      '⭐ ' +
-                                                          season.episodes[index]
-                                                              .voteAverage
-                                                              .toString(),
-                                                      style: GoogleFonts.lato(
-                                                        textStyle: TextStyle(
-                                                          fontSize: 14,
+                                                season.episodes[index]
+                                                            .voteAverage !=
+                                                        0
+                                                    ? Text(
+                                                        '⭐ ' +
+                                                            season
+                                                                .episodes[index]
+                                                                .voteAverage
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                          textStyle: TextStyle(
+                                                            fontSize: 14,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    )
-                                                  : Text('NA'),
-                                              Text(
-                                                'S' +
-                                                    season.episodes[index]
-                                                        .seasonNumber
-                                                        .toString() +
-                                                    'E' +
-                                                    season.episodes[index]
-                                                        .episodeNumber
-                                                        .toString(),
-                                                style: GoogleFonts.lato(
-                                                  fontSize: 14,
-                                                  color: Colors.grey,
+                                                      )
+                                                    : Text('NA'),
+                                                Text(
+                                                  'S' +
+                                                      season.episodes[index]
+                                                          .seasonNumber
+                                                          .toString() +
+                                                      'E' +
+                                                      season.episodes[index]
+                                                          .episodeNumber
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                    fontSize: 14,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
