@@ -23,6 +23,16 @@ Person _$PersonFromJson(Map<String, dynamic> json) {
     json['imdb_id'] as String,
     json['homepage'] as String,
     json['media_type'] as String,
+    (json['movie_credits'] as List)
+        ?.map((e) => e == null
+            ? null
+            : PersonCreditMovies.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    (json['tv_credits'] as List)
+        ?.map((e) => e == null
+            ? null
+            : PersonCreditTVShows.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -42,4 +52,49 @@ Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'imdb_id': instance.imdbId,
       'homepage': instance.homepage,
       'media_type': instance.mediaType,
+      'movie_credits': instance.movieCredits?.map((e) => e?.toJson())?.toList(),
+      'tv_credits': instance.tvCredits?.map((e) => e?.toJson())?.toList(),
+    };
+
+PersonCreditMovies _$PersonCreditMoviesFromJson(Map<String, dynamic> json) {
+  return PersonCreditMovies(
+    (json['cast'] as List)
+        ?.map(
+            (e) => e == null ? null : Movie.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    (json['crew'] as List)
+        ?.map(
+            (e) => e == null ? null : Movie.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['id'] as int,
+  );
+}
+
+Map<String, dynamic> _$PersonCreditMoviesToJson(PersonCreditMovies instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'cast': instance.cast?.map((e) => e?.toJson())?.toList(),
+      'crew': instance.crew?.map((e) => e?.toJson())?.toList(),
+    };
+
+PersonCreditTVShows _$PersonCreditTVShowsFromJson(Map<String, dynamic> json) {
+  return PersonCreditTVShows(
+    (json['cast'] as List)
+        ?.map((e) =>
+            e == null ? null : TVShow.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    (json['crew'] as List)
+        ?.map((e) =>
+            e == null ? null : TVShow.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    json['id'] as int,
+  );
+}
+
+Map<String, dynamic> _$PersonCreditTVShowsToJson(
+        PersonCreditTVShows instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'cast': instance.cast?.map((e) => e?.toJson())?.toList(),
+      'crew': instance.crew?.map((e) => e?.toJson())?.toList(),
     };

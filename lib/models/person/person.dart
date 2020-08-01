@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import '../movie/movie.dart';
+import '../tvshow/tvshow.dart';
 
 part 'person.g.dart';
 
@@ -23,6 +25,8 @@ class Person {
   String imdbId;
   String homepage;
   String mediaType = 'person';
+  List<PersonCreditMovies> movieCredits;
+  List<PersonCreditTVShows> tvCredits;
 
   Person(
     this.birthday,
@@ -40,8 +44,42 @@ class Person {
     this.imdbId,
     this.homepage,
     this.mediaType,
+    this.movieCredits,
+    this.tvCredits,
   );
 
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
   Map<String, dynamic> toJson() => _$PersonToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+  explicitToJson: true,
+)
+class PersonCreditMovies {
+  int id;
+  List<Movie> cast;
+  List<Movie> crew;
+
+  PersonCreditMovies(this.cast, this.crew, this.id);
+  factory PersonCreditMovies.fromJson(Map<String, dynamic> json) =>
+      _$PersonCreditMoviesFromJson(json);
+  Map<String, dynamic> toJson() => _$PersonCreditMoviesToJson(this);
+}
+
+@JsonSerializable(
+  fieldRename: FieldRename.snake,
+  nullable: true,
+  explicitToJson: true,
+)
+class PersonCreditTVShows {
+  int id;
+  List<TVShow> cast;
+  List<TVShow> crew;
+
+  PersonCreditTVShows(this.cast, this.crew, this.id);
+  factory PersonCreditTVShows.fromJson(Map<String, dynamic> json) =>
+      _$PersonCreditTVShowsFromJson(json);
+  Map<String, dynamic> toJson() => _$PersonCreditTVShowsToJson(this);
 }
