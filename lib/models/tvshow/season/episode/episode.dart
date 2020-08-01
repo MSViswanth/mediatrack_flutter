@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mediatrack_flutter/models/person/cast.dart';
 import 'package:mediatrack_flutter/models/person/credits.dart';
 import '../../../person/crew.dart';
 part 'episode.g.dart';
@@ -11,7 +12,7 @@ class Episode {
   String airDate;
   List<Crew> crew;
   int episodeNumber;
-  List<Crew> guestStars;
+  List<Cast> guestStars;
   String name;
   String overview;
   int id;
