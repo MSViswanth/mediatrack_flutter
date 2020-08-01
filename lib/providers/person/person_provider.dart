@@ -58,6 +58,10 @@ class PersonProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  resetDetails() {
+    _person = null;
+  }
+
   ///Get the boolean of isWaiting Property.
   get isWaiting => _isWaiting;
 
