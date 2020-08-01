@@ -603,17 +603,84 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                                   .tvshow
                                                   .productionCompanies[index]
                                                   .originCountry,
-                                          child: Image.network(baseUrl +
-                                              logoSize +
-                                              widget
-                                                  .tvshow
-                                                  .productionCompanies[index]
-                                                  .logoPath),
+                                          child: CachedNetworkImage(
+                                              imageUrl: baseUrl +
+                                                  logoSize +
+                                                  widget
+                                                      .tvshow
+                                                      .productionCompanies[
+                                                          index]
+                                                      .logoPath),
                                         ),
                                 );
                               },
                               itemCount:
                                   widget.tvshow.productionCompanies.length)
+                          : Center(
+                              child: Text('Not Available'),
+                            )
+                      : Container(
+                          child: Text('Waiting...'),
+                        ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        'Networks',
+                        style: GoogleFonts.lato(
+                          textStyle: Theme.of(context).textTheme.headline6,
+                          color: Theme.of(context).accentColor,
+                        ),
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 30,
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  child: widget.tvshow.productionCompanies != null
+                      ? widget.tvshow.productionCompanies.length != 0
+                          ? ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(right: 16),
+                                  child:
+                                      widget.tvshow.networks[index].logoPath ==
+                                              null
+                                          ? Center(
+                                              child: Text(widget.tvshow
+                                                      .networks[index].name +
+                                                  ' ' +
+                                                  widget.tvshow.networks[index]
+                                                      .originCountry),
+                                            )
+                                          : Tooltip(
+                                              message: widget.tvshow
+                                                      .networks[index].name +
+                                                  ' ' +
+                                                  widget.tvshow.networks[index]
+                                                      .originCountry,
+                                              child: CachedNetworkImage(
+                                                imageUrl: baseUrl +
+                                                    logoSize +
+                                                    widget
+                                                        .tvshow
+                                                        .networks[index]
+                                                        .logoPath,
+                                              ),
+                                            ),
+                                );
+                              },
+                              itemCount: widget.tvshow.networks.length)
                           : Center(
                               child: Text('Not Available'),
                             )
