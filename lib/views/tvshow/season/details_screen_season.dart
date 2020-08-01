@@ -116,10 +116,14 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                                                         EdgeInsets.symmetric(
                                                             vertical: 8),
                                                     child: Text(
-                                                      DateFormat.yMMMd().format(
-                                                        DateTime.parse(
-                                                            season.airDate),
-                                                      ),
+                                                      season.airDate != ''
+                                                          ? DateFormat.yMMMd()
+                                                              .format(
+                                                              DateTime.parse(
+                                                                  season
+                                                                      .airDate),
+                                                            )
+                                                          : 'NA',
                                                       style: GoogleFonts.lato(
                                                         fontSize: 16,
                                                       ),
@@ -226,17 +230,23 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Text(
-                                    'Episodes',
-                                    style: GoogleFonts.lato(
-                                      textStyle:
-                                          Theme.of(context).textTheme.headline6,
-                                      color: Theme.of(context).accentColor,
-                                    ),
-                                  ),
-                                ),
+                                season.episodes.length != 0
+                                    ? Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: Text(
+                                          'Episodes',
+                                          style: GoogleFonts.lato(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .headline6,
+                                            color:
+                                                Theme.of(context).accentColor,
+                                          ),
+                                        ),
+                                      )
+                                    : Container(
+                                        padding: EdgeInsets.all(8),
+                                      ),
                               ],
                             ),
                           ),
