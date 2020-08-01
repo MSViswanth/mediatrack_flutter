@@ -7,7 +7,8 @@ class SeasonProvider with ChangeNotifier {
 
   void getDetails(int tvId, int seasonNumber) async {
     try {
-      Map seasonNew = await tmdb.v3.tvSeasons.getDetails(tvId, seasonNumber);
+      Map seasonNew = await tmdb.v3.tvSeasons
+          .getDetails(tvId, seasonNumber, appendToResponse: 'credits');
       _season = Season.fromJson(seasonNew);
     } catch (e) {
       print(e);

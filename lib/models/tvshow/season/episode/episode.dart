@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mediatrack_flutter/models/person/credits.dart';
 import '../../../person/crew.dart';
 part 'episode.g.dart';
 
@@ -19,20 +20,23 @@ class Episode {
   String stillPath;
   double voteAverage;
   int voteCount;
+  Credits credits;
 
   Episode(
-      this.airDate,
-      this.crew,
-      this.episodeNumber,
-      this.guestStars,
-      this.name,
-      this.overview,
-      this.id,
-      this.productionCode,
-      this.seasonNumber,
-      this.stillPath,
-      this.voteAverage,
-      this.voteCount);
+    this.airDate,
+    this.crew,
+    this.episodeNumber,
+    this.guestStars,
+    this.name,
+    this.overview,
+    this.id,
+    this.productionCode,
+    this.seasonNumber,
+    this.stillPath,
+    this.voteAverage,
+    this.voteCount,
+    this.credits,
+  );
 
   factory Episode.fromJson(Map<String, dynamic> json) =>
       _$EpisodeFromJson(json);

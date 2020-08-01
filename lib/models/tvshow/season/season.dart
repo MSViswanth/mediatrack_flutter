@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mediatrack_flutter/models/person/credits.dart';
 import 'episode/episode.dart';
 part 'season.g.dart';
 
@@ -17,9 +18,19 @@ class Season {
   int id;
   String posterPath;
   int seasonNumber;
+  Credits credits;
 
-  Season(this.sId, this.airDate, this.episodes, this.name, this.overview,
-      this.id, this.posterPath, this.seasonNumber);
+  Season(
+    this.sId,
+    this.airDate,
+    this.episodes,
+    this.name,
+    this.overview,
+    this.id,
+    this.posterPath,
+    this.seasonNumber,
+    this.credits,
+  );
 
   factory Season.fromJson(Map<String, dynamic> json) => _$SeasonFromJson(json);
   Map<String, dynamic> toJson() => _$SeasonToJson(this);
