@@ -4,6 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:mediatrack_flutter/components/person/horizontal_list_cast.dart';
+import 'package:mediatrack_flutter/components/person/horizontal_list_crew.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/season/season.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
@@ -106,18 +108,21 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Text(
-                                              DateFormat.yMMMd().format(
-                                                DateTime.parse(season.airDate),
-                                              ),
-                                              style: GoogleFonts.lato(
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                          ),
+                                          season.airDate != null
+                                              ? Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 8),
+                                                  child: Text(
+                                                    DateFormat.yMMMd().format(
+                                                      DateTime.parse(
+                                                          season.airDate),
+                                                    ),
+                                                    style: GoogleFonts.lato(
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(),
                                           Text(
                                             season.episodes.length.toString() +
                                                 ' episodes',
@@ -340,38 +345,86 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                           ),
                         ),
                         SliverList(
-                          delegate: SliverChildListDelegate(<Widget>[
-                            InkWell(
-                              onTap: () => Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HomePage(),
-                                ),
-                                (Route<dynamic> route) => false,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(16),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.home,
-                                      color: Theme.of(context).accentColor,
-                                    ),
-                                    Spacer(),
-                                    Text(
-                                      'Go Home',
-                                      style: GoogleFonts.lato(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .headline6,
-                                        color: Theme.of(context).accentColor,
+                          delegate: SliverChildListDelegate(
+                            <Widget>[
+                              season.credits != null
+                                  ? season.credits.cast.length != 0
+                                      ? HorizontalListCast(
+                                          itemList: season.credits.cast,
+                                          title: 'Cast',
+                                        )
+                                      : Container(
+                                          padding: EdgeInsets.all(16),
+                                          child: Center(
+                                            child: Text(
+                                              'Cast Not Available',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                  : Container(
+                                      height: 200,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
                                       ),
                                     ),
-                                  ],
+                              season.credits != null
+                                  ? season.credits.crew.length != 0
+                                      ? HorizontalListCrew(
+                                          itemList: season.credits.crew,
+                                          title: 'Crew',
+                                        )
+                                      : Container(
+                                          padding: EdgeInsets.all(16),
+                                          child: Center(
+                                            child: Text(
+                                              'Crew Not Available',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                  : Container(
+                                      height: 200,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ),
+                              InkWell(
+                                onTap: () => Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomePage(),
+                                  ),
+                                  (Route<dynamic> route) => false,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.home,
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        'Go Home',
+                                        style: GoogleFonts.lato(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                          color: Theme.of(context).accentColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ]),
+                            ],
+                          ),
                         )
                       ],
                     ),

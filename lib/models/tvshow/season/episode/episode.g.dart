@@ -26,6 +26,9 @@ Episode _$EpisodeFromJson(Map<String, dynamic> json) {
     json['still_path'] as String,
     (json['vote_average'] as num)?.toDouble(),
     json['vote_count'] as int,
+    json['credits'] == null
+        ? null
+        : Credits.fromJson(json['credits'] as Map<String, dynamic>),
   );
 }
 
@@ -42,4 +45,5 @@ Map<String, dynamic> _$EpisodeToJson(Episode instance) => <String, dynamic>{
       'still_path': instance.stillPath,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'credits': instance.credits,
     };

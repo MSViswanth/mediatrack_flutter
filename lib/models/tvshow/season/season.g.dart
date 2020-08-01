@@ -19,6 +19,9 @@ Season _$SeasonFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['poster_path'] as String,
     json['season_number'] as int,
+    json['credits'] == null
+        ? null
+        : Credits.fromJson(json['credits'] as Map<String, dynamic>),
   );
 }
 
@@ -31,4 +34,5 @@ Map<String, dynamic> _$SeasonToJson(Season instance) => <String, dynamic>{
       'id': instance.id,
       'poster_path': instance.posterPath,
       'season_number': instance.seasonNumber,
+      'credits': instance.credits?.toJson(),
     };

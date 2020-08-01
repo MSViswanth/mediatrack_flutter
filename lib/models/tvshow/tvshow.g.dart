@@ -73,6 +73,9 @@ TVShow _$TVShowFromJson(Map<String, dynamic> json) {
     json['external_ids'] == null
         ? null
         : ExternalIds.fromJson(json['external_ids'] as Map<String, dynamic>),
+    json['credits'] == null
+        ? null
+        : Credits.fromJson(json['credits'] as Map<String, dynamic>),
   );
 }
 
@@ -111,6 +114,7 @@ Map<String, dynamic> _$TVShowToJson(TVShow instance) => <String, dynamic>{
       'recommendations': instance.recommendations?.toJson(),
       'content_ratings': instance.contentRatings?.toJson(),
       'external_ids': instance.externalIds?.toJson(),
+      'credits': instance.credits?.toJson(),
     };
 
 CreatedBy _$CreatedByFromJson(Map<String, dynamic> json) {

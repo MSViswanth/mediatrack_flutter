@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mediatrack_flutter/models/person/credits.dart';
 import '../movie/movie.dart';
 part 'tvshow.g.dart';
 
@@ -41,6 +42,7 @@ class TVShow {
   RecommendationsTV recommendations;
   ContentRatings contentRatings;
   ExternalIds externalIds;
+  Credits credits;
 
   TVShow(
     this.backdropPath,
@@ -76,6 +78,7 @@ class TVShow {
     this.recommendations,
     this.contentRatings,
     this.externalIds,
+    this.credits,
   );
 
   factory TVShow.fromJson(Map<String, dynamic> json) => _$TVShowFromJson(json);
