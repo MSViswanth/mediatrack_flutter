@@ -437,52 +437,6 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                     })
                             : Text('Waiting...'),
                       ),
-                      widget.movie.credits != null
-                          ? widget.movie.credits.cast.length != 0
-                              ? HorizontalListCast(
-                                  itemList: widget.movie.credits.cast,
-                                  title: 'Cast',
-                                )
-                              : Container(
-                                  padding: EdgeInsets.all(16),
-                                  child: Center(
-                                    child: Text(
-                                      'Cast Not Available',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                          : Container(
-                              height: 200,
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                      widget.movie.credits != null
-                          ? widget.movie.credits.crew.length != 0
-                              ? HorizontalListCrew(
-                                  itemList: widget.movie.credits.crew,
-                                  title: 'Crew',
-                                )
-                              : Container(
-                                  padding: EdgeInsets.all(16),
-                                  child: Center(
-                                    child: Text(
-                                      'Crew Not Available',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                          : Container(
-                              height: 200,
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
                       widget.movie.belongsToCollection != null
                           ? Padding(
                               padding: EdgeInsets.all(16),
@@ -588,6 +542,29 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                               )
                             : Container(),
                       ),
+                      widget.movie.credits != null
+                          ? widget.movie.credits.cast.length != 0
+                              ? HorizontalListCast(
+                                  itemList: widget.movie.credits.cast,
+                                  title: 'Cast',
+                                )
+                              : Container(
+                                  padding: EdgeInsets.all(16),
+                                  child: Center(
+                                    child: Text(
+                                      'Cast Not Available',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                          : Container(
+                              height: 200,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
                       Padding(
                         padding: EdgeInsets.all(16),
                         child: Row(
@@ -774,6 +751,29 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                           ),
                         ),
                       ),
+                      widget.movie.credits != null
+                          ? widget.movie.credits.crew.length != 0
+                              ? HorizontalListCrew(
+                                  itemList: widget.movie.credits.crew,
+                                  title: 'Crew',
+                                )
+                              : Container(
+                                  padding: EdgeInsets.all(16),
+                                  child: Center(
+                                    child: Text(
+                                      'Crew Not Available',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                          : Container(
+                              height: 200,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
                       widget.movie.recommendations != null
                           ? widget.movie.recommendations.results.length != 0
                               ? HorizontalListMovie(
