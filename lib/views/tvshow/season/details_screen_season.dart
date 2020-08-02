@@ -69,7 +69,10 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                         slivers: <Widget>[
                           SliverAppBar(
                             floating: true,
-                            title: Text(widget.tvshowName),
+                            title: Text(
+                              widget.tvshowName,
+                              style: TextStyle(color: Colors.white),
+                            ),
                             expandedHeight: 0.3 * size.height,
                             flexibleSpace: Container(
                               decoration: BoxDecoration(
@@ -397,6 +400,9 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                           SliverList(
                             delegate: SliverChildListDelegate(
                               <Widget>[
+                                Container(
+                                  padding: EdgeInsets.only(top: 8),
+                                ),
                                 season.credits != null
                                     ? season.credits.cast.length != 0
                                         ? HorizontalListCast(

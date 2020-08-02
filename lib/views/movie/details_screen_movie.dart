@@ -64,7 +64,10 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
-                  title: Text(widget.movie.title),
+                  title: Text(
+                    widget.movie.title,
+                    style: TextStyle(color: Colors.white),
+                  ),
                   floating: true,
                   expandedHeight: 0.3 * size.height,
                   flexibleSpace: Container(

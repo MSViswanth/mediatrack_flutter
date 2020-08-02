@@ -62,7 +62,10 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              title: Text(widget.tvshow.name),
+              title: Text(
+                widget.tvshow.name,
+                style: TextStyle(color: Colors.white),
+              ),
               floating: true,
               expandedHeight: 0.3 * size.height,
               flexibleSpace: Container(
@@ -147,7 +150,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                       ? Text(
                                           '${DateTime.parse(widget.tvshow.firstAirDate).year}' +
                                               ' - ' +
-                                              '${widget.tvshow.status == 'Ended' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
+                                              '${widget.tvshow.status == 'Ended' || widget.tvshow.status == 'Canceled' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
                                           style: TextStyle(fontSize: 16),
                                         )
                                       : Text('Not Available'),
