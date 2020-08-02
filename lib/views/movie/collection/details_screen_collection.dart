@@ -21,11 +21,6 @@ class DetailsScreenCollection extends StatefulWidget {
 
 class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
   Collection collection;
-  @override
-  void dispose() {
-    collectionProvider.resetDetails();
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -41,7 +36,6 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

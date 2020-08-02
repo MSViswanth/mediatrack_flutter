@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mediatrack_flutter/models/person/credits.dart';
 import 'package:mediatrack_flutter/models/tvshow/season/episode/episode.dart';
+import 'package:mediatrack_flutter/models/tvshow/season/season.dart';
 import '../movie/movie.dart';
 part 'tvshow.g.dart';
 
@@ -33,7 +34,7 @@ class TVShow {
   double popularity;
   String posterPath;
   List<ProductionCompanies> productionCompanies;
-  List<Seasons> seasons;
+  List<Season> seasons;
   String status;
   String type;
   double voteAverage;
@@ -125,34 +126,6 @@ class Networks {
   factory Networks.fromJson(Map<String, dynamic> json) =>
       _$NetworksFromJson(json);
   Map<String, dynamic> toJson() => _$NetworksToJson(this);
-}
-
-@JsonSerializable(
-  fieldRename: FieldRename.snake,
-  nullable: true,
-)
-class Seasons {
-  String airDate;
-  int episodeCount;
-  int id;
-  String name;
-  String overview;
-  String posterPath;
-  int seasonNumber;
-
-  Seasons(
-    this.airDate,
-    this.episodeCount,
-    this.id,
-    this.name,
-    this.overview,
-    this.posterPath,
-    this.seasonNumber,
-  );
-
-  factory Seasons.fromJson(Map<String, dynamic> json) =>
-      _$SeasonsFromJson(json);
-  Map<String, dynamic> toJson() => _$SeasonsToJson(this);
 }
 
 @JsonSerializable(

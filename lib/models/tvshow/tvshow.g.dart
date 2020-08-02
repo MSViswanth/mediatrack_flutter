@@ -50,7 +50,7 @@ TVShow _$TVShowFromJson(Map<String, dynamic> json) {
         ?.toList(),
     (json['seasons'] as List)
         ?.map((e) =>
-            e == null ? null : Seasons.fromJson(e as Map<String, dynamic>))
+            e == null ? null : Season.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['status'] as String,
     json['type'] as String,
@@ -147,28 +147,6 @@ Map<String, dynamic> _$NetworksToJson(Networks instance) => <String, dynamic>{
       'id': instance.id,
       'logo_path': instance.logoPath,
       'origin_country': instance.originCountry,
-    };
-
-Seasons _$SeasonsFromJson(Map<String, dynamic> json) {
-  return Seasons(
-    json['air_date'] as String,
-    json['episode_count'] as int,
-    json['id'] as int,
-    json['name'] as String,
-    json['overview'] as String,
-    json['poster_path'] as String,
-    json['season_number'] as int,
-  );
-}
-
-Map<String, dynamic> _$SeasonsToJson(Seasons instance) => <String, dynamic>{
-      'air_date': instance.airDate,
-      'episode_count': instance.episodeCount,
-      'id': instance.id,
-      'name': instance.name,
-      'overview': instance.overview,
-      'poster_path': instance.posterPath,
-      'season_number': instance.seasonNumber,
     };
 
 SimilarTVShows _$SimilarTVShowsFromJson(Map<String, dynamic> json) {
