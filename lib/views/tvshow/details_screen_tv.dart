@@ -8,6 +8,7 @@ import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/details_screen_season.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
@@ -62,7 +63,10 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              title: Text(widget.tvshow.name),
+              title: Text(
+                widget.tvshow.name,
+                style: TextStyle(color: Colors.white),
+              ),
               floating: true,
               expandedHeight: 0.3 * size.height,
               flexibleSpace: Container(
@@ -147,7 +151,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                       ? Text(
                                           '${DateTime.parse(widget.tvshow.firstAirDate).year}' +
                                               ' - ' +
-                                              '${widget.tvshow.status == 'Ended' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
+                                              '${widget.tvshow.status == 'Ended' || widget.tvshow.status == 'Canceled' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
                                           style: TextStyle(fontSize: 16),
                                         )
                                       : Text('Not Available'),
@@ -371,6 +375,40 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                     ),
                   ),
                 ),
+                widget.tvshow.nextEpisodeToAir != null
+                    ? Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text(
+                          'Upcoming',
+                          style: GoogleFonts.lato(
+                            textStyle: Theme.of(context).textTheme.headline6,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                      )
+                    : Container(),
+                widget.tvshow.nextEpisodeToAir != null
+                    ? EpisodeListItem(
+                        episode: widget.tvshow.nextEpisodeToAir,
+                        posterPath: widget.tvshow.posterPath)
+                    : Container(),
+                widget.tvshow.lastEpisodeToAir != null
+                    ? Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text(
+                          'Last Aired',
+                          style: GoogleFonts.lato(
+                            textStyle: Theme.of(context).textTheme.headline6,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                      )
+                    : Container(),
+                widget.tvshow.lastEpisodeToAir != null
+                    ? EpisodeListItem(
+                        episode: widget.tvshow.lastEpisodeToAir,
+                        posterPath: widget.tvshow.posterPath)
+                    : Container(),
                 Padding(
                   padding: EdgeInsets.all(16),
                   child: Row(
@@ -529,7 +567,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   child: Row(
                     children: <Widget>[
                       Text(
-                        'Production Countries',
+                        'Origin Countries',
                         style: GoogleFonts.lato(
                           textStyle: Theme.of(context).textTheme.headline6,
                           color: Theme.of(context).accentColor,

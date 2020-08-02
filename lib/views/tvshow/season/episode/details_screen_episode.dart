@@ -90,9 +90,11 @@ class DetailsScreenEpisode extends StatelessWidget {
                                           children: <Widget>[
                                             episode.airDate != null
                                                 ? Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 8),
+                                                    padding: EdgeInsets.only(
+                                                      right: 8,
+                                                      top: 8,
+                                                      bottom: 8,
+                                                    ),
                                                     child: Text(
                                                       episode.airDate != ''
                                                           ? DateFormat.yMMMd()
@@ -108,24 +110,20 @@ class DetailsScreenEpisode extends StatelessWidget {
                                                     ),
                                                   )
                                                 : Container(),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8.0),
-                                              child: episode.voteAverage != 0
-                                                  ? Text(
-                                                      ' ⭐ ${episode.voteAverage}',
-                                                      style: GoogleFonts.lato(
-                                                        fontSize: 16,
-                                                      ),
-                                                    )
-                                                  : Text(
-                                                      'NA',
-                                                      style: GoogleFonts.lato(
-                                                          textStyle: TextStyle(
-                                                        color: Colors.grey,
-                                                      )),
+                                            episode.voteAverage != 0
+                                                ? Text(
+                                                    ' ⭐ ${episode.voteAverage}',
+                                                    style: GoogleFonts.lato(
+                                                      fontSize: 16,
                                                     ),
-                                            )
+                                                  )
+                                                : Text(
+                                                    'NA',
+                                                    style: GoogleFonts.lato(
+                                                        textStyle: TextStyle(
+                                                      color: Colors.grey,
+                                                    )),
+                                                  )
                                           ],
                                         ),
                                         Text(
@@ -227,18 +225,30 @@ class DetailsScreenEpisode extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.all(8),
                             ),
-                            episode.guestStars.length != 0
-                                ? HorizontalListCast(
-                                    itemList: episode.guestStars,
-                                    title: 'Guest Stars',
-                                  )
+                            episode.guestStars != null
+                                ? episode.guestStars.length != 0
+                                    ? HorizontalListCast(
+                                        itemList: episode.guestStars,
+                                        title: 'Guest Stars',
+                                      )
+                                    : Container()
                                 : Container(),
-                            episode.crew.length != 0
-                                ? HorizontalListCrew(
-                                    itemList: episode.crew,
-                                    title: 'Crew',
-                                  )
-                                : Container(),
+                            episode.crew != null
+                                ? episode.crew.length != 0
+                                    ? HorizontalListCrew(
+                                        itemList: episode.crew,
+                                        title: 'Crew',
+                                      )
+                                    : Container()
+                                : Container(
+                                    padding: EdgeInsets.all(16),
+                                    child: Text(
+                                      'Go into the episode view from season page for more details.',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
                           ],
                         ),
                       ),

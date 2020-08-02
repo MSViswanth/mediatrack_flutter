@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mediatrack_flutter/models/person/credits.dart';
+import 'package:mediatrack_flutter/models/tvshow/season/episode/episode.dart';
+import 'package:mediatrack_flutter/models/tvshow/season/season.dart';
 import '../movie/movie.dart';
 part 'tvshow.g.dart';
 
@@ -19,9 +21,9 @@ class TVShow {
   bool inProduction;
   List<String> languages;
   String lastAirDate;
-  EpisodeToAir lastEpisodeToAir;
+  Episode lastEpisodeToAir;
   String name;
-  EpisodeToAir nextEpisodeToAir;
+  Episode nextEpisodeToAir;
   List<Networks> networks;
   int numberOfEpisodes;
   int numberOfSeasons;
@@ -32,7 +34,7 @@ class TVShow {
   double popularity;
   String posterPath;
   List<ProductionCompanies> productionCompanies;
-  List<Seasons> seasons;
+  List<Season> seasons;
   String status;
   String type;
   double voteAverage;
@@ -113,42 +115,6 @@ class CreatedBy {
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class EpisodeToAir {
-  String airDate;
-  int episodeNumber;
-  int id;
-  String name;
-  String overview;
-  String productionCode;
-  int seasonNumber;
-  int showId;
-  String stillPath;
-  double voteAverage;
-  int voteCount;
-
-  EpisodeToAir(
-    this.id,
-    this.name,
-    this.voteCount,
-    this.voteAverage,
-    this.overview,
-    this.airDate,
-    this.episodeNumber,
-    this.productionCode,
-    this.seasonNumber,
-    this.showId,
-    this.stillPath,
-  );
-
-  factory EpisodeToAir.fromJson(Map<String, dynamic> json) =>
-      _$EpisodeToAirFromJson(json);
-  Map<String, dynamic> toJson() => _$EpisodeToAirToJson(this);
-}
-
-@JsonSerializable(
-  fieldRename: FieldRename.snake,
-  nullable: true,
-)
 class Networks {
   String name;
   int id;
@@ -160,34 +126,6 @@ class Networks {
   factory Networks.fromJson(Map<String, dynamic> json) =>
       _$NetworksFromJson(json);
   Map<String, dynamic> toJson() => _$NetworksToJson(this);
-}
-
-@JsonSerializable(
-  fieldRename: FieldRename.snake,
-  nullable: true,
-)
-class Seasons {
-  String airDate;
-  int episodeCount;
-  int id;
-  String name;
-  String overview;
-  String posterPath;
-  int seasonNumber;
-
-  Seasons(
-    this.airDate,
-    this.episodeCount,
-    this.id,
-    this.name,
-    this.overview,
-    this.posterPath,
-    this.seasonNumber,
-  );
-
-  factory Seasons.fromJson(Map<String, dynamic> json) =>
-      _$SeasonsFromJson(json);
-  Map<String, dynamic> toJson() => _$SeasonsToJson(this);
 }
 
 @JsonSerializable(

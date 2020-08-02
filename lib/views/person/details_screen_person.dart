@@ -83,12 +83,14 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                                   Text(
                                     widget.person.knownForDepartment,
                                     style: GoogleFonts.lato(
-                                        textStyle: TextStyle(fontSize: 20)),
+                                        textStyle: TextStyle(
+                                            fontSize: 20, color: Colors.white)),
                                   ),
                                   Text(
                                     widget.person.name,
                                     style: GoogleFonts.lato(
-                                        textStyle: TextStyle(fontSize: 60)),
+                                        textStyle: TextStyle(
+                                            fontSize: 60, color: Colors.white)),
                                   ),
                                 ],
                               ),

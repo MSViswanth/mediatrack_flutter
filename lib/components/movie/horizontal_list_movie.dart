@@ -47,110 +47,114 @@ class HorizontalListMovie extends StatelessWidget {
           // color: Theme.of(context).scaffoldBackgroundColor,
           padding: EdgeInsets.all(5),
           height: 200,
-          child: ListView.builder(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.all(8),
-                child: GestureDetector(
-                  onTap: () {
-                    Provider.of<MovieProvider>(context, listen: false)
-                        .updateDetails(itemList, index);
+          child: itemList != null
+              ? ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.all(8),
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<MovieProvider>(context, listen: false)
+                              .updateDetails(itemList, index);
 
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreenMovie(
-                            movie: itemList[index],
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailsScreenMovie(
+                                  movie: itemList[index],
+                                ),
+                              ));
+                        },
+                        onLongPress: () {
+                          Provider.of<MovieProvider>(context, listen: false)
+                              .updateDetails(itemList, index);
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) => BottomSheetQuickInfoMovie(
+                              movie: itemList[index],
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset(5, 5),
+                                blurRadius: 3,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ));
-                  },
-                  onLongPress: () {
-                    Provider.of<MovieProvider>(context, listen: false)
-                        .updateDetails(itemList, index);
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => BottomSheetQuickInfoMovie(
-                        movie: itemList[index],
+                          child: ClipRRect(
+                            //Removed Aspect Ratio. Add if necessary.
+                            borderRadius: BorderRadius.circular(12),
+                            child: AspectRatio(
+                              aspectRatio: 500 / 750,
+                              child: itemList[index].posterPath != null
+                                  ? CachedNetworkImage(
+                                      imageUrl: baseUrl +
+                                          posterSize +
+                                          itemList[index].posterPath,
+                                      progressIndicatorBuilder:
+                                          (context, url, progress) => Container(
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            value: progress.progress,
+                                          ),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Container(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        // crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          SizedBox.shrink(),
+                                          Material(
+                                            child: Text(
+                                              'Image not available',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Material(
+                                            child: Text(
+                                              itemList[index].title,
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 12,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          SizedBox.shrink(),
+                                        ],
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ),
                       ),
                     );
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(5, 5),
-                          blurRadius: 3,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ClipRRect(
-                      //Removed Aspect Ratio. Add if necessary.
-                      borderRadius: BorderRadius.circular(12),
-                      child: AspectRatio(
-                        aspectRatio: 500 / 750,
-                        child: itemList[index].posterPath != null
-                            ? CachedNetworkImage(
-                                imageUrl: baseUrl +
-                                    posterSize +
-                                    itemList[index].posterPath,
-                                progressIndicatorBuilder:
-                                    (context, url, progress) => Container(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      value: progress.progress,
-                                    ),
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                                fit: BoxFit.cover,
-                              )
-                            : Container(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox.shrink(),
-                                    Material(
-                                      child: Text(
-                                        'Image not available',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Material(
-                                      child: Text(
-                                        itemList[index].title,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 12,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    SizedBox.shrink(),
-                                  ],
-                                ),
-                              ),
-                      ),
-                    ),
-                  ),
+                  itemCount: itemList.length,
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
                 ),
-              );
-            },
-            itemCount: itemList.length,
-          ),
         ),
       ],
     );
