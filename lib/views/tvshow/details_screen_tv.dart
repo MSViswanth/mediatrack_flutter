@@ -396,7 +396,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                     ? Padding(
                         padding: EdgeInsets.all(16),
                         child: Text(
-                          'Last Episode Aired',
+                          'Last Aired',
                           style: GoogleFonts.lato(
                             textStyle: Theme.of(context).textTheme.headline6,
                             color: Theme.of(context).accentColor,
