@@ -34,6 +34,7 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
   }
 
   void getData() async {
+    collection = widget.collection;
     collection = await collectionProvider.getDetails(widget.collection);
   }
 
@@ -45,13 +46,13 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: widget.collection.posterPath != null
+            image: collection.posterPath != null
                 ? CachedNetworkImageProvider(
-                    baseUrl + posterSize + widget.collection.posterPath,
+                    baseUrl + posterSize + collection.posterPath,
                   )
                 : NetworkImage(url), //TODO: Add Placeholder
             fit: BoxFit.cover,
-            colorFilter: widget.collection.posterPath != null
+            colorFilter: collection.posterPath != null
                 ? ColorFilter.mode(Colors.black, BlendMode.screen)
                 : ColorFilter.mode(Colors.white, BlendMode.clear),
           ),
@@ -64,14 +65,14 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
                 SliverAppBar(
                   floating: true,
                   expandedHeight: 0.3 * size.height,
-                  flexibleSpace: widget.collection.backdropPath != null
+                  flexibleSpace: collection.backdropPath != null
                       ? Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: CachedNetworkImageProvider(
                                   baseUrl +
                                       backdropSize +
-                                      widget.collection.backdropPath,
+                                      collection.backdropPath,
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -106,7 +107,7 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   Text(
-                                    widget.collection.name,
+                                    collection.name,
                                     style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                         fontSize: 20,
@@ -150,11 +151,11 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
                                 aspectRatio: 500 / 750,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: widget.collection.posterPath != null
+                                  child: collection.posterPath != null
                                       ? CachedNetworkImage(
                                           imageUrl: baseUrl +
                                               posterSize +
-                                              widget.collection.posterPath,
+                                              collection.posterPath,
                                           progressIndicatorBuilder:
                                               (context, url, progress) =>
                                                   Container(
