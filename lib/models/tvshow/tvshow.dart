@@ -114,10 +114,6 @@ class CreatedBy {
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-@JsonSerializable(
-  fieldRename: FieldRename.snake,
-  nullable: true,
-)
 class Networks {
   String name;
   int id;

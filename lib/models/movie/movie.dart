@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mediatrack_flutter/models/movie/collection/collection.dart';
 import 'package:mediatrack_flutter/models/person/cast.dart';
 import 'package:mediatrack_flutter/models/person/crew.dart';
 import '../person/credits.dart';
@@ -12,7 +13,7 @@ part 'movie.g.dart';
 class Movie {
   bool adult;
   String backdropPath;
-  BelongsToCollection belongsToCollection;
+  Collection belongsToCollection;
   int budget;
   List<Genres> genres;
   String homepage;
@@ -74,26 +75,6 @@ class Movie {
   );
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
   Map<String, dynamic> toJson() => _$MovieToJson(this);
-}
-
-@JsonSerializable(
-  fieldRename: FieldRename.snake,
-  nullable: true,
-)
-class BelongsToCollection {
-  int id;
-  String name;
-  String posterPath;
-  String backdropPath;
-  BelongsToCollection(
-    this.id,
-    this.name,
-    this.posterPath,
-    this.backdropPath,
-  );
-  factory BelongsToCollection.fromJson(Map<String, dynamic> json) =>
-      _$BelongsToCollectionFromJson(json);
-  Map<String, dynamic> toJson() => _$BelongsToCollectionToJson(this);
 }
 
 @JsonSerializable(

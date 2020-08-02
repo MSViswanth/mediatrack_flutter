@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/components/person/horizontal_list_cast.dart';
 import 'package:mediatrack_flutter/components/person/horizontal_list_crew.dart';
 import 'package:mediatrack_flutter/constants.dart';
+import 'package:mediatrack_flutter/models/movie/collection/collection.dart';
 import 'package:mediatrack_flutter/models/movie/movie.dart';
 import 'package:mediatrack_flutter/providers/movie/collection/collection_provider.dart';
 import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
@@ -468,14 +469,16 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         physics: BouncingScrollPhysics(),
                         child: widget.movie.belongsToCollection != null
                             ? InkWell(
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailsScreenCollection(
-                                        widget.movie.belongsToCollection.id,
-                                      ),
-                                    )),
+                                onTap: () async {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailsScreenCollection(
+                                          widget.movie.belongsToCollection,
+                                        ),
+                                      ));
+                                },
                                 child: Column(
                                   children: <Widget>[
                                     Container(
