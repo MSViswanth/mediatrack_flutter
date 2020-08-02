@@ -15,6 +15,8 @@ class MovieProvider with ChangeNotifier {
   bool _isWaiting = true;
   String _certification = 'NR';
   String _originalLanguage;
+  List<Movie> _popularMovies = [];
+  bool first = false;
 
   ///Constructor for MoviesProvider class.
   MovieProvider() {
@@ -47,6 +49,24 @@ class MovieProvider with ChangeNotifier {
       movie[index] = Movie.fromJson(movieUpdated);
 
       await getCertification(movie[index]);
+    } catch (e) {
+      print(e);
+    }
+
+    notifyListeners();
+  }
+
+  void getPopular(int page) async {
+    if (page == 1) {
+      _popularMovies = [];
+    }
+    try {
+      Map result = await tmdb.v3.movies.getPouplar(region: 'IN', page: page);
+      for (Map popularMovie in result['results']) {
+        _popularMovies.add(Movie.fromJson(popularMovie));
+      }
+
+      // print(_trendingMovies.length);
     } catch (e) {
       print(e);
     }
@@ -89,6 +109,8 @@ class MovieProvider with ChangeNotifier {
 
   ///Get a list of Trending Movies.
   get trendingMovies => _trendingMovies;
+
+  get popularMovies => _popularMovies;
 
   resetDetails() {
     _certification = 'NR';

@@ -14,6 +14,7 @@ class TVShowProvider with ChangeNotifier {
   String _originalLanguage;
   String _spokenLanguage;
   String _originCountry;
+  List<TVShow> _popularTVShows = [];
   TVShowProvider() {
     getTrendingTVShows();
   }
@@ -43,6 +44,23 @@ class TVShowProvider with ChangeNotifier {
       print(e);
     }
 
+    notifyListeners();
+  }
+
+  void getPopular(int page) async {
+    if (page == 1) {
+      _popularTVShows = [];
+    }
+    try {
+      Map result = await tmdb.v3.tv.getPouplar(language: 'en-US', page: page);
+      for (Map popularShow in result['results']) {
+        _popularTVShows.add(TVShow.fromJson(popularShow));
+      }
+
+      // print(_trendingMovies.length);
+    } catch (e) {
+      print(e);
+    }
     notifyListeners();
   }
 
@@ -105,4 +123,6 @@ class TVShowProvider with ChangeNotifier {
   get isWaiting => _isWaiting;
 
   get trendingTVShows => _trendingTVShows;
+
+  get popularTVShows => _popularTVShows;
 }
