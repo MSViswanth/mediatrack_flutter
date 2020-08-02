@@ -26,13 +26,11 @@ TVShow _$TVShowFromJson(Map<String, dynamic> json) {
     json['last_air_date'] as String,
     json['last_episode_to_air'] == null
         ? null
-        : EpisodeToAir.fromJson(
-            json['last_episode_to_air'] as Map<String, dynamic>),
+        : Episode.fromJson(json['last_episode_to_air'] as Map<String, dynamic>),
     json['name'] as String,
     json['next_episode_to_air'] == null
         ? null
-        : EpisodeToAir.fromJson(
-            json['next_episode_to_air'] as Map<String, dynamic>),
+        : Episode.fromJson(json['next_episode_to_air'] as Map<String, dynamic>),
     (json['networks'] as List)
         ?.map((e) =>
             e == null ? null : Networks.fromJson(e as Map<String, dynamic>))
@@ -133,37 +131,6 @@ Map<String, dynamic> _$CreatedByToJson(CreatedBy instance) => <String, dynamic>{
       'name': instance.name,
       'gender': instance.gender,
       'profile_path': instance.profilePath,
-    };
-
-EpisodeToAir _$EpisodeToAirFromJson(Map<String, dynamic> json) {
-  return EpisodeToAir(
-    json['id'] as int,
-    json['name'] as String,
-    json['vote_count'] as int,
-    (json['vote_average'] as num)?.toDouble(),
-    json['overview'] as String,
-    json['air_date'] as String,
-    json['episode_number'] as int,
-    json['production_code'] as String,
-    json['season_number'] as int,
-    json['show_id'] as int,
-    json['still_path'] as String,
-  );
-}
-
-Map<String, dynamic> _$EpisodeToAirToJson(EpisodeToAir instance) =>
-    <String, dynamic>{
-      'air_date': instance.airDate,
-      'episode_number': instance.episodeNumber,
-      'id': instance.id,
-      'name': instance.name,
-      'overview': instance.overview,
-      'production_code': instance.productionCode,
-      'season_number': instance.seasonNumber,
-      'show_id': instance.showId,
-      'still_path': instance.stillPath,
-      'vote_average': instance.voteAverage,
-      'vote_count': instance.voteCount,
     };
 
 Networks _$NetworksFromJson(Map<String, dynamic> json) {

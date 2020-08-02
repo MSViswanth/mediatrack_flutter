@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mediatrack_flutter/models/person/credits.dart';
+import 'package:mediatrack_flutter/models/tvshow/season/episode/episode.dart';
 import '../movie/movie.dart';
 part 'tvshow.g.dart';
 
@@ -19,9 +20,9 @@ class TVShow {
   bool inProduction;
   List<String> languages;
   String lastAirDate;
-  EpisodeToAir lastEpisodeToAir;
+  Episode lastEpisodeToAir;
   String name;
-  EpisodeToAir nextEpisodeToAir;
+  Episode nextEpisodeToAir;
   List<Networks> networks;
   int numberOfEpisodes;
   int numberOfSeasons;
@@ -113,38 +114,6 @@ class CreatedBy {
   fieldRename: FieldRename.snake,
   nullable: true,
 )
-class EpisodeToAir {
-  String airDate;
-  int episodeNumber;
-  int id;
-  String name;
-  String overview;
-  String productionCode;
-  int seasonNumber;
-  int showId;
-  String stillPath;
-  double voteAverage;
-  int voteCount;
-
-  EpisodeToAir(
-    this.id,
-    this.name,
-    this.voteCount,
-    this.voteAverage,
-    this.overview,
-    this.airDate,
-    this.episodeNumber,
-    this.productionCode,
-    this.seasonNumber,
-    this.showId,
-    this.stillPath,
-  );
-
-  factory EpisodeToAir.fromJson(Map<String, dynamic> json) =>
-      _$EpisodeToAirFromJson(json);
-  Map<String, dynamic> toJson() => _$EpisodeToAirToJson(this);
-}
-
 @JsonSerializable(
   fieldRename: FieldRename.snake,
   nullable: true,
