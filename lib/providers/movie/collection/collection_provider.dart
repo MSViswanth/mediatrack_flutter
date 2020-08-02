@@ -8,14 +8,10 @@ class CollectionProvider with ChangeNotifier {
     try {
       Map collectionNew = await tmdb.v3.collections.getDetails(collection.id);
       collection = Collection.fromJson(collectionNew);
-
-      print(collection.parts);
     } catch (e) {
       print(e);
     }
     notifyListeners();
     return collection;
   }
-
-  resetDetails() {}
 }
