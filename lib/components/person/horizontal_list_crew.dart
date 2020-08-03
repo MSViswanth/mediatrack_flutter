@@ -1,3 +1,4 @@
+import 'package:animated_overflow/animated_overflow.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -144,17 +145,27 @@ class HorizontalListCrew extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        itemList[index].name,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.lato(),
+                      AnimatedOverflow(
+                        animatedOverflowDirection:
+                            AnimatedOverflowDirection.HORIZONTAL,
+                        maxWidth: 120,
+                        child: Text(
+                          itemList[index].name,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.lato(),
+                        ),
                       ),
-                      Text(
-                        itemList[index].job,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            color: Colors.grey,
+                      AnimatedOverflow(
+                        animatedOverflowDirection:
+                            AnimatedOverflowDirection.HORIZONTAL,
+                        maxWidth: 120,
+                        child: Text(
+                          itemList[index].job,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
                       ),
