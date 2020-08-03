@@ -14,9 +14,7 @@ class PersonProvider with ChangeNotifier {
 
   void updateDetails(List<Person> person, int index) async {
     try {
-      Map personUpdated = await tmdb.v3.people.getDetails(
-        person[index].id,
-      );
+      Map personUpdated = await tmdb.v3.people.getDetails(person[index].id);
       person[index] = Person.fromJson(personUpdated);
       // print(movie[index].homepage);
 

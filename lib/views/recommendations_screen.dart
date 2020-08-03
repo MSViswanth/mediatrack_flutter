@@ -2,21 +2,47 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mediatrack_flutter/components/movie/bottom_sheet_quick_info_movie.dart';
 import 'package:mediatrack_flutter/models/movie/movie.dart';
+import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
+import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
+import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/views/movie/details_screen_movie.dart';
 import 'package:mediatrack_flutter/views/home.dart';
+import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
 class RecommendationsScreen extends StatelessWidget {
-  RecommendationsScreen(this.recommendations);
-  final List<Movie> recommendations;
+  RecommendationsScreen({this.boolMovie});
+  final boolMovie;
+  int i = 1;
+
   @override
   Widget build(BuildContext context) {
+    List recommendations;
+    if (boolMovie == true) {
+      if (i < 100) {
+        Provider.of<MovieProvider>(context).getPopular(i);
+        i += 1;
+      }
+      MovieProvider moviesProvider = Provider.of<MovieProvider>(context);
+      recommendations = moviesProvider.popularMovies;
+      //print(recommendations);
+    } else {
+      if (i < 100) {
+        Provider.of<TVShowProvider>(context).getPopular(i);
+        i += 1;
+      }
+      TVShowProvider tvShowProvider = Provider.of<TVShowProvider>(context);
+      recommendations = tvShowProvider.popularTVShows;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recommendations'),
+        title: boolMovie == true
+            ? Text('Popular Movies')
+            : Text('Popular TV Shows'),
         elevation: 0,
         actions: <Widget>[
           IconButton(
@@ -26,7 +52,7 @@ class RecommendationsScreen extends StatelessWidget {
             onPressed: () => Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => HomeScreen(),
+                builder: (context) => HomePage(),
               ),
               (Route<dynamic> route) => false,
             ),
@@ -43,29 +69,45 @@ class RecommendationsScreen extends StatelessWidget {
                   // width: MediaQuery.of(context).size.width / 3,
                   margin: EdgeInsets.all(5),
                   child: GestureDetector(
-                    onTap: () {
-                      Provider.of<MovieProvider>(context, listen: false)
-                          .updateDetails(recommendations, index);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailsScreenMovie(
-                              movie: recommendations[index],
-                            ),
-                          ));
-                    },
-                    onLongPress: () {
-                      Provider.of<MovieProvider>(context, listen: false)
-                          .updateDetails(recommendations, index);
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => BottomSheetQuickInfoMovie(
-                          movie: recommendations[index],
-                        ),
-                      );
-                    },
+                    onTap: boolMovie == true
+                        ? () {
+                            Provider.of<MovieProvider>(context, listen: false)
+                                .updateDetails(recommendations, index);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailsScreenMovie(
+                                    movie: recommendations[index],
+                                  ),
+                                ));
+                          }
+                        : () {
+                            Provider.of<TVShowProvider>(context, listen: false)
+                                .updateDetails(recommendations, index);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailsScreenTVShow(
+                                    tvshow: recommendations[index],
+                                  ),
+                                ));
+                          },
+                    onLongPress: boolMovie == true
+                        ? () {
+                            Provider.of<MovieProvider>(context, listen: false)
+                                .updateDetails(recommendations, index);
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => BottomSheetQuickInfoMovie(
+                                movie: recommendations[index],
+                              ),
+                            );
+                          }
+                        : () {},
                     child: Hero(
-                      tag: 'Poster' + recommendations[index].title,
+                      tag: (boolMovie == true)
+                          ? 'Poster' + recommendations[index].title
+                          : recommendations[index].name,
                       child: Container(
                         // height: 180,
                         decoration: BoxDecoration(
