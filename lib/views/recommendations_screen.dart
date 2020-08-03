@@ -13,15 +13,21 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
-class RecommendationsScreen extends StatelessWidget {
+class RecommendationsScreen extends StatefulWidget {
   RecommendationsScreen({this.boolMovie});
   final boolMovie;
+
+  @override
+  _RecommendationsScreenState createState() => _RecommendationsScreenState();
+}
+
+class _RecommendationsScreenState extends State<RecommendationsScreen> {
   int i = 1;
 
   @override
   Widget build(BuildContext context) {
     List recommendations;
-    if (boolMovie == true) {
+    if (widget.boolMovie == true) {
       if (i < 5) {
         Provider.of<MovieProvider>(context).getPopular(i);
         i += 1;
@@ -40,7 +46,7 @@ class RecommendationsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: boolMovie == true
+        title: widget.boolMovie == true
             ? Text('Popular Movies')
             : Text('Popular TV Shows'),
         elevation: 0,
@@ -69,7 +75,7 @@ class RecommendationsScreen extends StatelessWidget {
                   // width: MediaQuery.of(context).size.width / 3,
                   margin: EdgeInsets.all(5),
                   child: GestureDetector(
-                    onTap: boolMovie == true
+                    onTap: widget.boolMovie == true
                         ? () {
                             Provider.of<MovieProvider>(context, listen: false)
                                 .updateDetails(recommendations, index);
@@ -92,7 +98,7 @@ class RecommendationsScreen extends StatelessWidget {
                                   ),
                                 ));
                           },
-                    onLongPress: boolMovie == true
+                    onLongPress: widget.boolMovie == true
                         ? () {
                             Provider.of<MovieProvider>(context, listen: false)
                                 .updateDetails(recommendations, index);
@@ -105,7 +111,7 @@ class RecommendationsScreen extends StatelessWidget {
                           }
                         : () {},
                     child: Hero(
-                      tag: (boolMovie == true)
+                      tag: (widget.boolMovie == true)
                           ? 'Poster' + recommendations[index].title
                           : recommendations[index].name,
                       child: Container(

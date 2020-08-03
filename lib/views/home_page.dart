@@ -16,10 +16,8 @@ class _HomePageState extends State<HomePage> with PortraitStatefulModeMixin {
 
   List<Widget> _children = [
     HomeScreen(),
-    RecommendationsScreen(
-      boolMovie: true,
-    ),
-    RecommendationsScreen(),
+    MoviesScreen(),
+    TVShowScreen(),
     ProfileScreen(),
   ];
 
