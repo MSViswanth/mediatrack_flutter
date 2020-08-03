@@ -22,7 +22,7 @@ class RecommendationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List recommendations;
     if (boolMovie == true) {
-      if (i < 100) {
+      if (i < 5) {
         Provider.of<MovieProvider>(context).getPopular(i);
         i += 1;
       }
@@ -30,7 +30,7 @@ class RecommendationsScreen extends StatelessWidget {
       recommendations = moviesProvider.popularMovies;
       //print(recommendations);
     } else {
-      if (i < 100) {
+      if (i < 5) {
         Provider.of<TVShowProvider>(context).getPopular(i);
         i += 1;
       }
