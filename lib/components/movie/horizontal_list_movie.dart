@@ -35,11 +35,6 @@ class HorizontalListMovie extends StatelessWidget {
                   color: Theme.of(context).accentColor,
                 ),
               ),
-              Spacer(),
-              Icon(
-                Icons.arrow_forward,
-                color: Theme.of(context).accentColor,
-              ),
             ],
           ),
         ),
