@@ -67,7 +67,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                 widget.tvshow.name,
                 style: TextStyle(color: Colors.white),
               ),
-              floating: true,
+              pinned: true,
               expandedHeight: 0.3 * size.height,
               flexibleSpace: Container(
                 decoration: BoxDecoration(

@@ -43,7 +43,7 @@ class DetailsScreenEpisode extends StatelessWidget {
                   child: CustomScrollView(
                     slivers: <Widget>[
                       SliverAppBar(
-                        floating: true,
+                        pinned: true,
                         expandedHeight: 0.3 * size.height,
                         flexibleSpace: Container(
                           decoration: BoxDecoration(

@@ -68,7 +68,7 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
               child: CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
-                    floating: true,
+                    pinned: true,
                     title: Text(
                       widget.tvshowName,
                       style: TextStyle(color: Colors.white),
