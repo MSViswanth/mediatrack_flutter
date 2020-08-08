@@ -58,7 +58,7 @@ class DetailsScreenEpisode extends StatelessWidget {
                                             backdropSize +
                                             episode.stillPath,
                                       )
-                                    : NetworkImage(url),
+                                    : CachedNetworkImageProvider(url),
                                 fit: BoxFit.cover,
                               ),
                             ),

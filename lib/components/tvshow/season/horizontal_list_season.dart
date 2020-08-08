@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mediatrack_flutter/constants.dart';
 import 'package:mediatrack_flutter/models/tvshow/season/season.dart';
+import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:mediatrack_flutter/views/tvshow/season/details_screen_season.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/pageview_season.dart';
 import 'package:provider/provider.dart';
 import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
 
@@ -17,6 +19,7 @@ class HorizontalListSeasons extends StatelessWidget {
     @required this.backdropPath,
     @required this.tvshowName,
     this.title,
+    this.tvShow,
   });
 
   final List<Season> itemList;
@@ -24,6 +27,7 @@ class HorizontalListSeasons extends StatelessWidget {
   final int tvId;
   final String backdropPath;
   final String tvshowName;
+  final TVShow tvShow;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +43,6 @@ class HorizontalListSeasons extends StatelessWidget {
                   textStyle: Theme.of(context).textTheme.headline6,
                   color: Theme.of(context).accentColor,
                 ),
-              ),
-              Spacer(),
-              Icon(
-                Icons.arrow_forward,
-                color: Theme.of(context).accentColor,
               ),
             ],
           ),
@@ -61,15 +60,11 @@ class HorizontalListSeasons extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreenSeason(
-                            season: itemList[index],
-                            backdropPath: backdropPath,
-                            tvshowName: tvshowName,
-                            tvId: tvId,
-                          ),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PageViewSeason(tvShow, index),
+                      ),
+                    );
                   },
                   // onLongPress: () {
                   //   Provider.of<PersonProvider>(context, listen: false)

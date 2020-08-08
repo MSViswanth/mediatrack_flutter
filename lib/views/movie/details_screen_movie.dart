@@ -79,7 +79,8 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: widget.movie.backdropPath == null
-                              ? NetworkImage(url) //TODO: Add placeholder.
+                              ? CachedNetworkImageProvider(
+                                  url) //TODO: Add placeholder.
                               : CachedNetworkImageProvider(
                                   baseUrl +
                                       backdropSize +
@@ -407,11 +408,6 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                   color: Theme.of(context).accentColor,
                                 ),
                               ),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Theme.of(context).accentColor,
-                              ),
                             ],
                           ),
                         ),
@@ -601,11 +597,6 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                   color: Theme.of(context).accentColor,
                                 ),
                               ),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Theme.of(context).accentColor,
-                              ),
                             ],
                           ),
                         ),
@@ -638,11 +629,6 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                       Theme.of(context).textTheme.headline6,
                                   color: Theme.of(context).accentColor,
                                 ),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Theme.of(context).accentColor,
                               ),
                             ],
                           ),
@@ -682,11 +668,6 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                       Theme.of(context).textTheme.headline6,
                                   color: Theme.of(context).accentColor,
                                 ),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Theme.of(context).accentColor,
                               ),
                             ],
                           ),

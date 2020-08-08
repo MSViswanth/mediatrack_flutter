@@ -9,6 +9,7 @@ import 'package:mediatrack_flutter/models/tvshow/tvshow.dart';
 import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart';
 import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
 import 'package:mediatrack_flutter/views/tvshow/season/details_screen_season.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/episode/details_screen_episode.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mediatrack_flutter/views/home_page.dart';
@@ -77,7 +78,8 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: widget.tvshow.backdropPath == null
-                          ? NetworkImage(url) //TODO: Add placeholder.
+                          ? CachedNetworkImageProvider(
+                              url) //TODO: Add placeholder.
                           : CachedNetworkImageProvider(
                               baseUrl +
                                   backdropSize +
@@ -402,7 +404,15 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   widget.tvshow.nextEpisodeToAir != null
                       ? EpisodeListItem(
                           episode: widget.tvshow.nextEpisodeToAir,
-                          posterPath: widget.tvshow.posterPath)
+                          posterPath: widget.tvshow.posterPath,
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DetailsScreenEpisode(
+                                widget.tvshow.nextEpisodeToAir,
+                                widget.tvshow.posterPath,
+                              ),
+                            ));
+                          })
                       : Container(),
                   widget.tvshow.lastEpisodeToAir != null
                       ? Padding(
@@ -419,7 +429,17 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                   widget.tvshow.lastEpisodeToAir != null
                       ? EpisodeListItem(
                           episode: widget.tvshow.lastEpisodeToAir,
-                          posterPath: widget.tvshow.posterPath)
+                          posterPath: widget.tvshow.posterPath,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailsScreenEpisode(
+                                    widget.tvshow.lastEpisodeToAir,
+                                    widget.tvshow.posterPath,
+                                  ),
+                                ));
+                          })
                       : Container(),
                   Padding(
                     padding: EdgeInsets.all(16),
@@ -431,11 +451,6 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                             textStyle: Theme.of(context).textTheme.headline6,
                             color: Theme.of(context).accentColor,
                           ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Theme.of(context).accentColor,
                         ),
                       ],
                     ),
@@ -494,6 +509,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               tvshowName: widget.tvshow.name,
                               title: 'Seasons - ' +
                                   widget.tvshow.numberOfSeasons.toString(),
+                              tvShow: widget.tvshow,
                             )
                           : Container(
                               child: Center(
@@ -545,11 +561,6 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                             color: Theme.of(context).accentColor,
                           ),
                         ),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Theme.of(context).accentColor,
-                        ),
                       ],
                     ),
                   ),
@@ -587,11 +598,6 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                             textStyle: Theme.of(context).textTheme.headline6,
                             color: Theme.of(context).accentColor,
                           ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Theme.of(context).accentColor,
                         ),
                       ],
                     ),
@@ -636,11 +642,6 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                             textStyle: Theme.of(context).textTheme.headline6,
                             color: Theme.of(context).accentColor,
                           ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Theme.of(context).accentColor,
                         ),
                       ],
                     ),
@@ -712,11 +713,6 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                             textStyle: Theme.of(context).textTheme.headline6,
                             color: Theme.of(context).accentColor,
                           ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Theme.of(context).accentColor,
                         ),
                       ],
                     ),
