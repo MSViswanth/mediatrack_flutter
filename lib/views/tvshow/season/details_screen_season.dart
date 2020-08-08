@@ -50,7 +50,7 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                 ? CachedNetworkImageProvider(
                     baseUrl + posterSize + season.posterPath,
                   )
-                : NetworkImage(url),
+                : CachedNetworkImageProvider(url),
             fit: BoxFit.cover,
             colorFilter: season.posterPath != null
                 ? ColorFilter.mode(Colors.black, BlendMode.screen)

@@ -51,7 +51,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                 ? CachedNetworkImageProvider(
                     baseUrl + posterSize + widget.tvshow.posterPath,
                   )
-                : NetworkImage(url),
+                : CachedNetworkImageProvider(url),
             fit: BoxFit.cover,
             colorFilter: widget.tvshow.posterPath != null
                 ? ColorFilter.mode(Colors.black, BlendMode.screen)

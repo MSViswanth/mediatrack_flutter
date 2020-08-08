@@ -24,7 +24,7 @@ class DetailsScreenEpisode extends StatelessWidget {
                   image: seasonposterPath != null
                       ? CachedNetworkImageProvider(
                           baseUrl + posterSize + seasonposterPath)
-                      : NetworkImage(url),
+                      : CachedNetworkImageProvider(url),
                   fit: BoxFit.cover,
                   colorFilter: seasonposterPath != null
                       ? ColorFilter.mode(

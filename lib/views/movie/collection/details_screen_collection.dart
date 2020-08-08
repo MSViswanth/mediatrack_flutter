@@ -44,7 +44,7 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
                 ? CachedNetworkImageProvider(
                     baseUrl + posterSize + collection.posterPath,
                   )
-                : NetworkImage(url), //TODO: Add Placeholder
+                : CachedNetworkImageProvider(url), //TODO: Add Placeholder
             fit: BoxFit.cover,
             colorFilter: collection.posterPath != null
                 ? ColorFilter.mode(Colors.black, BlendMode.screen)

@@ -43,7 +43,7 @@ class _DetailsScreenPersonState extends State<DetailsScreenPerson> {
                                     posterSize +
                                     widget.person.profilePath,
                               )
-                            : NetworkImage(url),
+                            : CachedNetworkImageProvider(url),
                         fit: BoxFit.cover,
                         colorFilter: widget.person.profilePath != null
                             ? ColorFilter.mode(Colors.black, BlendMode.screen)

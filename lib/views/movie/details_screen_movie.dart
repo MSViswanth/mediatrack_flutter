@@ -53,7 +53,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                   ? CachedNetworkImageProvider(
                       baseUrl + posterSize + widget.movie.posterPath,
                     )
-                  : NetworkImage(url),
+                  : CachedNetworkImageProvider(url),
               fit: BoxFit.cover,
               colorFilter: widget.movie.posterPath != null
                   ? ColorFilter.mode(Colors.black, BlendMode.screen)
