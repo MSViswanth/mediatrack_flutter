@@ -153,13 +153,15 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
-                                    widget.tvshow.firstAirDate != ''
-                                        ? Text(
-                                            '${DateTime.parse(widget.tvshow.firstAirDate).year}' +
-                                                ' - ' +
-                                                '${widget.tvshow.status == 'Ended' || widget.tvshow.status == 'Canceled' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
-                                            style: TextStyle(fontSize: 16),
-                                          )
+                                    widget.tvshow.firstAirDate != null
+                                        ? widget.tvshow.firstAirDate != ''
+                                            ? Text(
+                                                '${DateTime.parse(widget.tvshow.firstAirDate).year}' +
+                                                    ' - ' +
+                                                    '${widget.tvshow.status == 'Ended' || widget.tvshow.status == 'Canceled' ? DateTime.parse(widget.tvshow.lastEpisodeToAir.airDate).year : 'Present'}',
+                                                style: TextStyle(fontSize: 16),
+                                              )
+                                            : Text('Not Available')
                                         : Text('Not Available'),
                                     SizedBox(
                                       width: 10,
@@ -195,15 +197,17 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               ),
                               Container(
                                 child: widget.tvshow.seasons != null
-                                    ? Text(
-                                        '${widget.tvshow.numberOfEpisodes} Episodes',
-                                        style: GoogleFonts.lato(
-                                          textStyle: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      )
+                                    ? widget.tvshow.numberOfEpisodes != null
+                                        ? Text(
+                                            '${widget.tvshow.numberOfEpisodes} Episodes',
+                                            style: GoogleFonts.lato(
+                                              textStyle: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          )
+                                        : null
                                     : null,
                               ),
                             ],
@@ -488,6 +492,8 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                               tvId: widget.tvshow.id,
                               backdropPath: widget.tvshow.backdropPath,
                               tvshowName: widget.tvshow.name,
+                              title: 'Seasons - ' +
+                                  widget.tvshow.numberOfSeasons.toString(),
                             )
                           : Container(
                               child: Center(
