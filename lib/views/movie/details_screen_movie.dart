@@ -397,7 +397,7 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(16),
+                          padding: EdgeInsets.only(top: 16, left: 16),
                           child: Row(
                             children: <Widget>[
                               Text(
@@ -456,7 +456,9 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                         ),
                         widget.movie.belongsToCollection != null
                             ? Padding(
-                                padding: EdgeInsets.all(16),
+                                padding: EdgeInsets.only(
+                                  left: 16,
+                                ),
                                 child: Text(
                                   'From Collection',
                                   style: GoogleFonts.lato(
@@ -482,82 +484,79 @@ class _DetailsScreenMovieState extends State<DetailsScreenMovie> {
                                           ),
                                         ));
                                   },
-                                  child: Column(
-                                    children: <Widget>[
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                          left: 16,
-                                        ),
-                                        height: 200,
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black26,
-                                              offset: Offset(5, 5),
-                                              blurRadius: 3,
-                                            ),
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        child: AspectRatio(
-                                          aspectRatio: 16 / 9,
-                                          child: ClipRRect(
+                                  child: Container(
+                                    padding: EdgeInsets.all(16),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          height: 200,
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black26,
+                                                offset: Offset(5, 5),
+                                                blurRadius: 3,
+                                              ),
+                                            ],
                                             borderRadius:
                                                 BorderRadius.circular(12),
-                                            child: widget
-                                                        .movie
-                                                        .belongsToCollection
-                                                        .backdropPath !=
-                                                    null
-                                                ? CachedNetworkImage(
-                                                    imageUrl: baseUrl +
-                                                        backdropSize +
-                                                        widget
-                                                            .movie
-                                                            .belongsToCollection
-                                                            .backdropPath,
-                                                    progressIndicatorBuilder:
-                                                        (context, url,
-                                                                progress) =>
-                                                            Container(
-                                                      color: Colors.white,
-                                                      child: Center(
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          value:
-                                                              progress.progress,
+                                          ),
+                                          child: AspectRatio(
+                                            aspectRatio: 16 / 9,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: widget
+                                                          .movie
+                                                          .belongsToCollection
+                                                          .backdropPath !=
+                                                      null
+                                                  ? CachedNetworkImage(
+                                                      imageUrl: baseUrl +
+                                                          backdropSize +
+                                                          widget
+                                                              .movie
+                                                              .belongsToCollection
+                                                              .backdropPath,
+                                                      progressIndicatorBuilder:
+                                                          (context, url,
+                                                                  progress) =>
+                                                              Container(
+                                                        color: Colors.white,
+                                                        child: Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            value: progress
+                                                                .progress,
+                                                          ),
                                                         ),
                                                       ),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Icon(Icons.error),
+                                                    )
+                                                  : Container(
+                                                      color: Theme.of(context)
+                                                          .scaffoldBackgroundColor,
+                                                      padding:
+                                                          EdgeInsets.all(3),
+                                                      child: Center(
+                                                          child: Material(
+                                                        child: Text(
+                                                          'Image not available',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                      )),
                                                     ),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Icon(Icons.error),
-                                                  )
-                                                : Container(
-                                                    color: Theme.of(context)
-                                                        .scaffoldBackgroundColor,
-                                                    padding: EdgeInsets.all(3),
-                                                    child: Center(
-                                                        child: Material(
-                                                      child: Text(
-                                                        'Image not available',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            color: Colors.grey),
-                                                      ),
-                                                    )),
-                                                  ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.all(16),
-                                        child: Text(widget
-                                            .movie.belongsToCollection.name),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 )
                               : Container(),
