@@ -57,7 +57,6 @@ class _DetailsScreenCollectionState extends State<DetailsScreenCollection> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
-                  floating: true,
                   expandedHeight: 0.3 * size.height,
                   flexibleSpace: collection.backdropPath != null
                       ? Container(
