@@ -64,7 +64,9 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
             child: Container(
-              color: Colors.black.withOpacity(0.2),
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black.withOpacity(0.4)
+                  : Colors.white.withOpacity(0.8),
               child: CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
