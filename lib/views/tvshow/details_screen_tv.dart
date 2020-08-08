@@ -442,7 +442,7 @@ class _DetailsScreenTVShowState extends State<DetailsScreenTVShow> {
                           })
                       : Container(),
                   Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.only(left: 16, top: 16),
                     child: Row(
                       children: <Widget>[
                         Text(
