@@ -22,31 +22,32 @@ class _SearchScreenState extends State<SearchScreen> {
             Container(
               margin: EdgeInsets.all(16),
               child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    hintText: 'Enter the name of movie, show etc..',
+                autofocus: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  onSubmitted: (value) async {
-                    searchMovie.clear();
-                    Map search2 = await tmdb.v3.search.queryMovies(value);
-                    for (Map searchmovie in search2['results']) {
-                      setState(() {
-                        searchMovie.add(Movie.fromJson(searchmovie));
-                      });
-                    }
+                  hintText: 'Enter the name of movie, show etc..',
+                ),
+                onSubmitted: (value) async {
+                  searchMovie.clear();
+                  searchTVShow.clear();
+                  Map search2 = await tmdb.v3.search.queryMovies(value);
+                  for (Map searchmovie in search2['results']) {
+                    searchMovie.add(Movie.fromJson(searchmovie));
+                  }
+                  setState(() {
                     print(searchMovie.length);
-                    searchTVShow.clear();
-                    Map search3 = await tmdb.v3.search.queryTvShows(value);
-                    for (Map searchtvshow in search3['results']) {
-                      setState(() {
-                        searchTVShow.add(TVShow.fromJson(searchtvshow));
-                      });
-                    }
+                  });
+                  Map search3 = await tmdb.v3.search.queryTvShows(value);
+                  for (Map searchtvshow in search3['results']) {
+                    searchTVShow.add(TVShow.fromJson(searchtvshow));
+                  }
+                  setState(() {
                     print(searchTVShow.length);
-                  }),
+                  });
+                },
+              ),
             ),
             HorizontalListMovie(
               itemList: searchMovie,
