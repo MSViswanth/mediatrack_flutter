@@ -1,3 +1,4 @@
+import 'package:animated_overflow/animated_overflow.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,10 +16,11 @@ class HorizontalListSeasons extends StatelessWidget {
     @required this.tvId,
     @required this.backdropPath,
     @required this.tvshowName,
+    this.title,
   });
 
   final List<Season> itemList;
-  final String title = 'Seasons';
+  final String title;
   final int tvId;
   final String backdropPath;
   final String tvshowName;
@@ -152,13 +154,18 @@ class HorizontalListSeasons extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        itemList[index].name,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontSize: 16,
+                      AnimatedOverflow(
+                        animatedOverflowDirection:
+                            AnimatedOverflowDirection.HORIZONTAL,
+                        maxWidth: 120,
+                        child: Text(
+                          itemList[index].name,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       )
