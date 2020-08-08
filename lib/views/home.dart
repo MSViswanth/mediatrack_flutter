@@ -11,6 +11,7 @@ import 'package:mediatrack_flutter/providers/movie/movie_provider.dart';
 import 'package:mediatrack_flutter/providers/person/person_provider.dart';
 import 'package:mediatrack_flutter/providers/settings_provider.dart';
 import 'package:mediatrack_flutter/providers/tvshow/tvshow_provider.dart';
+import 'package:mediatrack_flutter/views/searchscreen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,9 +30,10 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
-        onPressed: () {},
-      ),
+          child: Icon(Icons.search),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SearchScreen(),
+              ))),
       body: SafeArea(
         child: ListView(
           children: <Widget>[
