@@ -13,6 +13,7 @@ import 'package:mediatrack_flutter/providers/tvshow/season/season_provider.dart'
 import 'package:mediatrack_flutter/views/home_page.dart';
 import 'package:mediatrack_flutter/views/tvshow/details_screen_tv.dart';
 import 'package:mediatrack_flutter/views/tvshow/season/episode/details_screen_episode.dart';
+import 'package:mediatrack_flutter/views/tvshow/season/episode/pageview_episode.dart';
 import 'package:provider/provider.dart';
 
 class DetailsScreenSeason extends StatefulWidget {
@@ -50,7 +51,7 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                 ? CachedNetworkImageProvider(
                     baseUrl + posterSize + season.posterPath,
                   )
-                : NetworkImage(url),
+                : CachedNetworkImageProvider(url),
             fit: BoxFit.cover,
             colorFilter: season.posterPath != null
                 ? ColorFilter.mode(Colors.black, BlendMode.screen)
@@ -64,11 +65,13 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
             child: Container(
-              color: Colors.black.withOpacity(0.2),
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black.withOpacity(0.4)
+                  : Colors.white.withOpacity(0.8),
               child: CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
-                    floating: true,
+                    pinned: true,
                     title: Text(
                       widget.tvshowName,
                       style: TextStyle(color: Colors.white),
@@ -80,7 +83,7 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                           image: widget.backdropPath != null
                               ? CachedNetworkImageProvider(
                                   baseUrl + backdropSize + widget.backdropPath)
-                              : NetworkImage(url),
+                              : CachedNetworkImageProvider(url),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -243,9 +246,17 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
                       ? SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
-                              return EpisodeListItem(
-                                episode: season.episodes[index],
-                                posterPath: season.posterPath,
+                              return InkWell(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        PageViewEpisode(season, index),
+                                  ),
+                                ),
+                                child: EpisodeListItem(
+                                  episode: season.episodes[index],
+                                  posterPath: season.posterPath,
+                                ),
                               );
                             },
                             childCount: season.episodes.length,
@@ -352,23 +363,17 @@ class _DetailsScreenSeasonState extends State<DetailsScreenSeason> {
 
 class EpisodeListItem extends StatelessWidget {
   const EpisodeListItem(
-      {Key key, @required this.episode, @required this.posterPath})
+      {Key key, @required this.episode, @required this.posterPath, this.onTap})
       : super(key: key);
 
   final Episode episode;
   final String posterPath;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailsScreenEpisode(
-              episode,
-              posterPath,
-            ),
-          )),
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8),
         height: 100,
