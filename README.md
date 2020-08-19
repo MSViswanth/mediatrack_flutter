@@ -27,7 +27,8 @@ An app to track your Movies and TV Shows.
   - [x] Collections
   - [x] Recommendations
   - [x] Similar Content
-- [ ] Search
+  
+- [x] Search
 
 
 ## Contribution
