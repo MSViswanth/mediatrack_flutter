@@ -1,3 +1,4 @@
+## This project is no longer maintained.
 # MediaTrack
 
 An app to track your Movies and TV Shows.
