@@ -1,4 +1,4 @@
-## This project is no longer maintained.
+## This project is no longer maintained. A new project with extensive offline support is being worked on.
 # MediaTrack
 
 An app to track your Movies and TV Shows.
